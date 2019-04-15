@@ -1,0 +1,9 @@
+<tables>
+  <table id="9e084fff90404ed2bc13a5d61196ef5d" name="t_role_permission" title="T_ROLE_PERMISSION" schema="">
+    <extend-properties/>
+    <description></description>
+    <table-field standard-field-id="596775a814e4489ba107a8130d5c024b" primary="true" unique="true" not-null="true" id="role_permission_id" auto-increase="false"/>
+    <table-field standard-field-id="1999bf7bf5cc4b45a231d099ad96f820" primary="false" unique="false" not-null="false" id="role_id" auto-increase="false"/>
+    <table-field standard-field-id="a9aae39ef43941a880e583dc3a1684f5" primary="false" unique="false" not-null="false" id="permission_id" auto-increase="false"/>
+  </table>
+</tables>

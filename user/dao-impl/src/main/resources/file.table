@@ -1,0 +1,11 @@
+<tables>
+  <table id="d681b3282eed48e898d590a1e25868dc" name="t_file" title="T_FILE" schema="">
+    <extend-properties/>
+    <description></description>
+    <table-field standard-field-id="5a5424c0e8ed40c0839e9218188a1cf8" primary="true" unique="true" not-null="true" id="file_id" auto-increase="false"/>
+    <table-field standard-field-id="a334d317562a42959d8ac51e123b6f09" primary="false" unique="false" not-null="false" id="file_name" auto-increase="false"/>
+    <table-field standard-field-id="515fa2d9550345c7908fad784a3ada4e" primary="false" unique="false" not-null="false" id="file_path" auto-increase="false"/>
+    <table-field standard-field-id="497d7bde05a143a2b6c0d949373875ad" primary="false" unique="false" not-null="false" id="file_description" auto-increase="false"/>
+    <table-field standard-field-id="02e735b4d6224435bd7ccbd723a136df" primary="false" unique="false" not-null="false" id="file_time" auto-increase="false"/>
+  </table>
+</tables>

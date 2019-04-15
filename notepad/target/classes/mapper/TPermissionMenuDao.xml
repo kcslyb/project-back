@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.kcs.note.dao.TPermissionMenuDao">
+
+    <resultMap type="cn.kcs.note.entity.TPermissionMenu" id="TPermissionMenuMap">
+        <result property="permid" column="permid" jdbcType="VARCHAR"/>
+        <result property="permtype" column="permtype" jdbcType="VARCHAR"/>
+        <result property="permvalue" column="permvalue" jdbcType="VARCHAR"/>
+        <result property="permparent" column="permparent" jdbcType="VARCHAR"/>
+        <result property="permchild" column="permchild" jdbcType="VARCHAR"/>
+        <result property="permkey" column="permkey" jdbcType="VARCHAR"/>
+        <result property="permpath" column="permpath" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="TPermissionMenuMap">
+        select
+          permid, permtype, permvalue, permparent, permchild, permkey, permpath
+        from myproject.t_permission_menu
+        where permid = #{permid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="TPermissionMenuMap">
+        select
+          permid, permtype, permvalue, permparent, permchild, permkey, permpath
+        from myproject.t_permission_menu
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--根据角色ID查询角色权限-->
+    <select id="queryAllPermissionByRole" resultMap="TPermissionMenuMap">
+        select
+          permid, permtype, permvalue, permparent, permchild, permkey, permpath
+        from (t_role left join t_role_permission on t_role.role_id = t_role_permission.role_id) left join t_permission_menu on t_role_permission.permission_id = t_permission_menu.permid  WHERE t_role.role_id = #{roleId}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="TPermissionMenuMap">
+        select
+        permid, permtype, permvalue, permparent, permchild, permkey, permpath
+        from myproject.t_permission_menu
+        <where>
+            <if test="permid != null and permid != ''">
+                and permid = #{permid}
+            </if>
+            <if test="permtype != null and permtype != ''">
+                and permtype = #{permtype}
+            </if>
+            <if test="permvalue != null and permvalue != ''">
+                and permvalue = #{permvalue}
+            </if>
+            <if test="permparent != null and permparent != ''">
+                and permparent = #{permparent}
+            </if>
+            <if test="permchild != null and permchild != ''">
+                and permchild = #{permchild}
+            </if>
+            <if test="permkey != null and permkey != ''">
+                and permkey = #{permkey}
+            </if>
+            <if test="permpath != null and permpath != ''">
+                and permpath = #{permpath}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="permid" useGeneratedKeys="true">
+        insert into myproject.t_permission_menu(permid, permtype, permvalue, permparent, permchild, permkey, permpath)
+        values (#{permid}, #{permtype}, #{permvalue}, #{permparent}, #{permchild}, #{permkey}, #{permpath})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update myproject.t_permission_menu
+        <set>
+            <if test="permtype != null and permtype != ''">
+                permtype = #{permtype},
+            </if>
+            <if test="permvalue != null and permvalue != ''">
+                permvalue = #{permvalue},
+            </if>
+            <if test="permparent != null and permparent != ''">
+                permparent = #{permparent},
+            </if>
+            <if test="permchild != null and permchild != ''">
+                permchild = #{permchild},
+            </if>
+            <if test="permkey != null and permkey != ''">
+                permkey = #{permkey},
+            </if>
+            <if test="permpath != null and permpath != ''">
+                permpath = #{permpath},
+            </if>
+        </set>
+        where permid = #{permid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from myproject.t_permission_menu where permid = #{permid}
+    </delete>
+
+</mapper>

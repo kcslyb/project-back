@@ -1,0 +1,34 @@
+<standard-fields>
+  <standard-field id="a95e1a217ccf430c87cece5b5109cfd0" name="pro_id" title="PRO_ID" business-type-id="6c34b4b16fdb464191c6be8db99e4802">
+    <description></description>
+    <nick-names/>
+  </standard-field>
+  <standard-field id="f019b623e5214befb1bfa31cc828803e" name="pro_lable" title="PRO_LABLE" business-type-id="6cdf5b78e29c4700898a82db52be890d">
+    <description></description>
+    <nick-names/>
+  </standard-field>
+  <standard-field id="cd801ab316e745359c5db03c36121e64" name="pro_prise" title="PRO_PRISE" business-type-id="b9a626170fee4638b2a4c45fa44be9fa">
+    <description></description>
+    <nick-names/>
+  </standard-field>
+  <standard-field id="9c55d4df1e4c4fd1afc19b93b071bf72" name="pro_path" title="PRO_PATH" business-type-id="6cdf5b78e29c4700898a82db52be890d">
+    <description></description>
+    <nick-names/>
+  </standard-field>
+  <standard-field id="8881ca2122e14d3bb477d5766934e45a" name="pro_src" title="PRO_SRC" business-type-id="42508afccc62427cbdba89a13219cfd8">
+    <description></description>
+    <nick-names/>
+  </standard-field>
+  <standard-field id="639f4ebe7fee4b1bad9b80fb034052b7" name="pro_type" title="PRO_TYPE" business-type-id="6cdf5b78e29c4700898a82db52be890d">
+    <description></description>
+    <nick-names/>
+  </standard-field>
+  <standard-field id="7bdb19f27f3d4ab9ac7ced27f77c9d53" name="pro_creattime" title="PRO_CREATTIME" business-type-id="55606f6589d846f7baafeb0f53bef52a">
+    <description></description>
+    <nick-names/>
+  </standard-field>
+  <standard-field id="1aa5c437b7e344a8884c87ea921f1fc6" name="pro_modifytime" title="PRO_MODIFYTIME" business-type-id="55606f6589d846f7baafeb0f53bef52a">
+    <description></description>
+    <nick-names/>
+  </standard-field>
+</standard-fields>

@@ -1,0 +1,11 @@
+<tables>
+  <table id="3d461d738e2f4d488fe89710b96b0f5d" name="t_log" title="T_LOG" schema="">
+    <extend-properties/>
+    <description></description>
+    <table-field standard-field-id="741cddad663e4d2c8111ee14643b0356" primary="true" unique="true" not-null="true" id="log_id" auto-increase="false"/>
+    <table-field standard-field-id="563c5979be3d44ffba24f6882e9e2318" primary="false" unique="false" not-null="false" id="log_time" auto-increase="false"/>
+    <table-field standard-field-id="5f88efdd23d24381a556d75e700856c7" primary="false" unique="false" not-null="false" id="log_used" auto-increase="false"/>
+    <table-field standard-field-id="448e6654995f4aa69d06c341aef7376d" primary="false" unique="false" not-null="false" id="log_operate" auto-increase="false"/>
+    <table-field standard-field-id="a2714cdab5a942ef8a02b444c75821f1" primary="false" unique="false" not-null="false" id="log_accessurl" auto-increase="false"/>
+  </table>
+</tables>

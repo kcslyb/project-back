@@ -1,0 +1,14 @@
+<tables>
+  <table id="a16d0ad3f2694f948adbe122815e8b92" name="t_user" title="用户表" schema="">
+    <extend-properties/>
+    <description></description>
+    <table-field standard-field-id="4e76f61a95b2424f9ee5a11c58938540" primary="true" unique="true" not-null="true" id="uuid" auto-increase="false"/>
+    <table-field standard-field-id="c1afe52a691449c7b7b5c3feb6169f61" primary="false" unique="false" not-null="false" id="user_name" auto-increase="false"/>
+    <table-field standard-field-id="63696f5272f1465db7e8a6328b4217e1" primary="false" unique="false" not-null="false" id="user_password" auto-increase="false"/>
+    <table-field standard-field-id="643534ca086646b8b10f8fc9e9559f0d" primary="false" unique="false" not-null="false" id="user_phone" auto-increase="false"/>
+    <table-field standard-field-id="85014fdd1b2c45d9af63ea31ccecb96f" primary="false" unique="false" not-null="false" id="user_email" auto-increase="false"/>
+    <table-field standard-field-id="facda18e3d6c4b3c8098ad70873489b9" primary="false" unique="false" not-null="false" id="user_status" auto-increase="false"/>
+    <table-field standard-field-id="1e01b3191e604428ab2f8cf73c1a8bec" primary="false" unique="false" not-null="false" id="createdata" auto-increase="false"/>
+    <table-field standard-field-id="6ba28c45ec324239a0ee80b7ab721cf0" primary="false" unique="false" not-null="false" id="modifydata" auto-increase="false"/>
+  </table>
+</tables>

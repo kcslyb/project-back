@@ -1,0 +1,22 @@
+<standard-fields>
+  <standard-field id="a9aae39ef43941a880e583dc3a1684f5" name="permission_id" title="权限id" business-type-id="6c34b4b16fdb464191c6be8db99e4802">
+    <description></description>
+    <nick-names/>
+  </standard-field>
+  <standard-field id="71e3716c49864dff9b97920c1bad437a" name="permission_name" title="权限名称" business-type-id="6cdf5b78e29c4700898a82db52be890d">
+    <description></description>
+    <nick-names/>
+  </standard-field>
+  <standard-field id="61b16340348d4ad6b05cbd212f398523" name="permission_url" title="权限路径" business-type-id="6cdf5b78e29c4700898a82db52be890d">
+    <description></description>
+    <nick-names/>
+  </standard-field>
+  <standard-field id="3656f0e454a741db8efb8948ec486e67" name="permission_method" title="权限方法" business-type-id="6cdf5b78e29c4700898a82db52be890d">
+    <description></description>
+    <nick-names/>
+  </standard-field>
+  <standard-field id="35f0b55c1fc6474fb81ad3d549890ad1" name="permission_description" title="权限描述" business-type-id="6cdf5b78e29c4700898a82db52be890d">
+    <description></description>
+    <nick-names/>
+  </standard-field>
+</standard-fields>

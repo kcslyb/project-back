@@ -1,0 +1,22 @@
+<standard-fields>
+  <standard-field id="741cddad663e4d2c8111ee14643b0356" name="log_id" title="LOG_ID" business-type-id="6c34b4b16fdb464191c6be8db99e4802">
+    <description></description>
+    <nick-names/>
+  </standard-field>
+  <standard-field id="563c5979be3d44ffba24f6882e9e2318" name="log_time" title="LOG_TIME" business-type-id="55606f6589d846f7baafeb0f53bef52a">
+    <description></description>
+    <nick-names/>
+  </standard-field>
+  <standard-field id="5f88efdd23d24381a556d75e700856c7" name="log_used" title="LOG_USED" business-type-id="6cdf5b78e29c4700898a82db52be890d">
+    <description></description>
+    <nick-names/>
+  </standard-field>
+  <standard-field id="a2714cdab5a942ef8a02b444c75821f1" name="log_accessurl" title="LOG_ACCESSURL" business-type-id="42508afccc62427cbdba89a13219cfd8">
+    <description></description>
+    <nick-names/>
+  </standard-field>
+  <standard-field id="448e6654995f4aa69d06c341aef7376d" name="log_operate" title="LOG_OPERATE" business-type-id="42508afccc62427cbdba89a13219cfd8">
+    <description></description>
+    <nick-names/>
+  </standard-field>
+</standard-fields>

@@ -1,0 +1,26 @@
+<tables>
+  <table id="ed2ef40553d84f878582f824ec6d313d" name="t_order" title="T_ORDER" schema="">
+    <extend-properties/>
+    <description></description>
+    <table-field standard-field-id="6d7804f020e6407ab4bfc37495cb5bec" primary="true" unique="true" not-null="true" id="order_id" auto-increase="false"/>
+    <table-field standard-field-id="2c3d77101f114b4c97f8e5465423e5cb" primary="false" unique="false" not-null="false" id="order_index" auto-increase="false"/>
+    <table-field standard-field-id="6fa8edaa8b37432d9815b97fdeaf1ace" primary="false" unique="false" not-null="false" id="order_created" auto-increase="false"/>
+    <table-field standard-field-id="cd38fa00bfef412fa05fc332045d440a" primary="false" unique="false" not-null="false" id="order_desk" auto-increase="false"/>
+    <table-field standard-field-id="4834995686f54f029163cfbad5d6db78" primary="false" unique="false" not-null="false" id="order_createtime" auto-increase="false"/>
+  </table>
+  <table id="a3043acce82345d4af86f4a1ef864776" name="t_order_product" title="T_ORDER_PRODUCT" schema="">
+    <extend-properties/>
+    <description></description>
+    <table-field standard-field-id="c524386ba77344dbbc3fba163daef0d9" primary="true" unique="true" not-null="true" id="order_product_id" auto-increase="false"/>
+    <table-field standard-field-id="6d7804f020e6407ab4bfc37495cb5bec" primary="false" unique="false" not-null="false" id="order_id" auto-increase="false"/>
+    <table-field standard-field-id="a95e1a217ccf430c87cece5b5109cfd0" primary="false" unique="false" not-null="false" id="pro_id" auto-increase="false"/>
+  </table>
+  <table id="8450cb53322e48f3bb74c020cb93ef86" name="t_desk" title="T_DESK" schema="">
+    <extend-properties/>
+    <description></description>
+    <table-field standard-field-id="2c25dd9f453e4cbeb64a824d86b95bc4" primary="true" unique="true" not-null="true" id="desk_id" auto-increase="false"/>
+    <table-field standard-field-id="7987e7992482445296c58bb8e3aedc14" primary="false" unique="false" not-null="false" id="desk_number" auto-increase="false"/>
+    <table-field standard-field-id="49ddcae480ec4d4daa9c8f2b8692d347" primary="false" unique="false" not-null="false" id="desk_status" auto-increase="false"/>
+    <table-field standard-field-id="f6753167c1df49d08368e1abf7e33314" primary="false" unique="false" not-null="false" id="desk_size" auto-increase="false"/>
+  </table>
+</tables>

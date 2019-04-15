@@ -1,0 +1,9 @@
+<tables>
+  <table id="e09dc027aa6e4df08d3fc71105900872" name="t_user_role" title="T_USER_ROLE" schema="">
+    <extend-properties/>
+    <description></description>
+    <table-field standard-field-id="490209da2d1644368cf8c75632aff9a7" primary="true" unique="true" not-null="true" id="user_role_id" auto-increase="false"/>
+    <table-field standard-field-id="34142987c10248b09029af15cde036ff" primary="false" unique="false" not-null="false" id="user_id" auto-increase="false"/>
+    <table-field standard-field-id="1999bf7bf5cc4b45a231d099ad96f820" primary="false" unique="false" not-null="false" id="role_id" auto-increase="false"/>
+  </table>
+</tables>

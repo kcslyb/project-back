@@ -1,0 +1,14 @@
+<standard-fields>
+  <standard-field id="1999bf7bf5cc4b45a231d099ad96f820" name="role_id" title="角色id" business-type-id="6c34b4b16fdb464191c6be8db99e4802">
+    <description></description>
+    <nick-names/>
+  </standard-field>
+  <standard-field id="9699ffa4b27b42d7a88ed18747c10b91" name="role_name" title="角色名称" business-type-id="6cdf5b78e29c4700898a82db52be890d">
+    <description></description>
+    <nick-names/>
+  </standard-field>
+  <standard-field id="8824b8fcbfa9436da43aaf9e8a8f6a00" name="role_description" title="角色描述" business-type-id="6cdf5b78e29c4700898a82db52be890d">
+    <description></description>
+    <nick-names/>
+  </standard-field>
+</standard-fields>

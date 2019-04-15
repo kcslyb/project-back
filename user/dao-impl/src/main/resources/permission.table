@@ -1,0 +1,11 @@
+<tables>
+  <table id="2a75b87bc0704eef806a9b63ab579144" name="t_permission" title="PERMISSION" schema="">
+    <extend-properties/>
+    <description></description>
+    <table-field standard-field-id="a9aae39ef43941a880e583dc3a1684f5" primary="true" unique="true" not-null="true" id="permission_id" auto-increase="false"/>
+    <table-field standard-field-id="71e3716c49864dff9b97920c1bad437a" primary="false" unique="false" not-null="false" id="permission_name" auto-increase="false"/>
+    <table-field standard-field-id="61b16340348d4ad6b05cbd212f398523" primary="false" unique="false" not-null="false" id="permission_url" auto-increase="false"/>
+    <table-field standard-field-id="3656f0e454a741db8efb8948ec486e67" primary="false" unique="false" not-null="false" id="permission_method" auto-increase="false"/>
+    <table-field standard-field-id="35f0b55c1fc6474fb81ad3d549890ad1" primary="false" unique="false" not-null="false" id="permission_description" auto-increase="false"/>
+  </table>
+</tables>

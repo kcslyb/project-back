@@ -1,0 +1,14 @@
+<standard-fields>
+  <standard-field id="490209da2d1644368cf8c75632aff9a7" name="user_role_id" title="USER_ROLE_ID" business-type-id="6c34b4b16fdb464191c6be8db99e4802">
+    <description></description>
+    <nick-names/>
+  </standard-field>
+  <standard-field id="34142987c10248b09029af15cde036ff" name="user_id" title="USER_ID" business-type-id="6c34b4b16fdb464191c6be8db99e4802">
+    <description></description>
+    <nick-names/>
+  </standard-field>
+  <standard-field id="596775a814e4489ba107a8130d5c024b" name="role_permission_id" title="ROLE_PERMISSION_ID" business-type-id="6c34b4b16fdb464191c6be8db99e4802">
+    <description></description>
+    <nick-names/>
+  </standard-field>
+</standard-fields>

@@ -1,0 +1,42 @@
+<standard-fields>
+  <standard-field id="6d7804f020e6407ab4bfc37495cb5bec" name="order_id" title="ORDER_ID" business-type-id="6c34b4b16fdb464191c6be8db99e4802">
+    <description></description>
+    <nick-names/>
+  </standard-field>
+  <standard-field id="2c3d77101f114b4c97f8e5465423e5cb" name="order_index" title="ORDER_INDEX" business-type-id="6cdf5b78e29c4700898a82db52be890d">
+    <description></description>
+    <nick-names/>
+  </standard-field>
+  <standard-field id="4834995686f54f029163cfbad5d6db78" name="order_createtime" title="ORDER_TIME" business-type-id="55606f6589d846f7baafeb0f53bef52a">
+    <description></description>
+    <nick-names/>
+  </standard-field>
+  <standard-field id="6fa8edaa8b37432d9815b97fdeaf1ace" name="order_created" title="ORDER_CREATED" business-type-id="6cdf5b78e29c4700898a82db52be890d">
+    <description></description>
+    <nick-names/>
+  </standard-field>
+  <standard-field id="cd38fa00bfef412fa05fc332045d440a" name="order_desk" title="ORDER_DESK" business-type-id="6c34b4b16fdb464191c6be8db99e4802">
+    <description></description>
+    <nick-names/>
+  </standard-field>
+  <standard-field id="2c25dd9f453e4cbeb64a824d86b95bc4" name="desk_id" title="DESK_ID" business-type-id="6c34b4b16fdb464191c6be8db99e4802">
+    <description></description>
+    <nick-names/>
+  </standard-field>
+  <standard-field id="7987e7992482445296c58bb8e3aedc14" name="desk_number" title="DESK_NUMBER" business-type-id="6cdf5b78e29c4700898a82db52be890d">
+    <description></description>
+    <nick-names/>
+  </standard-field>
+  <standard-field id="49ddcae480ec4d4daa9c8f2b8692d347" name="desk_status" title="DESK_STATUS" business-type-id="6cdf5b78e29c4700898a82db52be890d">
+    <description></description>
+    <nick-names/>
+  </standard-field>
+  <standard-field id="f6753167c1df49d08368e1abf7e33314" name="desk_size" title="DESK_SIZE" business-type-id="6cdf5b78e29c4700898a82db52be890d">
+    <description></description>
+    <nick-names/>
+  </standard-field>
+  <standard-field id="c524386ba77344dbbc3fba163daef0d9" name="order_product_id" title="ORDER_PRODUCT_ID" business-type-id="6c34b4b16fdb464191c6be8db99e4802">
+    <description></description>
+    <nick-names/>
+  </standard-field>
+</standard-fields>
