@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "./mybatis-3-mapper.dtd">
+<mapper namespace="cn.kcs.order.dao.DeskDao">
+
+    <resultMap type="cn.kcs.order.entity.Desk" id="DeskMap">
+        <result property="deskId" column="desk_id" jdbcType="VARCHAR"/>
+        <result property="deskName" column="desk_name" jdbcType="VARCHAR"/>
+        <result property="deskStatus" column="desk_status" jdbcType="VARCHAR"/>
+        <result property="deskSerialNumber" column="desk_serial_number" jdbcType="VARCHAR"/>
+        <result property="deskCapacity" column="desk_capacity" jdbcType="VARCHAR"/>
+        <result property="deskCreateTime" column="desk_create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="DeskMap">
+        select
+        desk_id, desk_name, desk_status, desk_serial_number, desk_capacity, desk_create_time
+        from myproject.desk
+        where desk_id = #{deskId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="DeskMap">
+        select
+        desk_id, desk_name, desk_status, desk_serial_number, desk_capacity, desk_create_time
+        from myproject.desk
+        <where>
+            <if test="desk.deskId != null and desk.deskId != ''">
+                and desk_id = #{desk.deskId}
+            </if>
+            <if test="desk.deskName != null and desk.deskName != ''">
+                and desk_name = #{desk.deskName}
+            </if>
+            <if test="desk.deskStatus != null and desk.deskStatus != ''">
+                and desk_status = #{desk.deskStatus}
+            </if>
+            <if test="desk.deskSerialNumber != null and desk.deskSerialNumber != ''">
+                and desk_serial_number = #{desk.deskSerialNumber}
+            </if>
+            <if test="desk.deskCapacity != null and desk.deskCapacity != ''">
+                and desk_capacity = #{desk.deskCapacity}
+            </if>
+            <if test="desk.deskCreateTime != null">
+                and desk_create_time = #{desk.deskCreateTime}
+            </if>
+        </where>
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="DeskMap">
+        select
+        desk_id, desk_name, desk_status, desk_serial_number, desk_capacity, desk_create_time
+        from myproject.desk
+        <where>
+            <if test="deskId != null and deskId != ''">
+                and desk_id = #{deskId}
+            </if>
+            <if test="deskName != null and deskName != ''">
+                and desk_name = #{deskName}
+            </if>
+            <if test="deskStatus != null and deskStatus != ''">
+                and desk_status = #{deskStatus}
+            </if>
+            <if test="deskSerialNumber != null and deskSerialNumber != ''">
+                and desk_serial_number = #{deskSerialNumber}
+            </if>
+            <if test="deskCapacity != null and deskCapacity != ''">
+                and desk_capacity = #{deskCapacity}
+            </if>
+            <if test="deskCreateTime != null">
+                and desk_create_time = #{deskCreateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="deskId" useGeneratedKeys="true">
+        insert into myproject.desk(desk_id, desk_name, desk_status, desk_serial_number, desk_capacity, desk_create_time)
+        values (#{deskId}, #{deskName}, #{deskStatus}, #{deskSerialNumber}, #{deskCapacity}, #{deskCreateTime})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update myproject.desk
+        <set>
+            <if test="deskName != null and deskName != ''">
+                desk_name = #{deskName},
+            </if>
+            <if test="deskStatus != null and deskStatus != ''">
+                desk_status = #{deskStatus},
+            </if>
+            <if test="deskSerialNumber != null and deskSerialNumber != ''">
+                desk_serial_number = #{deskSerialNumber},
+            </if>
+            <if test="deskCapacity != null and deskCapacity != ''">
+                desk_capacity = #{deskCapacity},
+            </if>
+            <if test="deskCreateTime != null">
+                desk_create_time = #{deskCreateTime},
+            </if>
+        </set>
+        where desk_id = #{deskId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from myproject.desk where desk_id = #{deskId}
+    </delete>
+
+</mapper>

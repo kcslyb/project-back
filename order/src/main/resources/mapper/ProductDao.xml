@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "./mybatis-3-mapper.dtd">
+<mapper namespace="cn.kcs.order.dao.ProductDao">
+
+    <resultMap type="cn.kcs.order.entity.Product" id="ProductMap">
+        <result property="productId" column="product_id" jdbcType="VARCHAR"/>
+        <result property="productName" column="product_name" jdbcType="VARCHAR"/>
+        <result property="productPrise" column="product_prise" jdbcType="VARCHAR"/>
+        <result property="productStatus" column="product_status" jdbcType="VARCHAR"/>
+        <result property="productSalesNumber" column="product_sales_number" jdbcType="VARCHAR"/>
+        <result property="productFileInfo" column="product_file_info" jdbcType="VARCHAR"/>
+        <result property="productDescription" column="product_description" jdbcType="VARCHAR"/>
+        <result property="productCreateBy" column="product_create_by" jdbcType="VARCHAR"/>
+        <result property="productUpdateBy" column="product_update_by" jdbcType="VARCHAR"/>
+        <result property="productType" column="product_type" jdbcType="VARCHAR"/>
+        <result property="productCreateTime" column="product_create_time" jdbcType="TIMESTAMP"/>
+        <result property="productUpdateTime" column="product_update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="ProductMap">
+        select
+        product_id, product_name, product_prise, product_sales_number, product_file_info, product_status,
+        product_description, product_create_by, product_update_by, product_create_time, product_update_time,
+        product_type
+        from myproject.product
+        where product_id = #{productId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="ProductMap">
+        select
+        product_id, product_name, product_prise, product_sales_number, product_file_info, product_status,
+        product_description, product_create_by, product_update_by, product_create_time, product_update_time,
+        product_type
+        from myproject.product
+        <where>
+            <if test="product.productId != null and product.productId != ''">
+                and product_id = #{product.productId}
+            </if>
+            <if test="product.productName != null and product.productName != ''">
+                and product_name = #{product.productName}
+            </if>
+            <if test="product.productPrise != null and product.productPrise != ''">
+                and product_prise = #{product.productPrise}
+            </if>
+            <if test="product.productSalesNumber != null and product.productSalesNumber != ''">
+                and product_sales_number = #{product.productSalesNumber}
+            </if>
+            <if test="product.productFileInfo != null and product.productFileInfo != ''">
+                and product_file_info = #{product.productFileInfo}
+            </if>
+            <if test="product.productStatus != null and product.productStatus != ''">
+                and product_status = #{product.productStatus}
+            </if>
+            <if test="product.productDescription != null and product.productDescription != ''">
+                and product_description = #{product.productDescription}
+            </if>
+            <if test="product.productCreateBy != null and product.productCreateBy != ''">
+                and product_create_by = #{product.productCreateBy}
+            </if>
+            <if test="product.productUpdateBy != null and product.productUpdateBy != ''">
+                and product_update_by = #{product.productUpdateBy}
+            </if>
+            <if test="product.productType != null and product.productType != ''">
+                and product_type = #{product.productType}
+            </if>
+            <if test="product.productCreateTime != null">
+                and product_create_time = #{product.productCreateTime}
+            </if>
+            <if test="product.productUpdateTime != null">
+                and product_update_time = #{product.productUpdateTime}
+            </if>
+        </where>
+        ORDER BY product_create_time DESC
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="ProductMap">
+        select
+        product_id
+        from myproject.product
+        <where>
+            <if test="productId != null and productId != ''">
+                and product_id = #{productId}
+            </if>
+            <if test="productName != null and productName != ''">
+                and product_name = #{productName}
+            </if>
+            <if test="productPrise != null and productPrise != ''">
+                and product_prise = #{productPrise}
+            </if>
+            <if test="productSalesNumber != null and productSalesNumber != ''">
+                and product_sales_number = #{productSalesNumber}
+            </if>
+            <if test="productFileInfo != null and productFileInfo != ''">
+                and product_file_info = #{productFileInfo}
+            </if>
+            <if test="productStatus != null and productStatus != ''">
+                and product_status = #{productStatus}
+            </if>
+            <if test="productDescription != null and productDescription != ''">
+                and product_description = #{productDescription}
+            </if>
+            <if test="productCreateBy != null and productCreateBy != ''">
+                and product_create_by = #{productCreateBy}
+            </if>
+            <if test="productUpdateBy != null and productUpdateBy != ''">
+                and product_update_by = #{productUpdateBy}
+            </if>
+            <if test="productType != null and productType != ''">
+                and product_type = #{productType}
+            </if>
+            <if test="productCreateTime != null">
+                and product_create_time = #{productCreateTime}
+            </if>
+            <if test="productUpdateTime != null">
+                and product_update_time = #{productUpdateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="productId" useGeneratedKeys="true">
+        insert into myproject.product(product_id, product_name, product_prise, product_sales_number, product_file_info,
+        product_status, product_description, product_create_by, product_update_by, product_create_time,
+        product_update_time, product_type)
+        values (#{productId}, #{productName}, #{productPrise}, #{productSalesNumber}, #{productFileInfo},
+        #{productStatus}, #{productDescription}, #{productCreateBy}, #{productUpdateBy}, #{productCreateTime},
+        #{productUpdateTime}, #{productType})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update myproject.product
+        <set>
+            <if test="productName != null and productName != ''">
+                product_name = #{productName},
+            </if>
+            <if test="productPrise != null and productPrise != ''">
+                product_prise = #{productPrise},
+            </if>
+            <if test="productSalesNumber != null and productSalesNumber != ''">
+                product_sales_number = #{productSalesNumber},
+            </if>
+            <if test="productFileInfo != null and productFileInfo != ''">
+                product_file_info = #{productFileInfo},
+            </if>
+            <if test="productStatus != null and productStatus != ''">
+                product_status = #{productStatus},
+            </if>
+            <if test="productDescription != null and productDescription != ''">
+                product_description = #{productDescription},
+            </if>
+            <if test="productCreateBy != null and productCreateBy != ''">
+                product_create_by = #{productCreateBy},
+            </if>
+            <if test="productUpdateBy != null and productUpdateBy != ''">
+                product_update_by = #{productUpdateBy},
+            </if>
+            <if test="productCreateTime != null">
+                product_create_time = #{productCreateTime},
+            </if>
+            <if test="productUpdateTime != null">
+                product_update_time = #{productUpdateTime},
+            </if>
+            <if test="productType != null and productType != ''">
+                product_type = #{productType},
+            </if>
+        </set>
+        where product_id = #{productId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from myproject.product where product_id = #{productId}
+    </delete>
+
+</mapper>
