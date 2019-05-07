@@ -14,9 +14,8 @@
     <modules>
         <module>base</module>
         <module>boot</module>
-        <module>user</module>
-        <module>notepad</module>
-        <module>encrypt</module>
+        <module>account</module>
+        <module>order</module>
     </modules>
 
     <parent>

@@ -1,12 +1,9 @@
 package cn.kcs.user;
 
-import cn.kcs.common.util.DataUtil;
-import cn.kcs.common.util.constants.Constants;
-import cn.kcs.service.inter.LogService;
-import cn.kcs.service.inter.dto.LogDto;
-import com.alibaba.fastjson.JSONObject;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.session.Session;
+import cn.kcs.common.loginInfo.LoginInfo;
+import cn.kcs.note.entity.TLogger;
+import cn.kcs.note.service.TLoggerService;
+import org.apache.commons.lang.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -30,9 +27,9 @@ import javax.servlet.http.HttpServletRequest;
 public class aopLog {
     private Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
-    private LogService logService;
+    private TLoggerService tLoggerService;
 
-    @Pointcut("execution(public * cn.kcs.controller.action.*.*(..)) || execution(public * cn.kcs.note.controller.*.*(..))")
+    @Pointcut("execution(public * cn.kcs.order.controller.*.*(..)) || execution(public * cn.kcs.note.controller.*.*(..))")
     public void webLog() {
 
     }
@@ -41,26 +38,17 @@ public class aopLog {
     public void doBefore(JoinPoint joinPoint) {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
-        Session session = SecurityUtils.getSubject().getSession();
-        LogDto logDto = new LogDto();
-        JSONObject jsonUser = (JSONObject) session.getAttribute(Constants.SESSION_USER_INFO);
-        if (session != null && jsonUser != null) {
-            if ("/logout".equals(request.getRequestURI())) {
-                logDto.setLogUsed(jsonUser.getString("userName") + "退出登录");
-            } else {
-                logDto.setLogUsed(jsonUser.getString("userName"));
-            }
-        } else {
-            logDto.setLogUsed("登录");
-        }
-        logDto.setLogTime(DataUtil.stringToDate(DataUtil.currentFormatDate(DataUtil.DATE_TO_STRING_DETAIAL_PATTERN), DataUtil.DATE_TO_STRING_DETAIAL_PATTERN));
-        logDto.setLogOperate(request.getRequestURI());
-        logDto.setLogAccessurl(request.getRequestURL().toString() + " IP:" + request.getRemoteAddr());
-        logService.add(logDto);
+        TLogger logDto = new TLogger();
+        logDto.setLogAccessType(request.getRequestURI());
+        logDto.setLogAccessUserId(StringUtils.isEmpty(LoginInfo.getUserId()) ? "登录" : LoginInfo.getUserId());
+        logDto.setLogAccessUserName(StringUtils.isEmpty(LoginInfo.getUserName()) ? "登录" : LoginInfo.getUserName());
+        logDto.setLogAccessUrl(request.getMethod() + ": " + request.getRequestURI());
+        logDto.setLogAccessIp(request.getRemoteAddr());
+        tLoggerService.insert(logDto);
         // 记录下请求内容
-        logger.info("操作者 :" + logDto.getLogUsed());
+        logger.info("操作者 :" + logDto.getLogAccessUserName());
         logger.info("请求IP :" + request.getRemoteAddr());
-        logger.info("请求时间 : " + logDto.getLogTime());
+        logger.info("请求时间 : " + logDto.getLogAccessTime());
         logger.info("请求类型 : " + request.getMethod());
         logger.info("请求路径 : " + request.getRequestURL().toString());
     }

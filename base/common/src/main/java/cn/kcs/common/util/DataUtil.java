@@ -63,6 +63,16 @@ public class DataUtil {
     }
 
     /**
+     * 获得当前时间 date格式
+     *
+     * @return
+     */
+    public static Date currentFormatDate() {
+        return DataUtil.stringToDate(DataUtil.currentFormatDate(DataUtil.DATE_TO_STRING_DETAIAL_PATTERN), DataUtil.DATE_TO_STRING_DETAIAL_PATTERN);
+    }
+
+
+    /**
      * 获得当前unix时间戳(单位秒)
      *
      * @return 当前unix时间戳

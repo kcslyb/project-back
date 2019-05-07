@@ -53,7 +53,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(basePackage("cn.kcs.note.controller" + splitor + "cn.kcs.controller.action"))
+                .apis(basePackage("cn.kcs.note.controller" + splitor + "cn.kcs.order.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }

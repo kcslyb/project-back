@@ -6,10 +6,8 @@ package cn.kcs.common.fileUtil.vcfAndCsv;
  * @create: 2019-01-04 11:24
  **/
 
-import com.sun.org.apache.xerces.internal.dom.DocumentImpl;
 import org.apache.commons.lang.StringUtils;
 import org.omg.CORBA.SystemException;
-import org.w3c.dom.Document;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -35,8 +33,6 @@ public class VcfUtil {
         List<Concat> list = new ArrayList<Concat>();
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
-            Document document = new DocumentImpl();
-            BufferedWriter writer = null;
 
             String line;
             StringBuffer bu = new StringBuffer();
@@ -47,8 +43,6 @@ public class VcfUtil {
             Matcher m = p.matcher(bu.toString());
             while (m.find()) {
                 Concat c = new Concat();
-//                c.setUserId(FrameworkContextUtils.getCurrentUserId());
-//                c.setStatus(Contact.STATUS_WAIT_INVITE);
                 String str = m.group(0);
 
                 //姓名
@@ -228,7 +222,7 @@ public class VcfUtil {
             System.out.println(addressBeans.size());
             if (addressBeans.size() > 0) {
                 for (Concat addressBean : addressBeans) {
-                    System.out.println("tureName : " + addressBean.getTrueName());
+                    System.out.println("userName : " + addressBean.getTrueName());
                     System.out.println("mobile : " + addressBean.getMobile());
                     System.out.println("workMobile : " + addressBean.getWorkMobile());
                     System.out.println("Email : " + addressBean.getEmail());

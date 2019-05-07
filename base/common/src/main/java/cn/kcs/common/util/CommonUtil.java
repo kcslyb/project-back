@@ -55,6 +55,32 @@ public class CommonUtil {
     /**
      * 返回错误信息JSON
      *
+     * @return
+     */
+    public static JSONObject errorJson() {
+        JSONObject resultJson = new JSONObject();
+        resultJson.put("status", "400");
+        resultJson.put("message", "操作失败");
+        resultJson.put("data", new JSONObject());
+        return resultJson;
+    }
+
+    /**
+     * 返回错误信息JSON
+     *
+     * @return
+     */
+    public static JSONObject errorJson(Object object) {
+        JSONObject resultJson = new JSONObject();
+        resultJson.put("status", "400");
+        resultJson.put("message", "操作失败");
+        resultJson.put("data", object);
+        return resultJson;
+    }
+
+    /**
+     * 返回错误信息JSON
+     *
      * @param errorEnum 错误码的ErrorEnum
      * @return
      */
@@ -83,19 +109,16 @@ public class CommonUtil {
     /**
      * 查询分页结果后的封装工具方法
      *
-     * @param requestJson 请求参数json,此json在之前调用fillPageParam 方法时,已经将pageRow放入
      * @param list        查询分页对象list
      * @param totalCount  查询出记录的总条数
      */
-    public static JSONObject successPage(final JSONObject requestJson, List<JSONObject> list, int totalCount) {
-        int pageRow = requestJson.getIntValue("pageRow");
-        int totalPage = getPageCounts(pageRow, totalCount);
+//    <T> List<T> getDifferent(List<T> t1
+    public static <T> JSONObject successPage(List<T> list, int totalCount) {
         JSONObject result = successJson();
         JSONObject returnData = new JSONObject();
         returnData.put("list", list);
-        returnData.put("totalCount", totalCount);
-        returnData.put("totalPage", totalPage);
-        result.put("returnData", returnData);
+        returnData.put("total", totalCount);
+        result.put("data", returnData);
         return result;
     }
 
@@ -104,7 +127,7 @@ public class CommonUtil {
      *
      * @param list 查询分页对象list
      */
-    public static JSONObject successPage(List<JSONObject> list) {
+    public static <T> JSONObject successPage(List<T> list) {
         JSONObject result = successJson();
         JSONObject returnData = new JSONObject();
         returnData.put("list", list);

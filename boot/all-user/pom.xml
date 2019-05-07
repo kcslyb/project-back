@@ -13,7 +13,7 @@
 
     <parent>
         <groupId>cn.kcs</groupId>
-        <artifactId>product</artifactId>
+        <artifactId>boot</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
@@ -29,24 +29,16 @@
             <artifactId>encrypt</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+
         <dependency>
             <groupId>cn.kcs</groupId>
-            <artifactId>notepad</artifactId>
+            <artifactId>account</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+
         <dependency>
             <groupId>cn.kcs</groupId>
-            <artifactId>service-impl</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>cn.kcs</groupId>
-            <artifactId>controller</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>cn.kcs</groupId>
-            <artifactId>service-xml</artifactId>
+            <artifactId>order</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
@@ -62,8 +54,7 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

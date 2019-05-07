@@ -9,12 +9,12 @@ import java.util.*;
  **/
 public class ListUtil {
 
-    public static boolean isNullAndEmpty(Collection list) {
+    public static boolean isNullOrEmpty(Collection list) {
         return null == list || list.isEmpty();
     }
 
-    public static boolean notNullAadEmpty(Collection list) {
-        return !isNullAndEmpty(list);
+    public static boolean notNullAndEmpty(Collection list) {
+        return !isNullOrEmpty(list);
     }
 
     /**
@@ -63,6 +63,22 @@ public class ListUtil {
                 same.add(b[j]);
         }
         return same;
+    }
+
+    /**
+     * list 去重
+     *
+     * @param list
+     * @return
+     */
+    public static <T> List<T> removeDuplicate(List<T> list) {
+        List temp = new ArrayList();
+        for (int i = 0; i < list.size(); i++) {
+            if (!temp.contains(list.get(i))) {
+                temp.add(list.get(i));
+            }
+        }
+        return temp;
     }
 
 }

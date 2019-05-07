@@ -6,12 +6,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.ImportResource;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-@ImportResource({"classpath*:dao.bean.xml", "classpath*:mapper/*.xml"})
-@ComponentScan(basePackages = {"cn.kcs.*", "org.tinygroup"})
-@MapperScan("cn.kcs.note.dao")
+@ComponentScan(basePackages = {"cn.kcs.*"})
+@MapperScan("cn.kcs.*.dao")
 @SpringBootApplication
 @EnableSwagger2
 @EnableCaching
