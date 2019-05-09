@@ -73,4 +73,15 @@ public class TDictionary implements Serializable {
         this.dictionaryCreateTime = dictionaryCreateTime;
     }
 
+    @Override
+    public String toString() {
+        return "TDictionary{" +
+                "dictionaryId='" + dictionaryId + '\'' +
+                ", dictionaryGroupName='" + dictionaryGroupName + '\'' +
+                ", dictionaryKey='" + dictionaryKey + '\'' +
+                ", dictionaryLabel='" + dictionaryLabel + '\'' +
+                ", dictionaryIndex='" + dictionaryIndex + '\'' +
+                ", dictionaryCreateTime=" + dictionaryCreateTime +
+                '}';
+    }
 }

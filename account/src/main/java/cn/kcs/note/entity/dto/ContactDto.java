@@ -1,5 +1,6 @@
-package cn.kcs.note.entity;
+package cn.kcs.note.entity.dto;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -7,7 +8,7 @@ import java.util.List;
  * @author: kcs
  * @create: 2019-01-02 16:55
  **/
-public class ContactDto {
+public class ContactDto implements Serializable {
     private String userId;
     private String userName;
     private String currentUserId;
@@ -61,5 +62,17 @@ public class ContactDto {
 
     public void setHeadPortrait(String headPortrait) {
         this.headPortrait = headPortrait;
+    }
+
+    @Override
+    public String toString() {
+        return "ContactDto{" +
+                "userId='" + userId + '\'' +
+                ", userName='" + userName + '\'' +
+                ", currentUserId='" + currentUserId + '\'' +
+                ", noticeNumber=" + noticeNumber +
+                ", headPortrait='" + headPortrait + '\'' +
+                ", msgsId=" + msgsId +
+                '}';
     }
 }

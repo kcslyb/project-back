@@ -13,6 +13,7 @@ import cn.kcs.note.service.TRoleService;
 import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -48,6 +49,7 @@ public class TRoleController {
     @Encrypt
     @ApiOperation(value = "通过主键查询单条数据")
     @GetMapping()
+    @Cacheable(value = "role-by-id")
     public TRole selectOne(String id) {
         return this.tRoleService.queryById(id);
     }
@@ -62,6 +64,7 @@ public class TRoleController {
     @Encrypt
     @ApiOperation(value = "通过实体查询所有数据")
     @GetMapping("query")
+    @Cacheable(value = "role-query")
     public List<TRole> queryAll(TRole role) {
         return this.tRoleService.queryAll(role);
     }
@@ -76,6 +79,7 @@ public class TRoleController {
     @Encrypt
     @ApiOperation(value = "通过实体查询角色权限")
     @GetMapping("query/permission")
+    @Cacheable(value = "role-query-pager-permission")
     public List<RolePermission> queryAllPermissionByRole(TRole role) {
         return this.tRoleService.queryAllPermissionByRole(role);
     }
@@ -165,6 +169,7 @@ public class TRoleController {
     @Encrypt
     @ApiOperation(value = "查询所以数据")
     @GetMapping("query/pager")
+    @Cacheable(value = "role-query-pager")
     public List<TRole> query(String offset, String limit) {
         if (offset == null || "".equals(offset)) {
             offset = "0";

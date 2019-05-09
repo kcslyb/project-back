@@ -7,6 +7,7 @@ import cn.kcs.note.dao.TPermissionMenuDao;
 import cn.kcs.note.dao.UserAccountDao;
 import cn.kcs.note.entity.UserAccount;
 import cn.kcs.note.service.UserAccountService;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -33,6 +34,7 @@ public class UserAccountServiceImpl implements UserAccountService {
      * @return 实例对象
      */
     @Override
+    @Cacheable(value = "user-by-id")
     public UserAccount queryById(String userId) {
         UserAccount userAccount = this.userAccountDao.queryById(userId);
         userAccount.setUserPermission(tPermissionMenuDao.queryAllPermissionByRole(userAccount.getUserRole()));
@@ -47,6 +49,7 @@ public class UserAccountServiceImpl implements UserAccountService {
      * @return 对象列表
      */
     @Override
+    @Cacheable(value = "user-query-pager")
     public List<UserAccount> queryAllByLimit(int offset, int limit) {
         return this.userAccountDao.queryAllByLimit(offset, limit);
     }
@@ -58,6 +61,7 @@ public class UserAccountServiceImpl implements UserAccountService {
      * @return 对象列表
      */
     @Override
+    @Cacheable(value = "user-query")
     public List<UserAccount> queryAll(UserAccount userAccount) {
         return this.userAccountDao.queryAll(userAccount);
     }

@@ -2,7 +2,6 @@ package cn.kcs.note.dao;
 
 import cn.kcs.note.entity.UserAccount;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.cache.annotation.CachePut;
 
 import java.util.List;
 
@@ -29,7 +28,6 @@ public interface UserAccountDao {
      * @param limit  查询条数
      * @return 对象列表
      */
-    @CachePut(key = "query-user-all")
     List<UserAccount> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
 
 

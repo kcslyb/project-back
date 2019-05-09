@@ -2,6 +2,7 @@ package cn.kcs.note.entity.dto;
 
 import cn.kcs.note.entity.TDictionary;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -9,7 +10,7 @@ import java.util.List;
  * @author: kcs
  * @create: 2019-03-15 19:44
  **/
-public class DictionaryDto {
+public class DictionaryDto implements Serializable {
     private String groupName;
     private String groupNameValue;
     private List<TDictionary> dictionaries;
@@ -36,5 +37,14 @@ public class DictionaryDto {
 
     public void setDictionaries(List<TDictionary> dictionaries) {
         this.dictionaries = dictionaries;
+    }
+
+    @Override
+    public String toString() {
+        return "DictionaryDto{" +
+                "groupName='" + groupName + '\'' +
+                ", groupNameValue='" + groupNameValue + '\'' +
+                ", dictionaries=" + dictionaries +
+                '}';
     }
 }

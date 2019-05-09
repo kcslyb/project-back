@@ -1,4 +1,4 @@
-package cn.kcs.note.controller.shiro;
+package cn.kcs.user.shiro;
 
 import com.alibaba.fastjson.JSONObject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;

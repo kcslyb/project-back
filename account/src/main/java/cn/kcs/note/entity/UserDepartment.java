@@ -57,4 +57,14 @@ public class UserDepartment implements Serializable {
     public void setDepartmentDescribe(String departmentDescribe) {
         this.departmentDescribe = departmentDescribe;
     }
+
+    @Override
+    public String toString() {
+        return "UserDepartment{" +
+                "departmentId='" + departmentId + '\'' +
+                ", departmentName='" + departmentName + '\'' +
+                ", departmentNumber='" + departmentNumber + '\'' +
+                ", departmentDescribe='" + departmentDescribe + '\'' +
+                '}';
+    }
 }

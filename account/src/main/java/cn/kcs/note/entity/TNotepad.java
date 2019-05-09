@@ -83,4 +83,16 @@ public class TNotepad implements Serializable {
         this.noteType = noteType;
     }
 
+    @Override
+    public String toString() {
+        return "TNotepad{" +
+                "noteId='" + noteId + '\'' +
+                ", noteCreated='" + noteCreated + '\'' +
+                ", noteContent='" + noteContent + '\'' +
+                ", noteCreatetime=" + noteCreatetime +
+                ", noteModifytime=" + noteModifytime +
+                ", noteTitle='" + noteTitle + '\'' +
+                ", noteType='" + noteType + '\'' +
+                '}';
+    }
 }

@@ -93,4 +93,17 @@ public class TAccount implements Serializable {
         this.accountCreatby = accountCreatby;
     }
 
+    @Override
+    public String toString() {
+        return "TAccount{" +
+                "accountId='" + accountId + '\'' +
+                ", accountTitle='" + accountTitle + '\'' +
+                ", accountDescript='" + accountDescript + '\'' +
+                ", accountPrise=" + accountPrise +
+                ", accountRemark='" + accountRemark + '\'' +
+                ", accountCreattime=" + accountCreattime +
+                ", accountUpdatetime=" + accountUpdatetime +
+                ", accountCreatby='" + accountCreatby + '\'' +
+                '}';
+    }
 }

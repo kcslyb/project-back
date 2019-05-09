@@ -18,7 +18,8 @@
     <!--查询单个-->
     <select id="queryById" resultMap="TFileMap">
         select
-          file_id, file_name, file_path, file_description, file_create_time, file_size, file_type, file_owner, file_owner_name, file_download_number
+        file_id, file_name, file_path, file_description, file_create_time, file_size, file_type, file_owner,
+        file_owner_name, file_download_number
         from myproject.t_file
         where file_id = #{fileId}
     </select>
@@ -26,7 +27,8 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="TFileMap">
         select
-          file_id, file_name, file_path, file_description, file_create_time, file_size, file_type, file_owner, file_owner_name, file_download_number
+        file_id, file_name, file_path, file_description, file_create_time, file_size, file_type, file_owner,
+        file_owner_name, file_download_number
         from myproject.t_file
         <where>
             <if test="file.fileId != null and file.fileId != ''">
@@ -67,14 +69,14 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="TFileMap">
         select
-          file_id
+        file_id
         from myproject.t_file
         <where>
             <if test="fileId != null and fileId != ''">
                 and file_id = #{fileId}
             </if>
             <if test="fileName != null and fileName != ''">
-                and file_name = #{fileName}
+                and file_name like concat('%',#{fileName},'%')
             </if>
             <if test="filePath != null and filePath != ''">
                 and file_path = #{filePath}
@@ -105,8 +107,10 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="fileId" useGeneratedKeys="true">
-        insert into myproject.t_file(file_id, file_name, file_path, file_description, file_create_time, file_size, file_type, file_owner, file_owner_name, file_download_number)
-        values (#{fileId}, #{fileName}, #{filePath}, #{fileDescription}, #{fileCreateTime}, #{fileSize}, #{fileType}, #{fileOwner}, #{fileOwnerName}, #{fileDownloadNumber})
+        insert into myproject.t_file(file_id, file_name, file_path, file_description, file_create_time, file_size,
+        file_type, file_owner, file_owner_name, file_download_number)
+        values (#{fileId}, #{fileName}, #{filePath}, #{fileDescription}, #{fileCreateTime}, #{fileSize}, #{fileType},
+        #{fileOwner}, #{fileOwnerName}, #{fileDownloadNumber})
     </insert>
 
     <!--通过主键修改数据-->

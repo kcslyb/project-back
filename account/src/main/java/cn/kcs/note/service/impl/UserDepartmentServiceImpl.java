@@ -7,6 +7,7 @@ import cn.kcs.note.entity.UserAccount;
 import cn.kcs.note.entity.UserDepartment;
 import cn.kcs.note.entity.dto.DepartmentDto;
 import cn.kcs.note.service.UserDepartmentService;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -34,6 +35,7 @@ public class UserDepartmentServiceImpl implements UserDepartmentService {
      * @return 实例对象
      */
     @Override
+    @Cacheable(value = "department-by-id")
     public UserDepartment queryById(String departmentId) {
         return this.userDepartmentDao.queryById(departmentId);
     }
@@ -46,6 +48,7 @@ public class UserDepartmentServiceImpl implements UserDepartmentService {
      * @return 对象列表
      */
     @Override
+    @Cacheable(value = "department-query-limit")
     public List<UserDepartment> queryAllByLimit(int offset, int limit) {
         return this.userDepartmentDao.queryAllByLimit(offset, limit);
     }
@@ -57,6 +60,7 @@ public class UserDepartmentServiceImpl implements UserDepartmentService {
      * @return 对象列表
      */
     @Override
+    @Cacheable(value = "department-query-all")
     public List<UserDepartment> queryAll(UserDepartment userDepartment) {
         return this.userDepartmentDao.queryAll(userDepartment);
     }
@@ -68,6 +72,7 @@ public class UserDepartmentServiceImpl implements UserDepartmentService {
      * @return 对象列表
      */
     @Override
+    @Cacheable(value = "department-query-user")
     public List<DepartmentDto> queryAllUserByDepartment(UserDepartment department) {
         List<DepartmentDto> departmentUser = new ArrayList<>();
         List<UserAccount> userAccountList = userAccountDao.queryAll(new UserAccount());

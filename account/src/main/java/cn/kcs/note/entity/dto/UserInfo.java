@@ -1,5 +1,6 @@
 package cn.kcs.note.entity.dto;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -7,7 +8,7 @@ import java.util.List;
  * @author: kcs
  * @create: 2018-11-01 20:55
  **/
-public class UserInfo {
+public class UserInfo implements Serializable {
     private String userId;
     private String userName;
     private String userPhone;
@@ -79,5 +80,19 @@ public class UserInfo {
 
     public void setPermissions(List<String> permissions) {
         this.permissions = permissions;
+    }
+
+    @Override
+    public String toString() {
+        return "UserInfo{" +
+                "userId='" + userId + '\'' +
+                ", userName='" + userName + '\'' +
+                ", userPhone='" + userPhone + '\'' +
+                ", userEmail='" + userEmail + '\'' +
+                ", roleName='" + roleName + '\'' +
+                ", userAvatar='" + userAvatar + '\'' +
+                ", menus=" + menus +
+                ", permissions=" + permissions +
+                '}';
     }
 }

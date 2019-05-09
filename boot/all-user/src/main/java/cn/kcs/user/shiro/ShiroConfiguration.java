@@ -1,4 +1,4 @@
-package cn.kcs.note.controller.shiro;
+package cn.kcs.user.shiro;
 
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;

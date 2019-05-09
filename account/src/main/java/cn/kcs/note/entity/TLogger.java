@@ -83,4 +83,16 @@ public class TLogger implements Serializable {
         this.logAccessTime = logAccessTime;
     }
 
+    @Override
+    public String toString() {
+        return "TLogger{" +
+                "logId='" + logId + '\'' +
+                ", logAccessUserId='" + logAccessUserId + '\'' +
+                ", logAccessUserName='" + logAccessUserName + '\'' +
+                ", logAccessType='" + logAccessType + '\'' +
+                ", logAccessUrl='" + logAccessUrl + '\'' +
+                ", logAccessIp='" + logAccessIp + '\'' +
+                ", logAccessTime=" + logAccessTime +
+                '}';
+    }
 }

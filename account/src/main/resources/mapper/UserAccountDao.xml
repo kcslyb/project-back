@@ -98,7 +98,7 @@
     </insert>
 
     <!--通过主键修改数据-->
-    <update id="update">
+    <update id="update" flushCache="true">
         update myproject.user_account
         <set>
             <if test="userName != null and userName != ''">

@@ -52,4 +52,13 @@ public class TRole implements Serializable {
         this.roleDescription = roleDescription;
     }
 
+    @Override
+    public String toString() {
+        return "TRole{" +
+                "roleId='" + roleId + '\'' +
+                ", roleName='" + roleName + '\'' +
+                ", roleDescription='" + roleDescription + '\'' +
+                ", permissionIds=" + permissionIds +
+                '}';
+    }
 }

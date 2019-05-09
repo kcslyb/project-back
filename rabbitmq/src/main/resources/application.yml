@@ -1,0 +1,14 @@
+spring:
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: kcs
+    password: kcs
+#队列一
+mq_msg_queue_name: msg_queue_name
+mq_msg_exchange_name: msg_exchange_name
+mq_msg_routing_key_name: msg_routing_key_name
+# 队列二
+mq_accept_queue_name: accept_queue_name
+mq_accept_exchange_name: accept_exchange_name
+mq_accept_routing_key_name: accept_routing_key_name

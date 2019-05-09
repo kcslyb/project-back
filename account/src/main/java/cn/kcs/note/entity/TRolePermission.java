@@ -42,4 +42,12 @@ public class TRolePermission implements Serializable {
         this.permissionId = permissionId;
     }
 
+    @Override
+    public String toString() {
+        return "TRolePermission{" +
+                "rolePermissionId='" + rolePermissionId + '\'' +
+                ", roleId='" + roleId + '\'' +
+                ", permissionId='" + permissionId + '\'' +
+                '}';
+    }
 }

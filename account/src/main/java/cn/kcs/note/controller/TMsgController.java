@@ -2,9 +2,9 @@ package cn.kcs.note.controller;
 
 import cn.kcs.encrypt.anno.Decrypt;
 import cn.kcs.encrypt.anno.Encrypt;
-import cn.kcs.note.entity.ContactDto;
-import cn.kcs.note.entity.MsgDto;
 import cn.kcs.note.entity.TMsg;
+import cn.kcs.note.entity.dto.ContactDto;
+import cn.kcs.note.entity.dto.MsgDto;
 import cn.kcs.note.service.TMsgService;
 import cn.kcs.note.service.UserAccountService;
 import io.swagger.annotations.Api;

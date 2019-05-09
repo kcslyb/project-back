@@ -15,7 +15,8 @@
     <!--查询单个-->
     <select id="queryById" resultMap="TLoggerMap">
         select
-          log_id, log_access_user_id, log_access_user_name, log_access_type, log_access_url, log_access_ip, log_access_time
+        log_id, log_access_user_id, log_access_user_name, log_access_type, log_access_url, log_access_ip,
+        log_access_time
         from myproject.t_logger
         where log_id = #{logId}
     </select>
@@ -23,7 +24,8 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="TLoggerMap">
         select
-          log_id, log_access_user_id, log_access_user_name, log_access_type, log_access_url, log_access_ip, log_access_time
+        log_id, log_access_user_id, log_access_user_name, log_access_type, log_access_url, log_access_ip,
+        log_access_time
         from myproject.t_logger
         <where>
             <if test="logger.logId != null and logger.logId != ''">
@@ -55,7 +57,8 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="TLoggerMap">
         select
-          log_id, log_access_user_id, log_access_user_name, log_access_type, log_access_url, log_access_ip, log_access_time
+        log_id, log_access_user_id, log_access_user_name, log_access_type, log_access_url, log_access_ip,
+        log_access_time
         from myproject.t_logger
         <where>
             <if test="logId != null and logId != ''">
@@ -84,8 +87,10 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="logId" useGeneratedKeys="true">
-        insert into myproject.t_logger(log_id, log_access_user_id, log_access_user_name, log_access_type, log_access_url, log_access_ip, log_access_time)
-        values (#{logId}, #{logAccessUserId}, #{logAccessUserName}, #{logAccessType}, #{logAccessUrl}, #{logAccessIp}, #{logAccessTime})
+        insert into myproject.t_logger(log_id, log_access_user_id, log_access_user_name, log_access_type,
+        log_access_url, log_access_ip, log_access_time)
+        values (#{logId}, #{logAccessUserId}, #{logAccessUserName}, #{logAccessType}, #{logAccessUrl}, #{logAccessIp},
+        #{logAccessTime})
     </insert>
 
     <!--通过主键修改数据-->

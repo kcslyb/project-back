@@ -187,4 +187,25 @@ public class UserAccount implements Serializable {
         this.userUpdateTime = userUpdateTime;
     }
 
+    @Override
+    public String toString() {
+        return "UserAccount{" +
+                "userId='" + userId + '\'' +
+                ", userName='" + userName + '\'' +
+                ", userPhone='" + userPhone + '\'' +
+                ", userEmail='" + userEmail + '\'' +
+                ", userAvatar='" + userAvatar + '\'' +
+                ", userRole='" + userRole + '\'' +
+                ", userDepartment='" + userDepartment + '\'' +
+                ", userPassword='" + userPassword + '\'' +
+                ", userStatus='" + userStatus + '\'' +
+                ", userLoginNumber='" + userLoginNumber + '\'' +
+                ", userLastLoginTime=" + userLastLoginTime +
+                ", userCreateTime=" + userCreateTime +
+                ", userUpdateTime=" + userUpdateTime +
+                ", userRoleName='" + userRoleName + '\'' +
+                ", userPermission=" + userPermission +
+                ", userDepartmentName='" + userDepartmentName + '\'' +
+                '}';
+    }
 }

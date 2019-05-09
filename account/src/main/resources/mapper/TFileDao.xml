@@ -76,7 +76,7 @@
                 and file_id = #{fileId}
             </if>
             <if test="fileName != null and fileName != ''">
-                and file_name = #{fileName}
+                and file_name like concat('%',#{fileName},'%')
             </if>
             <if test="filePath != null and filePath != ''">
                 and file_path = #{filePath}

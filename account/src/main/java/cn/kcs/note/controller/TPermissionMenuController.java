@@ -6,6 +6,7 @@ import cn.kcs.note.entity.TPermissionMenu;
 import cn.kcs.note.service.TPermissionMenuService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -37,6 +38,7 @@ public class TPermissionMenuController {
     @Encrypt
     @ApiOperation(value = "通过主键查询单条数据")
     @GetMapping("{id}")
+    @Cacheable(value = "per-by-id")
     public TPermissionMenu selectOne(@PathVariable String id) {
         return this.tPermissionMenuService.queryById(id);
     }
@@ -93,6 +95,7 @@ public class TPermissionMenuController {
     @Encrypt
     @ApiOperation(value = "查询所以数据")
     @GetMapping("query")
+    @Cacheable(value = "query")
     public List<TPermissionMenu> query(TPermissionMenu tPermissionMenu) {
         List<TPermissionMenu> list = this.tPermissionMenuService.queryAll(tPermissionMenu);
         return list;

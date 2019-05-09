@@ -6,11 +6,11 @@ import cn.kcs.encrypt.anno.Encrypt;
 import cn.kcs.order.entity.Order;
 import cn.kcs.order.entity.dto.SimpleProduct;
 import cn.kcs.order.service.OrderService;
-import cn.kcs.rabbitmq.MsgReceiver;
 import cn.kcs.rabbitmq.MsgSender;
 import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -34,7 +34,7 @@ public class OrderController {
     private MsgSender msgSender;
 
     @Autowired
-    private MsgReceiver msgReceiver;
+    private Environment environment;
 
     /**
      * 通过主键查询单条数据
@@ -169,7 +169,11 @@ public class OrderController {
     public JSONObject serving(String orderId) {
         Order order = new Order();
         order.setOrderId(orderId);
-        msgSender.send(orderId);
+        try {
+            msgSender.sender(environment.getProperty("mq_msg_exchange_name"), environment.getProperty("mq_msg_routing_key_name"), orderId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return CommonUtil.successJson(this.orderService.serving(order));
     }
 

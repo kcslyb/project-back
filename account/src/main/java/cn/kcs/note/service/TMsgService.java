@@ -1,8 +1,8 @@
 package cn.kcs.note.service;
 
-import cn.kcs.note.entity.ContactDto;
-import cn.kcs.note.entity.MsgDto;
 import cn.kcs.note.entity.TMsg;
+import cn.kcs.note.entity.dto.ContactDto;
+import cn.kcs.note.entity.dto.MsgDto;
 
 import java.util.List;
 

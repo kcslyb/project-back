@@ -73,4 +73,15 @@ public class Tease implements Serializable {
         this.teaseDto = teaseDto;
     }
 
+    @Override
+    public String toString() {
+        return "Tease{" +
+                "teaseId='" + teaseId + '\'' +
+                ", teaseTitle='" + teaseTitle + '\'' +
+                ", teaseCreatby='" + teaseCreatby + '\'' +
+                ", teaseCreattime=" + teaseCreattime +
+                ", teaseContent='" + teaseContent + '\'' +
+                ", teaseDto='" + teaseDto + '\'' +
+                '}';
+    }
 }

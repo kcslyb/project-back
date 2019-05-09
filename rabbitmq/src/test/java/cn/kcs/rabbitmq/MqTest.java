@@ -12,6 +12,7 @@ import org.springframework.amqp.support.converter.AbstractJavaTypeMapper;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.env.Environment;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
@@ -26,32 +27,37 @@ public class MqTest {
     private ObjectMapper objectMapper = new ObjectMapper();
 
     @Autowired
+    private Environment environment;
+
+    @Autowired
     private RabbitTemplate rabbitTemplate;
 
     @Test
     public void msg() throws Exception {
-        rabbitTemplate.setExchange("msg.exchange.name");
-        rabbitTemplate.setRoutingKey("msg.routing.key.name");
+        rabbitTemplate.setExchange(environment.getProperty("mq_msg_exchange_name"));
+        rabbitTemplate.setRoutingKey(environment.getProperty("mq_msg_routing_key_name"));
         Message message = MessageBuilder
                 .withBody(objectMapper.writeValueAsBytes("msg msg"))
                 .setDeliveryMode(MessageDeliveryMode.PERSISTENT)
                 .build();
         message.getMessageProperties()
-                .setHeader(AbstractJavaTypeMapper.DEFAULT_CONTENT_CLASSID_FIELD_NAME, MessageProperties.CONTENT_TYPE_JSON);
+                .setHeader(AbstractJavaTypeMapper.DEFAULT_CONTENT_CLASSID_FIELD_NAME,
+                        MessageProperties.CONTENT_TYPE_JSON);
         rabbitTemplate.setMessageConverter(new Jackson2JsonMessageConverter());
         rabbitTemplate.convertAndSend(message);
     }
 
     @Test
     public void accept() throws Exception {
-        rabbitTemplate.setExchange("accept.exchange.name");
-        rabbitTemplate.setRoutingKey("accept.routing.key.name");
+        rabbitTemplate.setExchange(environment.getProperty("mq_accept_exchange_name"));
+        rabbitTemplate.setRoutingKey(environment.getProperty("mq_accept_routing_key_name"));
         Message message = MessageBuilder
                 .withBody(objectMapper.writeValueAsBytes("accept msg"))
                 .setDeliveryMode(MessageDeliveryMode.PERSISTENT)
                 .build();
         message.getMessageProperties()
-                .setHeader(AbstractJavaTypeMapper.DEFAULT_CONTENT_CLASSID_FIELD_NAME, MessageProperties.CONTENT_TYPE_JSON);
+                .setHeader(AbstractJavaTypeMapper.DEFAULT_CONTENT_CLASSID_FIELD_NAME,
+                        MessageProperties.CONTENT_TYPE_JSON);
         rabbitTemplate.setMessageConverter(new Jackson2JsonMessageConverter());
         rabbitTemplate.convertAndSend(message);
     }

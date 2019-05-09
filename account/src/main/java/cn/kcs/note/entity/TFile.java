@@ -112,4 +112,19 @@ public class TFile implements Serializable {
         this.fileType = fileType;
     }
 
+    @Override
+    public String toString() {
+        return "TFile{" +
+                "fileId='" + fileId + '\'' +
+                ", fileName='" + fileName + '\'' +
+                ", filePath='" + filePath + '\'' +
+                ", fileDescription='" + fileDescription + '\'' +
+                ", fileCreateTime=" + fileCreateTime +
+                ", fileSize='" + fileSize + '\'' +
+                ", fileType='" + fileType + '\'' +
+                ", fileOwner='" + fileOwner + '\'' +
+                ", fileOwnerName='" + fileOwnerName + '\'' +
+                ", fileDownloadNumber='" + fileDownloadNumber + '\'' +
+                '}';
+    }
 }

@@ -2,6 +2,7 @@ package cn.kcs.note.entity.dto;
 
 import cn.kcs.note.entity.TPermissionMenu;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -9,7 +10,7 @@ import java.util.List;
  * @author: kcs
  * @create: 2019-03-22 10:56
  **/
-public class RolePermission {
+public class RolePermission implements Serializable {
 
     List<TPermissionMenu> permissions;
     private String roleId;
@@ -48,4 +49,13 @@ public class RolePermission {
         this.roleDescription = roleDescription;
     }
 
+    @Override
+    public String toString() {
+        return "RolePermission{" +
+                "permissions=" + permissions +
+                ", roleId='" + roleId + '\'' +
+                ", roleName='" + roleName + '\'' +
+                ", roleDescription='" + roleDescription + '\'' +
+                '}';
+    }
 }

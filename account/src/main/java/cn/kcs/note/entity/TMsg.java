@@ -83,4 +83,16 @@ public class TMsg implements Serializable {
         this.msgStandby = msgStandby;
     }
 
+    @Override
+    public String toString() {
+        return "TMsg{" +
+                "msgId='" + msgId + '\'' +
+                ", msgSender='" + msgSender + '\'' +
+                ", msgReceiver='" + msgReceiver + '\'' +
+                ", msgContent='" + msgContent + '\'' +
+                ", msgCreattime=" + msgCreattime +
+                ", msgStatus='" + msgStatus + '\'' +
+                ", msgStandby='" + msgStandby + '\'' +
+                '}';
+    }
 }

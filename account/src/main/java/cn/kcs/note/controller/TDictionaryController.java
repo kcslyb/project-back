@@ -7,6 +7,7 @@ import cn.kcs.note.entity.dto.DictionaryDto;
 import cn.kcs.note.service.TDictionaryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -66,6 +67,7 @@ public class TDictionaryController {
     @Encrypt
     @ApiOperation(value = "通过实体查询所有数据")
     @GetMapping("query")
+    @Cacheable(value = "file-query-all")
     public List<DictionaryDto> queryAll(TDictionary tDictionary) {
         return this.tDictionaryService.queryAll(tDictionary);
     }
@@ -120,6 +122,7 @@ public class TDictionaryController {
     @Encrypt
     @ApiOperation(value = "查询所以数据")
     @GetMapping("query/pager")
+    @Cacheable(value = "dictionary-query-pager")
     public List<TDictionary> query(Integer offset, Integer limit) {
         List<TDictionary> tAccounts = this.tDictionaryService.queryAllByLimit(offset, limit);
         return tAccounts;

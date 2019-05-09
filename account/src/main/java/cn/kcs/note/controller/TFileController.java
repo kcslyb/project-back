@@ -169,10 +169,10 @@ public class TFileController {
             }
             String filename = file.getOriginalFilename();
             TFile temp = new TFile();
-            temp.setFileName(filename);
+            String[] str = filename.split("\\.");
+            temp.setFileName(str[0].substring(0, str[0].length() - 2));
             List<TFile> tFiles = tFileService.queryAll(temp);
             if (ListUtil.notNullAndEmpty(tFiles)) {
-                String[] str = filename.split("\\.");
                 filename = str[0] + tFiles.size() + "." + str[1];
             }
             Path path = Paths.get(UPLOAD_FOLDER_PATH + contentType + filename);

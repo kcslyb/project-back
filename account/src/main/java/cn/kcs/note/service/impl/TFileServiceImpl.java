@@ -7,6 +7,7 @@ import cn.kcs.note.dao.TFileDao;
 import cn.kcs.note.entity.TFile;
 import cn.kcs.note.service.TFileService;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -42,11 +43,13 @@ public class TFileServiceImpl implements TFileService {
      * @return 对象列表
      */
     @Override
+    @Cacheable(value = "file-query-limit")
     public List<TFile> queryAllByLimit(TFile tFile, int offset, int limit) {
         return this.tFileDao.queryAllByLimit(tFile, offset, limit);
     }
 
     @Override
+    @Cacheable(value = "file-query-all")
     public List<TFile> queryAll(TFile tFile) {
         return this.tFileDao.queryAll(tFile);
     }

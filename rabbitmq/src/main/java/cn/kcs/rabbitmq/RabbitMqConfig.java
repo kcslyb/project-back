@@ -20,11 +20,11 @@ import org.springframework.core.env.Environment;
  * @create: 2019-05-05 16:18
  **/
 @Configuration
-public class RabbitConfig {
+public class RabbitMqConfig {
 
-    private static final Logger log = LoggerFactory.getLogger(RabbitConfig.class);
+    private static final Logger log = LoggerFactory.getLogger(RabbitMqConfig.class);
     @Autowired
-    private Environment env;
+    private Environment environment;
     @Autowired
     private CachingConnectionFactory connectionFactory;
     @Autowired
@@ -32,32 +32,32 @@ public class RabbitConfig {
 
     @Bean
     public Queue queue() {
-        return new Queue("msg", true);
+        return new Queue(environment.getProperty("mq_msg_queue_name"), true);
     }
 
     @Bean
     public DirectExchange queueExchange() {
-        return new DirectExchange("msg.exchange.name", true, false);
+        return new DirectExchange(environment.getProperty("mq_msg_exchange_name"), true, false);
     }
 
     @Bean
     public Binding queueBinding() {
-        return BindingBuilder.bind(queue()).to(queueExchange()).with("msg.routing.key.name");
+        return BindingBuilder.bind(queue()).to(queueExchange()).with(environment.getProperty("mq_msg_routing_key_name"));
     }
 
     @Bean
     public Queue acceptQueue() {
-        return new Queue("accept", true);
+        return new Queue(environment.getProperty("mq_accept_queue_name"), true);
     }
 
     @Bean
     public DirectExchange acceptQueueExchange() {
-        return new DirectExchange("accept.exchange.name", true, false);
+        return new DirectExchange(environment.getProperty("mq_accept_exchange_name"), true, false);
     }
 
     @Bean
     public Binding acceptQueueBinding() {
-        return BindingBuilder.bind(acceptQueue()).to(acceptQueueExchange()).with("accept.routing.key.name");
+        return BindingBuilder.bind(acceptQueue()).to(acceptQueueExchange()).with(environment.getProperty("mq_accept_routing_key_name"));
     }
 
     /**
@@ -89,9 +89,9 @@ public class RabbitConfig {
         factoryConfigurer.configure(factory, connectionFactory);
         factory.setMessageConverter(new Jackson2JsonMessageConverter());
         factory.setAcknowledgeMode(AcknowledgeMode.NONE);
-        factory.setConcurrentConsumers(env.getProperty("spring.rabbitmq.listener.concurrency", int.class));
-        factory.setMaxConcurrentConsumers(env.getProperty("spring.rabbitmq.listener.max-concurrency", int.class));
-        factory.setPrefetchCount(env.getProperty("spring.rabbitmq.listener.prefetch", int.class));
+        factory.setConcurrentConsumers(environment.getProperty("spring.rabbitmq.listener.concurrency", int.class));
+        factory.setMaxConcurrentConsumers(environment.getProperty("spring.rabbitmq.listener.max-concurrency", int.class));
+        factory.setPrefetchCount(environment.getProperty("spring.rabbitmq.listener.prefetch", int.class));
         return factory;
     }
 

@@ -1,4 +1,4 @@
-package cn.kcs.note.controller.shiro;
+package cn.kcs.user.shiro;
 
 import cn.kcs.common.loginInfo.LoginInfo;
 import cn.kcs.common.util.DataUtil;

@@ -3,6 +3,7 @@ package cn.kcs.note.entity.dto;
 import cn.kcs.note.entity.UserAccount;
 import cn.kcs.note.entity.UserDepartment;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ import java.util.List;
  * @author: kcs
  * @create: 2019-03-22 16:54
  **/
-public class DepartmentDto {
+public class DepartmentDto implements Serializable {
 
     private UserDepartment userDepartment;
 
@@ -30,5 +31,13 @@ public class DepartmentDto {
 
     public void setUserAccounts(List<UserAccount> userAccounts) {
         this.userAccounts = userAccounts;
+    }
+
+    @Override
+    public String toString() {
+        return "DepartmentDto{" +
+                "userDepartment=" + userDepartment +
+                ", userAccounts=" + userAccounts +
+                '}';
     }
 }

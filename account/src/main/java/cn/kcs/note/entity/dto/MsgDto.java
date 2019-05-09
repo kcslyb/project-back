@@ -1,5 +1,8 @@
-package cn.kcs.note.entity;
+package cn.kcs.note.entity.dto;
 
+import cn.kcs.note.entity.TMsg;
+
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -7,7 +10,7 @@ import java.util.List;
  * @author: kcs
  * @create: 2019-01-02 15:39
  **/
-public class MsgDto {
+public class MsgDto implements Serializable {
     private Integer infoNumber;
     private Integer start;
     private Integer limit;
@@ -88,5 +91,20 @@ public class MsgDto {
 
     public void setMsgs(List<TMsg> msgs) {
         this.msgs = msgs;
+    }
+
+    @Override
+    public String toString() {
+        return "MsgDto{" +
+                "infoNumber=" + infoNumber +
+                ", start=" + start +
+                ", limit=" + limit +
+                ", userName='" + userName + '\'' +
+                ", msgSender='" + msgSender + '\'' +
+                ", msgReceiver='" + msgReceiver + '\'' +
+                ", msgContent='" + msgContent + '\'' +
+                ", standby='" + standby + '\'' +
+                ", msgs=" + msgs +
+                '}';
     }
 }

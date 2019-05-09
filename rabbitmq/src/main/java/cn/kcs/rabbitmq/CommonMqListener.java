@@ -24,7 +24,7 @@ public class CommonMqListener {
      *
      * @param message
      */
-    @RabbitListener(queues = "msg", containerFactory = "singleListenerContainer")
+    @RabbitListener(queues = "msg_queue_name", containerFactory = "singleListenerContainer")
     public void consumeUserMsg(@Payload byte[] message) {
         try {
 //            log.info("[--]监听到消息： {} ", objectMapper.writeValueAsString(message));
@@ -39,7 +39,7 @@ public class CommonMqListener {
      *
      * @param message
      */
-    @RabbitListener(queues = "accept", containerFactory = "multiListenerContainer")
+    @RabbitListener(queues = "accept_queue_name", containerFactory = "multiListenerContainer")
     public void consumeUserAccept(@Payload byte[] message) {
         try {
 //            log.info("[--]监听到消息： {} ", objectMapper.writeValueAsString(message));

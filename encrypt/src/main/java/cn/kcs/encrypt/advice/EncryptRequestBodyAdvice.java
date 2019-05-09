@@ -76,7 +76,7 @@ class DecryptHttpInputMessage implements HttpInputMessage {
         long startTime = System.currentTimeMillis();
         // JSON 数据格式的不进行解密操作
         String decryptBody = "";
-        if (content.startsWith("{")) {
+        if (content.startsWith("{") || content.startsWith("[")) {
             decryptBody = content;
         } else {
             decryptBody = AesEncryptUtils.aesDecrypt(content, key);

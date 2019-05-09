@@ -82,4 +82,16 @@ public class TPermissionMenu implements Serializable {
         this.permpath = permpath;
     }
 
+    @Override
+    public String toString() {
+        return "TPermissionMenu{" +
+                "permid='" + permid + '\'' +
+                ", permtype='" + permtype + '\'' +
+                ", permvalue='" + permvalue + '\'' +
+                ", permparent='" + permparent + '\'' +
+                ", permchild='" + permchild + '\'' +
+                ", permkey='" + permkey + '\'' +
+                ", permpath='" + permpath + '\'' +
+                '}';
+    }
 }
