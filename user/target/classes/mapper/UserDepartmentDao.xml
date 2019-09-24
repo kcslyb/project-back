@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "./mybatis-3-mapper.dtd">
+<mapper namespace="cn.kcs.user.dao.UserDepartmentDao">
+
+    <resultMap type="cn.kcs.user.entity.UserDepartment" id="UserDepartmentMap">
+        <result property="departmentId" column="department_id" jdbcType="VARCHAR"/>
+        <result property="departmentName" column="department_name" jdbcType="VARCHAR"/>
+        <result property="departmentNumber" column="department_number" jdbcType="VARCHAR"/>
+        <result property="departmentDescribe" column="department_describe" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="UserDepartmentMap">
+        select
+          department_id, department_name, department_number, department_describe
+        from myproject.user_department
+        where department_id = #{departmentId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="UserDepartmentMap">
+        select
+          department_id, department_name, department_number, department_describe
+        from myproject.user_department
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="UserDepartmentMap">
+        select
+        department_id, department_name, department_number, department_describe
+        from myproject.user_department
+        <where>
+            <if test="departmentId != null and departmentId != ''">
+                and department_id = #{departmentId}
+            </if>
+            <if test="departmentName != null and departmentName != ''">
+                and department_name = #{departmentName}
+            </if>
+            <if test="departmentNumber != null and departmentNumber != ''">
+                and department_number = #{departmentNumber}
+            </if>
+            <if test="departmentDescribe != null and departmentDescribe != ''">
+                and department_describe = #{departmentDescribe}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="departmentId" useGeneratedKeys="true">
+        insert into myproject.user_department(department_id, department_name, department_number, department_describe)
+        values (#{departmentId}, #{departmentName}, #{departmentNumber}, #{departmentDescribe})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update myproject.user_department
+        <set>
+            <if test="departmentName != null and departmentName != ''">
+                department_name = #{departmentName},
+            </if>
+            <if test="departmentNumber != null and departmentNumber != ''">
+                department_number = #{departmentNumber},
+            </if>
+            <if test="departmentDescribe != null and departmentDescribe != ''">
+                department_describe = #{departmentDescribe},
+            </if>
+        </set>
+        where department_id = #{departmentId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from myproject.user_department where department_id = #{departmentId}
+    </delete>
+
+</mapper>

@@ -19,6 +19,16 @@ public class TOrderProduct implements Serializable {
 
     private Integer orderProductNumber;
 
+    private Integer orderProductStatus;
+
+    public Integer getOrderProductStatus() {
+        return orderProductStatus;
+    }
+
+    public void setOrderProductStatus(Integer orderProductStatus) {
+        this.orderProductStatus = orderProductStatus;
+    }
+
     public String getOrderProductId() {
         return orderProductId;
     }

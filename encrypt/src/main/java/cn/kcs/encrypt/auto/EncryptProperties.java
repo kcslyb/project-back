@@ -2,6 +2,9 @@ package cn.kcs.encrypt.auto;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+/**
+ * @author kcs
+ */
 @ConfigurationProperties(prefix = "spring.encrypt")
 public class EncryptProperties {
     /**

@@ -4,11 +4,13 @@ import cn.kcs.common.util.CommonUtil;
 import cn.kcs.encrypt.anno.Decrypt;
 import cn.kcs.encrypt.anno.Encrypt;
 import cn.kcs.order.entity.Order;
+import cn.kcs.order.entity.dto.OrderGoodsSimpleDto;
 import cn.kcs.order.entity.dto.SimpleProduct;
 import cn.kcs.order.service.OrderService;
 import cn.kcs.rabbitmq.MsgSender;
 import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.*;
@@ -94,16 +96,36 @@ public class OrderController {
     /**
      * 通过OrderId 和 ProductId 添加订单货品
      *
-     * @param orderId
-     * @param simpleProduct
+     * @param orderGoodsSimpleDto
      * @return
      */
     @Decrypt
     @Encrypt
     @ApiOperation(value = "添加订单货品")
-    @DeleteMapping("product/add")
-    public JSONObject insertByOrderIdAndProductId(String orderId, SimpleProduct simpleProduct) {
-        if (orderService.insertByOrderIdAndProductId(orderId, simpleProduct)) {
+    @PostMapping("product/add")
+    public JSONObject insertByOrderIdAndProductId(@RequestBody OrderGoodsSimpleDto orderGoodsSimpleDto) {
+        if (CollectionUtils.isEmpty(orderGoodsSimpleDto.getOrderProductIds())) {
+            return CommonUtil.errorJson();
+        }
+        if (orderService.insertByOrderIdAndProductId(orderGoodsSimpleDto)) {
+            return CommonUtil.successJson();
+        }
+        return CommonUtil.errorJson();
+
+    }
+
+    /**
+     * 通过OrderId 和 ProductId 添加订单货品
+     *
+     * @param orderGoodsSimpleDto
+     * @return
+     */
+    @Decrypt
+    @Encrypt
+    @ApiOperation(value = "修改订单货品")
+    @PutMapping("product/update")
+    public JSONObject updateByOrderIdAndProductId(@RequestBody OrderGoodsSimpleDto orderGoodsSimpleDto) {
+        if (orderService.updateByOrderIdAndProductId(orderGoodsSimpleDto)) {
             return CommonUtil.successJson();
         }
         return CommonUtil.errorJson();
@@ -157,23 +179,18 @@ public class OrderController {
     }
 
     /**
-     * 结算订单
+     * 上菜
      *
      * @param orderId
      * @return
      */
     @Encrypt
     @Decrypt
-    @ApiOperation(value = "结算订单")
+    @ApiOperation(value = "上菜")
     @PostMapping("/serving")
     public JSONObject serving(String orderId) {
         Order order = new Order();
         order.setOrderId(orderId);
-        try {
-            msgSender.sender(environment.getProperty("mq_msg_exchange_name"), environment.getProperty("mq_msg_routing_key_name"), orderId);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         return CommonUtil.successJson(this.orderService.serving(order));
     }
 

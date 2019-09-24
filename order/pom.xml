@@ -3,15 +3,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>myproject</artifactId>
+        <artifactId>project</artifactId>
         <groupId>cn.kcs</groupId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.0.RELEASE</version>
     </parent>
     <groupId>cn.kcs</groupId>
     <artifactId>order</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.RELEASE</version>
     <name>order</name>
-    <description>Demo project for EasyPoi</description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -22,19 +21,26 @@
         <dependency>
             <groupId>cn.kcs</groupId>
             <artifactId>common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>cn.kcs</groupId>
-            <artifactId>account</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <artifactId>user</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>cn.kcs</groupId>
             <artifactId>rabbitmq</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.4</version>
         </dependency>
 
         <dependency>

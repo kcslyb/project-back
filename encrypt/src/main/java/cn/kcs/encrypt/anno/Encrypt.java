@@ -7,6 +7,7 @@ import java.lang.annotation.*;
  *
  * <p>加了此注解的接口将进行数据加密操作<p>
  *
+ * @author kcs
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

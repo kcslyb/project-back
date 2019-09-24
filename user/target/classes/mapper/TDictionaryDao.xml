@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "./mybatis-3-mapper.dtd">
+<mapper namespace="cn.kcs.user.dao.TDictionaryDao">
+
+    <resultMap type="cn.kcs.user.entity.TDictionary" id="TDictionaryMap">
+        <result property="dictionaryId" column="dictionary_id" jdbcType="VARCHAR"/>
+        <result property="dictionaryGroupName" column="dictionary_group_name" jdbcType="VARCHAR"/>
+        <result property="dictionaryKey" column="dictionary_key" jdbcType="VARCHAR"/>
+        <result property="dictionaryLabel" column="dictionary_label" jdbcType="VARCHAR"/>
+        <result property="dictionaryIndex" column="dictionary_index" jdbcType="VARCHAR"/>
+        <result property="dictionaryCreateTime" column="dictionary_create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="TDictionaryMap">
+        select
+          dictionary_id, dictionary_group_name, dictionary_key, dictionary_label, dictionary_index, dictionary_create_time
+        from myproject.t_dictionary
+        where dictionary_id = #{dictionaryId}
+    </select>
+
+    <!--查询单个-->
+    <select id="getDictionaryByKey" resultMap="TDictionaryMap">
+        select
+          dictionary_id, dictionary_group_name, dictionary_key, dictionary_label, dictionary_index, dictionary_create_time
+        from myproject.t_dictionary
+        where dictionary_key = #{key}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="TDictionaryMap">
+        select
+          dictionary_id, dictionary_group_name, dictionary_key, dictionary_label, dictionary_index, dictionary_create_time
+        from myproject.t_dictionary
+        order by dictionary_create_time DESC
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--查询数据组-->
+    <select id="queryGroupByName" resultType="String">
+        select
+          dictionary_group_name
+        from myproject.t_dictionary
+        group by dictionary_group_name
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="TDictionaryMap">
+        select
+        dictionary_id, dictionary_group_name, dictionary_key, dictionary_label, dictionary_index, dictionary_create_time
+        from myproject.t_dictionary
+        <where>
+            <if test="dictionaryId != null and dictionaryId != ''">
+                and dictionary_id = #{dictionaryId}
+            </if>
+            <if test="dictionaryGroupName != null and dictionaryGroupName != ''">
+                and dictionary_group_name = #{dictionaryGroupName}
+            </if>
+            <if test="dictionaryKey != null and dictionaryKey != ''">
+                and dictionary_key = #{dictionaryKey}
+            </if>
+            <if test="dictionaryLabel != null and dictionaryLabel != ''">
+                and dictionary_label = #{dictionaryLabel}
+            </if>
+            <if test="dictionaryIndex != null and dictionaryIndex != ''">
+                and dictionary_index = #{dictionaryIndex}
+            </if>
+            <if test="dictionaryCreateTime != null">
+                and dictionary_create_time = #{dictionaryCreateTime}
+            </if>
+        </where>
+        ORDER BY dictionary_key ASC
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="dictionaryId" useGeneratedKeys="true">
+        insert into myproject.t_dictionary(dictionary_id, dictionary_group_name, dictionary_key, dictionary_label, dictionary_index, dictionary_create_time)
+        values (#{dictionaryId}, #{dictionaryGroupName}, #{dictionaryKey}, #{dictionaryLabel}, #{dictionaryIndex}, #{dictionaryCreateTime})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update myproject.t_dictionary
+        <set>
+            <if test="dictionaryGroupName != null and dictionaryGroupName != ''">
+                dictionary_group_name = #{dictionaryGroupName},
+            </if>
+            <if test="dictionaryKey != null and dictionaryKey != ''">
+                dictionary_key = #{dictionaryKey},
+            </if>
+            <if test="dictionaryLabel != null and dictionaryLabel != ''">
+                dictionary_label = #{dictionaryLabel},
+            </if>
+            <if test="dictionaryIndex != null and dictionaryIndex != ''">
+                dictionary_index = #{dictionaryIndex},
+            </if>
+            <if test="dictionaryCreateTime != null">
+                dictionary_create_time = #{dictionaryCreateTime},
+            </if>
+        </set>
+        where dictionary_id = #{dictionaryId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from myproject.t_dictionary where dictionary_id = #{dictionaryId}
+    </delete>
+
+</mapper>

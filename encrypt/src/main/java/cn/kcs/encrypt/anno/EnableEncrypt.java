@@ -20,6 +20,7 @@ import java.lang.annotation.*;
  * }
  * <pre>
  *
+ * @author kcs
  */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)

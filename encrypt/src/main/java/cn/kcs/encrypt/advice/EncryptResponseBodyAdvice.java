@@ -17,10 +17,9 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 /**
- * 请求响应处理类<br>
- * <p>
  * 对加了@Encrypt的方法的数据进行加密操作
  *
+ * @author kcs
  */
 @ControllerAdvice
 public class EncryptResponseBodyAdvice implements ResponseBodyAdvice<Object> {
@@ -35,15 +34,17 @@ public class EncryptResponseBodyAdvice implements ResponseBodyAdvice<Object> {
         encryptLocal.set(status);
     }
 
+    @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
         return true;
     }
 
+    @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType,
                                   Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
         // 可以通过调用EncryptResponseBodyAdvice.setEncryptStatus(false);来动态设置不加密操作
         Boolean status = encryptLocal.get();
-        if (status != null && status == false) {
+        if (status != null && !status) {
             encryptLocal.remove();
             return body;
         }

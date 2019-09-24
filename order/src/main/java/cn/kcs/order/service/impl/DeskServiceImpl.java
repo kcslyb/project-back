@@ -1,7 +1,7 @@
 package cn.kcs.order.service.impl;
 
-import cn.kcs.common.daoUtil.ShortUUID;
-import cn.kcs.common.util.DataUtil;
+import cn.kcs.common.util.CustomDateUtil;
+import cn.kcs.common.uuidutil.ShortUUID;
 import cn.kcs.order.dao.DeskDao;
 import cn.kcs.order.entity.Desk;
 import cn.kcs.order.service.DeskService;
@@ -63,7 +63,7 @@ public class DeskServiceImpl implements DeskService {
     @Override
     public Desk insert(Desk desk) {
         desk.setDeskId(ShortUUID.generate());
-        desk.setDeskCreateTime(DataUtil.currentFormatDate());
+        desk.setDeskCreateTime(CustomDateUtil.currentFormatDate());
         this.deskDao.insert(desk);
         return desk;
     }

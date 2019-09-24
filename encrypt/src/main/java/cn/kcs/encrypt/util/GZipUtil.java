@@ -7,12 +7,18 @@ import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
 /**
- * @description:
- * @author: kcs
- * @create: 2019-03-14 10:29
+ *
+ * @author kcs
+ * @date 2019-03-14 10:29
  **/
 public class GZipUtil {
-    // 压缩
+    /**
+     * 压缩
+     *
+     * @param data
+     * @return
+     * @throws IOException
+     */
     public static byte[] compress(byte[] data) throws IOException {
         if (data == null || data.length == 0) {
             return null;
@@ -21,7 +27,7 @@ public class GZipUtil {
         GZIPOutputStream gzip = new GZIPOutputStream(out);
         gzip.write(data);
         gzip.close();
-        return out.toByteArray();//out.toString("ISO-8859-1");
+        return out.toByteArray();
     }
 
     public static byte[] compress(String str) throws IOException {
@@ -31,7 +37,12 @@ public class GZipUtil {
         return compress(str.getBytes("utf-8"));
     }
 
-    // 解压缩
+    /**
+     * 解压缩
+     * @param data
+     * @return
+     * @throws IOException
+     */
     public static byte[] uncompress(byte[] data) throws IOException {
         if (data == null || data.length == 0) {
             return data;
@@ -53,7 +64,7 @@ public class GZipUtil {
         if (str == null || str.length() == 0) {
             return str;
         }
-        byte[] data = uncompress(str.getBytes("utf-8")); // ISO-8859-1
+        byte[] data = uncompress(str.getBytes("utf-8"));
         return new String(data);
     }
 }

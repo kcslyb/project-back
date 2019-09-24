@@ -1,23 +1,20 @@
 package cn.kcs.common.exception;
 
-import cn.kcs.common.util.CommonUtil;
-import cn.kcs.common.util.constants.ErrorEnum;
-import com.alibaba.fastjson.JSONObject;
 import org.apache.shiro.authz.UnauthenticatedException;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-
 /**
- * @description:
- * @author: kcs
- * @create: 2018-10-26 11:20
+ *
+ * @author kcs
+ * @date 2018-10-26 11:20
  **/
 @ControllerAdvice
 @ResponseBody
@@ -25,7 +22,7 @@ public class GlobalExceptionHandler {
     private Logger logger = LoggerFactory.getLogger("GlobalExceptionHandler");
 
     @ExceptionHandler(value = Exception.class)
-    public JSONObject defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {
+    public ResponseEntity defaultErrorHandler(Exception e) throws Exception {
         String errorPosition = "";
         //如果错误堆栈信息存在
         if (e.getStackTrace().length > 0) {
@@ -34,14 +31,8 @@ public class GlobalExceptionHandler {
             int lineNumber = element.getLineNumber();
             errorPosition = fileName + ":" + lineNumber;
         }
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("status", ErrorEnum.E_501.getStatus());
-        jsonObject.put("message", ErrorEnum.E_501.getMessage());
-        JSONObject errorObject = new JSONObject();
-        errorObject.put("errorLocation", e.toString() + "    错误位置:" + errorPosition);
-        jsonObject.put("data", errorObject);
-        logger.error("异常", e);
-        return jsonObject;
+        logger.error("服务器异常{}；错误位置:{}", e.getMessage(), errorPosition);
+        return new ResponseEntity<>(errorPosition, HttpStatus.NOT_IMPLEMENTED);
     }
 
     /**
@@ -53,8 +44,8 @@ public class GlobalExceptionHandler {
      * @throws Exception
      */
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-    public JSONObject httpRequestMethodHandler() throws Exception {
-        return CommonUtil.errorJson(ErrorEnum.E_500);
+    public ResponseEntity httpRequestMethodHandler() throws Exception {
+        return new ResponseEntity<>("请求方式错误", HttpStatus.METHOD_NOT_ALLOWED);
     }
 
     /**
@@ -62,13 +53,13 @@ public class GlobalExceptionHandler {
      * 拦截到此错误之后,就返回这个类里面的json给前端
      * 常见使用场景是参数校验失败,抛出此错,返回错误信息给前端
      *
-     * @param commonJsonException
+     * @param
      * @return
      * @throws Exception
      */
-    @ExceptionHandler(CommonJsonException.class)
-    public JSONObject commonJsonExceptionHandler(CommonJsonException commonJsonException) throws Exception {
-        return commonJsonException.getResultJson();
+    @ExceptionHandler(CustomException.class)
+    public ResponseEntity customExceptionHandler(CustomException customException) throws Exception {
+        return new ResponseEntity<>(customException.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
     /**
@@ -78,8 +69,8 @@ public class GlobalExceptionHandler {
      * @throws Exception
      */
     @ExceptionHandler(UnauthorizedException.class)
-    public JSONObject unauthorizedExceptionHandler() throws Exception {
-        return CommonUtil.errorJson(ErrorEnum.E_502);
+    public ResponseEntity unauthorizedExceptionHandler(Exception e) throws Exception {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
     }
 
     /**
@@ -90,7 +81,7 @@ public class GlobalExceptionHandler {
      * @throws Exception
      */
     @ExceptionHandler(UnauthenticatedException.class)
-    public JSONObject unauthenticatedException() throws Exception {
-        return CommonUtil.errorJson(ErrorEnum.E_201);
+    public ResponseEntity unauthenticatedException(Exception e) throws Exception {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }

@@ -23,6 +23,7 @@ import java.util.Set;
  * <p>
  * sign=加密({参数：值, 参数2：值2, signTime:签名时间戳})
  *
+ * @author kcs
  */
 public class SignAuthFilter implements Filter {
 

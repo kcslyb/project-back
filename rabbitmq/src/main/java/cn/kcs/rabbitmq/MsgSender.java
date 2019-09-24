@@ -9,14 +9,14 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.AbstractJavaTypeMapper;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * @description: Sender
  * @author: kcs
  * @create: 2019-05-05 16:22
  **/
-@Component
+@Configuration
 public class MsgSender {
 
     @Autowired

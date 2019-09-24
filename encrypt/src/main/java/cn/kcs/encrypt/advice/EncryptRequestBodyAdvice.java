@@ -24,6 +24,7 @@ import java.lang.reflect.Type;
  * 对加了@Decrypt的方法的数据进行解密操作<br>
  * <p>
  * 只对@RequestBody参数有效
+ * @author kcs
  */
 @ControllerAdvice
 public class EncryptRequestBodyAdvice implements RequestBodyAdvice {

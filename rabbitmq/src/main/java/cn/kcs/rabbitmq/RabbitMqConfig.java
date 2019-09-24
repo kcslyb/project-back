@@ -105,7 +105,7 @@ public class RabbitMqConfig {
         rabbitTemplate.setConfirmCallback(new RabbitTemplate.ConfirmCallback() {
             @Override
             public void confirm(CorrelationData correlationData, boolean ack, String cause) {
-                log.info("消息发送成功:correlationData({}),ack({}),cause({})", correlationData, ack, cause);
+                log.info("消息确认成功---:correlationData({}),ack:({}),cause:({})", correlationData, ack, cause);
             }
         });
         rabbitTemplate.setReturnCallback(new RabbitTemplate.ReturnCallback() {

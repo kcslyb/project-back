@@ -7,12 +7,13 @@
         <result property="orderId" column="order_id" jdbcType="VARCHAR"/>
         <result property="productId" column="product_id" jdbcType="VARCHAR"/>
         <result property="orderProductNumber" column="order_product_number" jdbcType="INTEGER"/>
+        <result property="orderProductStatus" column="order_product_status" jdbcType="INTEGER"/>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="TOrderProductMap">
         select
-        order_product_id, order_id, product_id, order_product_number
+        order_product_id, order_id, product_id, order_product_number, order_product_status
         from myproject.t_order_product
         where order_product_id = #{orderProductId}
     </select>
@@ -20,7 +21,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="TOrderProductMap">
         select
-        order_product_id, order_id, product_id, order_product_number
+        order_product_id, order_id, product_id, order_product_number, order_product_status
         from myproject.t_order_product
         limit #{offset}, #{limit}
     </select>
@@ -28,7 +29,7 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="TOrderProductMap">
         select
-        order_product_id, order_id, product_id, order_product_number
+        order_product_id, order_id, product_id, order_product_number, order_product_status
         from myproject.t_order_product
         <where>
             <if test="orderProductId != null and orderProductId != ''">
@@ -43,13 +44,17 @@
             <if test="orderProductNumber != null">
                 and order_product_number = #{orderProductNumber}
             </if>
+            <if test="orderProductStatus != null">
+                and order_product_status = #{orderProductStatus}
+            </if>
         </where>
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="orderProductId" useGeneratedKeys="true">
-        insert into myproject.t_order_product(order_product_id, order_id, product_id, order_product_number)
-        values (#{orderProductId}, #{orderId}, #{productId}, #{orderProductNumber})
+        insert into myproject.t_order_product(order_product_id, order_id, product_id, order_product_number,
+        order_product_status)
+        values (#{orderProductId}, #{orderId}, #{productId}, #{orderProductNumber}, #{orderProductStatus})
     </insert>
 
     <!--通过主键修改数据-->
@@ -64,6 +69,9 @@
             </if>
             <if test="orderProductNumber != null">
                 order_product_number = #{orderProductNumber},
+            </if>
+            <if test="orderProductStatus != null">
+                order_product_status = #{orderProductStatus},
             </if>
         </set>
         where order_product_id = #{orderProductId}

@@ -1,8 +1,9 @@
 package cn.kcs.order.service;
 
 import cn.kcs.order.entity.Order;
-import cn.kcs.order.entity.Product;
 import cn.kcs.order.entity.dto.OrderDto;
+import cn.kcs.order.entity.dto.OrderGoodsDto;
+import cn.kcs.order.entity.dto.OrderGoodsSimpleDto;
 import cn.kcs.order.entity.dto.SimpleProduct;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public interface OrderService {
      */
     OrderDto queryById(String orderId);
 
-    List<Product> queryOrderGoodsByOrderId(String orderId);
+    List<OrderGoodsDto> queryOrderGoodsByOrderId(String orderId);
 
     /**
      * 查询多条数据
@@ -77,11 +78,18 @@ public interface OrderService {
     /**
      * 通过OrderId 和 ProductId 添加订单货品
      *
-     * @param orderId
-     * @param simpleProduct
+     * @param orderGoodsSimpleDto
      * @return
      */
-    boolean insertByOrderIdAndProductId(String orderId, SimpleProduct simpleProduct);
+    boolean insertByOrderIdAndProductId(OrderGoodsSimpleDto orderGoodsSimpleDto);
+
+    /**
+     * 通过OrderId 和 ProductId 修改订单货品
+     *
+     * @param orderGoodsSimpleDto
+     * @return
+     */
+    boolean updateByOrderIdAndProductId(OrderGoodsSimpleDto orderGoodsSimpleDto);
 
     /**
      * 通过主键删除数据

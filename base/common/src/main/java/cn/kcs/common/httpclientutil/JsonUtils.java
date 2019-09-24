@@ -1,11 +1,11 @@
 package cn.kcs.common.httpclientutil;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.util.StringUtils;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @description: JSON装换工具
@@ -74,4 +74,15 @@ public class JsonUtils {
         return map;
     }
 
+    public static <T> List<T> jsonToObjectList(String json, Class<T> tClass) {
+        JSONObject temp = JSON.parseObject(json);
+        JSONArray array = temp.getJSONArray("message");
+        List<T> list = new ArrayList<>();
+        for (Object o : array) {
+            JSONObject record = (JSONObject) o;
+            T code = JSONObject.toJavaObject(record, tClass);
+            list.add(code);
+        }
+        return list;
+    }
 }

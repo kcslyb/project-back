@@ -1,16 +1,16 @@
 package cn.kcs.order.service.impl;
 
-import cn.kcs.common.daoUtil.ShortUUID;
-import cn.kcs.common.loginInfo.LoginInfo;
-import cn.kcs.common.util.DataUtil;
-import cn.kcs.note.dao.TFileDao;
-import cn.kcs.note.dao.UserAccountDao;
+import cn.kcs.common.logininfo.LoginInfo;
+import cn.kcs.common.util.CustomDateUtil;
+import cn.kcs.common.uuidutil.ShortUUID;
 import cn.kcs.order.dao.ProductDao;
 import cn.kcs.order.dao.TOrderProductDao;
 import cn.kcs.order.entity.Product;
 import cn.kcs.order.entity.dto.ProductDto;
 import cn.kcs.order.service.ProductService;
-import org.apache.commons.lang.StringUtils;
+import cn.kcs.user.dao.TFileDao;
+import cn.kcs.user.dao.UserAccountDao;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -114,7 +114,7 @@ public class ProductServiceImpl implements ProductService {
     public ProductDto insert(Product product) {
         product.setProductId(ShortUUID.generate());
         product.setProductCreateBy(LoginInfo.getUserId());
-        product.setProductCreateTime(DataUtil.currentFormatDate());
+        product.setProductCreateTime(CustomDateUtil.currentFormatDate());
         product.setProductSalesNumber("0");
         product.setProductStatus("0");
         this.productDao.insert(product);
@@ -130,7 +130,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDto update(Product product) {
         product.setProductUpdateBy(LoginInfo.getUserId());
-        product.setProductUpdateTime(DataUtil.currentFormatDate());
+        product.setProductUpdateTime(CustomDateUtil.currentFormatDate());
         this.productDao.update(product);
         return this.queryById(product.getProductId());
     }

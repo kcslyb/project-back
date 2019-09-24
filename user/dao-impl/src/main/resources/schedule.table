@@ -1,9 +1,0 @@
-<tables>
-  <table id="21b00e8e2b034b04bf68e7bc23535f32" name="t_schedule" title="schedule" schema="">
-    <extend-properties/>
-    <description></description>
-    <table-field standard-field-id="a4be6d4a09674328b85ff6909f27446b" primary="true" unique="true" not-null="true" id="schedule_id" auto-increase="false"/>
-    <table-field standard-field-id="ab799edab145458da152f63f7a939e76" primary="false" unique="false" not-null="false" id="schedule_status" auto-increase="false"/>
-    <table-field standard-field-id="3b19d197c35f4bb7b777a403d7785d35" primary="false" unique="false" not-null="false" id="schedule_confirmed" auto-increase="false"/>
-  </table>
-</tables>

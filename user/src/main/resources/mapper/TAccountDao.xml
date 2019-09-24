@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "./mybatis-3-mapper.dtd">
+<mapper namespace="cn.kcs.user.dao.TAccountDao">
+
+    <resultMap type="cn.kcs.user.entity.TAccount" id="TAccountMap">
+        <result property="accountId" column="account_id" jdbcType="VARCHAR"/>
+        <result property="accountTitle" column="account_title" jdbcType="VARCHAR"/>
+        <result property="accountDescript" column="account_descript" jdbcType="VARCHAR"/>
+        <result property="accountPrise" column="account_prise" jdbcType="NUMERIC"/>
+        <result property="accountRemark" column="account_remark" jdbcType="VARCHAR"/>
+        <result property="accountCreattime" column="account_creattime" jdbcType="TIMESTAMP"/>
+        <result property="accountUpdatetime" column="account_updatetime" jdbcType="TIMESTAMP"/>
+        <result property="accountCreatby" column="account_creatby" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="TAccountMap">
+        select
+          account_id, account_title, account_descript, account_prise, account_remark, account_creattime, account_updatetime, account_creatby
+        from myproject.t_account
+        where account_id = #{0}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="TAccountMap">
+        select
+        account_id, account_title, account_descript, account_prise, account_remark, account_creattime,
+        account_updatetime, account_creatby
+        from myproject.t_account
+        <where>
+            <if test="account.accountId != null and account.accountId != ''">
+                and account_id = #{account.accountId}
+            </if>
+            <if test="account.accountTitle != null and account.accountTitle != ''">
+                and account_title like CONCAT('%',#{account.accountTitle},'%')
+            </if>
+            <if test="account.accountDescript != null and account.accountDescript != ''">
+                and account_descript like CONCAT('%',#{account.accountDescript},'%')
+            </if>
+            <if test="account.accountPrise != null">
+                and account_prise = #{account.accountPrise}
+            </if>
+            <if test="account.accountRemark != null and account.accountRemark != ''">
+                and account_remark like CONCAT('%',#{account.accountRemark},'%')
+            </if>
+            <if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+                and account_creattime between #{startTime} and #{endTime}
+            </if>
+            <if test="account.accountUpdatetime != null">
+                and account_updatetime = #{account.accountUpdatetime}
+            </if>
+            <if test="account.accountCreatby != null and account.accountCreatby != ''">
+                and account_creatby = #{account.accountCreatby}
+            </if>
+        </where>
+        order by account_creattime desc
+        <if test="offset != null and offset != '' and limit != null and limit != ''">
+            limit #{offset}, #{limit}
+        </if>
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="TAccountMap">
+        select
+        account_id, account_title, account_descript, account_prise, account_remark, account_creattime,
+        account_updatetime, account_creatby
+        from myproject.t_account
+        <where>
+            <if test="accountId != null and accountId != ''">
+                and account_id = #{accountId}
+            </if>
+            <if test="accountTitle != null and accountTitle != ''">
+                and account_title = #{accountTitle}
+            </if>
+            <if test="accountDescript != null and accountDescript != ''">
+                and account_descript = #{accountDescript}
+            </if>
+            <if test="accountPrise != null">
+                and account_prise = #{accountPrise}
+            </if>
+            <if test="accountRemark != null and accountRemark != ''">
+                and account_remark = #{accountRemark}
+            </if>
+            <if test="accountCreattime != null">
+                and account_creattime = #{accountCreattime}
+            </if>
+            <if test="accountUpdatetime != null">
+                and account_updatetime = #{accountUpdatetime}
+            </if>
+            <if test="accountCreatby != null and accountCreatby != ''">
+                and account_creatby = #{accountCreatby}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="" useGeneratedKeys="true">
+        insert into myproject.t_account(account_id, account_title, account_descript, account_prise, account_remark, account_creattime, account_updatetime, account_creatby)
+        values (#{accountId}, #{accountTitle}, #{accountDescript}, #{accountPrise}, #{accountRemark}, #{accountCreattime}, #{accountUpdatetime}, #{accountCreatby})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update myproject.t_account
+        <set>
+            <if test="accountId != null and accountId != ''">
+                account_id = #{accountId},
+            </if>
+            <if test="accountTitle != null and accountTitle != ''">
+                account_title = #{accountTitle},
+            </if>
+            <if test="accountDescript != null and accountDescript != ''">
+                account_descript = #{accountDescript},
+            </if>
+            <if test="accountPrise != null">
+                account_prise = #{accountPrise},
+            </if>
+            <if test="accountRemark != null and accountRemark != ''">
+                account_remark = #{accountRemark},
+            </if>
+            <if test="accountCreattime != null">
+                account_creattime = #{accountCreattime},
+            </if>
+            <if test="accountUpdatetime != null">
+                account_updatetime = #{accountUpdatetime},
+            </if>
+            <if test="accountCreatby != null and accountCreatby != ''">
+                account_creatby = #{accountCreatby},
+            </if>
+        </set>
+        where account_id = #{accountId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from myproject.t_account where account_id = #{0}
+    </delete>
+
+</mapper>

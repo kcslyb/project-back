@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 /**
  * 加解密自动配置
  *
+ * @author kcs
  */
 @Configuration
 @Component

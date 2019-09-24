@@ -24,9 +24,9 @@ import java.net.URI;
 import java.util.*;
 
 /**
- * @description: http request util
- * @author: kcs
- * @create: 2019-04-09 11:33
+ * http request util
+ * @author kcs
+ * @date 2019-04-09 11:33
  **/
 public class HttpUtil {
 

@@ -2,6 +2,7 @@ package cn.kcs.order.entity.dto;
 
 import cn.kcs.order.entity.Desk;
 import cn.kcs.order.entity.Product;
+import cn.kcs.user.entity.Address;
 
 import java.util.Date;
 import java.util.List;
@@ -31,6 +32,8 @@ public class OrderDto {
 
     private Desk desk;
 
+    private Address address;
+
     private Integer orderProductSize;
 
     private Date orderCreateTime;
@@ -38,6 +41,14 @@ public class OrderDto {
     private Date orderSettlementTime;
 
     private List<Product> products;
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 
     public Integer getOrderProductSize() {
         return orderProductSize;

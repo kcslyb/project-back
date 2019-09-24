@@ -3,9 +3,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.tinysoft</groupId>
+    <groupId>cn.kcs</groupId>
     <artifactId>base</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.RELEASE</version>
     <packaging>pom</packaging>
 
     <name>base</name>
@@ -13,8 +13,8 @@
 
     <parent>
         <groupId>cn.kcs</groupId>
-        <artifactId>myproject</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <artifactId>project</artifactId>
+        <version>1.0.RELEASE</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 

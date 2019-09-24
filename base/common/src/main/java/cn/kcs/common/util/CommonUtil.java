@@ -1,8 +1,11 @@
 package cn.kcs.common.util;
 
-import cn.kcs.common.exception.CommonJsonException;
+import cn.kcs.common.exception.CustomException;
 import cn.kcs.common.util.constants.ErrorEnum;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
@@ -199,22 +202,19 @@ public class CommonUtil {
      * @return
      */
     public static void hasAllRequired(final JSONObject jsonObject, String requiredColumns) {
-        if (!StringTools.isNullOrEmpty(requiredColumns)) {
+        if (!StringUtils.isBlank(requiredColumns)) {
             //验证字段非空
             String[] columns = requiredColumns.split(",");
             String missCol = "";
             for (String column : columns) {
                 Object val = jsonObject.get(column.trim());
-                if (StringTools.isNullOrEmpty(val)) {
+                if (val != null) {
                     missCol += column + "  ";
                 }
             }
-            if (!StringTools.isNullOrEmpty(missCol)) {
+            if (!StringUtils.isBlank(missCol)) {
                 jsonObject.clear();
-                jsonObject.put("status", ErrorEnum.E_403.getStatus());
-                jsonObject.put("message", ErrorEnum.E_403.getMessage() + missCol.trim());
-                jsonObject.put("data", new JSONObject());
-                throw new CommonJsonException(jsonObject);
+                throw new CustomException(new ResponseEntity<>(HttpStatus.FORBIDDEN.getReasonPhrase(), HttpStatus.FORBIDDEN));
             }
         }
     }
