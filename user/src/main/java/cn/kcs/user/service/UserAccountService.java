@@ -43,7 +43,7 @@ public interface UserAccountService {
      * @param userAccount 实例对象
      * @return 实例对象
      */
-    UserAccount insert(UserAccount userAccount);
+    boolean insert(UserAccount userAccount);
 
     /**
      * 修改数据
@@ -61,4 +61,11 @@ public interface UserAccountService {
      */
     boolean deleteById(String userId);
 
+    /**
+     * 注册
+     *
+     * @param account 实体
+     * @return 是否成功
+     */
+    boolean signInAccount(UserAccount account);
 }

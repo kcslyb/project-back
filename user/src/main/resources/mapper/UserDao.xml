@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "./mybatis-3-mapper.dtd">
+<mapper namespace="cn.kcs.user.dao.UserDao">
+
+    <resultMap type="cn.kcs.user.entity.User" id="UserMap">
+        <result property="userId" column="user_id" jdbcType="VARCHAR"/>
+        <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+        <result property="userAlias" column="user_alias" jdbcType="VARCHAR"/>
+        <result property="userWord" column="user_word" jdbcType="VARCHAR"/>
+        <result property="userAccountId" column="user_account_id" jdbcType="VARCHAR"/>
+        <result property="userStatus" column="user_status" jdbcType="VARCHAR"/>
+        <result property="userMaritalStatus" column="user_marital_status" jdbcType="VARCHAR"/>
+        <result property="userBirthTime" column="user_birth_time" jdbcType="TIMESTAMP"/>
+        <result property="userLeaveTime" column="user_leave_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="UserMap">
+        select
+        user_id, user_name, user_alias, user_word, user_account_id, user_status, user_marital_status, user_birth_time,
+        user_leave_time
+        from myproject.user
+        where user_account_id = #{userId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="UserMap">
+        select
+        user_id, user_name, user_alias, user_word, user_account_id, user_status, user_marital_status, user_birth_time,
+        user_leave_time
+        from myproject.user
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="UserMap">
+        select
+        user_id, user_name, user_alias, user_word, user_account_id, user_status, user_marital_status, user_birth_time,
+        user_leave_time
+        from myproject.user
+        <where>
+            <if test="userId != null and userId != ''">
+                and user_id = #{userId}
+            </if>
+            <if test="userName != null and userName != ''">
+                and user_name = #{userName}
+            </if>
+            <if test="userAlias != null and userAlias != ''">
+                and user_alias = #{userAlias}
+            </if>
+            <if test="userWord != null and userWord != ''">
+                and user_word = #{userWord}
+            </if>
+            <if test="userAccountId != null and userAccountId != ''">
+                and user_account_id = #{userAccountId}
+            </if>
+            <if test="userStatus != null and userStatus != ''">
+                and user_status = #{userStatus}
+            </if>
+            <if test="userMaritalStatus != null and userMaritalStatus != ''">
+                and user_marital_status = #{userMaritalStatus}
+            </if>
+            <if test="userBirthTime != null">
+                and user_birth_time = #{userBirthTime}
+            </if>
+            <if test="userLeaveTime != null">
+                and user_leave_time = #{userLeaveTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="userId" useGeneratedKeys="true">
+        insert into myproject.user(user_id, user_name, user_alias, user_word, user_account_id, user_status,
+        user_marital_status, user_birth_time, user_leave_time)
+        values (#{userId}, #{userName}, #{userAlias}, #{userWord}, #{userAccountId}, #{userStatus},
+        #{userMaritalStatus}, #{userBirthTime}, #{userLeaveTime})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update myproject.user
+        <set>
+            <if test="userName != null and userName != ''">
+                user_name = #{userName},
+            </if>
+            <if test="userAlias != null and userAlias != ''">
+                user_alias = #{userAlias},
+            </if>
+            <if test="userWord != null and userWord != ''">
+                user_word = #{userWord},
+            </if>
+            <if test="userAccountId != null and userAccountId != ''">
+                user_account_id = #{userAccountId},
+            </if>
+            <if test="userStatus != null and userStatus != ''">
+                user_status = #{userStatus},
+            </if>
+            <if test="userMaritalStatus != null and userMaritalStatus != ''">
+                user_marital_status = #{userMaritalStatus},
+            </if>
+            <if test="userBirthTime != null">
+                user_birth_time = #{userBirthTime},
+            </if>
+            <if test="userLeaveTime != null">
+                user_leave_time = #{userLeaveTime},
+            </if>
+        </set>
+        where user_id = #{userId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from myproject.user where user_id = #{userId}
+    </delete>
+
+</mapper>

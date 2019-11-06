@@ -32,6 +32,8 @@ public class TFile implements Serializable {
 
     private String fileDownloadNumber;
 
+    private String fileDeleteFlag;
+
     public String getFileDownloadNumber() {
         return fileDownloadNumber;
     }
@@ -110,6 +112,14 @@ public class TFile implements Serializable {
 
     public void setFileType(String fileType) {
         this.fileType = fileType;
+    }
+
+    public String getFileDeleteFlag() {
+        return fileDeleteFlag;
+    }
+
+    public void setFileDeleteFlag(String fileDeleteFlag) {
+        this.fileDeleteFlag = fileDeleteFlag;
     }
 
     @Override

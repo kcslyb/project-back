@@ -17,6 +17,11 @@ public class CustomDateUtil {
     /** 年-月-日 显示格式 */
     public static String DATE_TO_STRING_SHORT_PATTERN = "yyyy-MM-dd";
 
+    /**
+     * 年-月-日 显示格式
+     */
+    public static String DATE_TO_SHORT_PATTERN = "yyyyMMdd";
+
     private static SimpleDateFormat simpleDateFormat;
 
     /**

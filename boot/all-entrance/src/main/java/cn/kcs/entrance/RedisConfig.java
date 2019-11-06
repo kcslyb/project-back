@@ -1,6 +1,5 @@
 package cn.kcs.entrance;
 
-import cn.kcs.entrance.shiro.ShiroRealm;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,52 +13,62 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
+import org.springframework.data.redis.cache.RedisCacheWriter;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
-import java.lang.reflect.Method;
 import java.time.Duration;
 
 /**
- * @description:
- * @author: kcs
- * @create: 2018-12-13 11:34
+ * @author kcs
+ * @date 2018-12-13 11:34
  **/
 @Configuration
 @EnableCaching
 public class RedisConfig extends CachingConfigurerSupport {
 
-    private Logger logger = LoggerFactory.getLogger(ShiroRealm.class);
+    private Logger logger = LoggerFactory.getLogger(RedisConfig.class);
 
-    //自定义缓存key生成策略
+    /**
+     * 自定义缓存key生成策略
+     *
+     * @return
+     */
     @Bean
+    @Override
     public KeyGenerator keyGenerator() {
-        return new KeyGenerator() {
-            @Override
-            public Object generate(Object target, Method method, Object... params) {
-                StringBuilder sb = new StringBuilder();
-                sb.append(target.getClass().getName());
-                sb.append(method.getName());
-                for (Object obj : params) {
-                    sb.append(obj.toString());
-                }
-                logger.info("[redis-key:]{}", sb.toString());
-                return sb.toString();
+        return (target, method, params) -> {
+            //规定  本类名+方法名+参数名 为key
+            StringBuilder sb = new StringBuilder();
+//            sb.append(target.getClass().getName());
+            sb.append("-");
+            sb.append(method.getName());
+            sb.append("-");
+            for (Object param : params) {
+                sb.append(param.toString());
             }
+            logger.info(sb.toString());
+            return sb.toString();
         };
     }
 
-    //缓存管理器
+    /**
+     * 缓存管理器
+     *
+     * @param factory
+     * @return
+     */
     @Bean
     public CacheManager cacheManager(RedisConnectionFactory factory) {
-        RedisCacheManager cacheManager = RedisCacheManager.create(factory);
         //设置缓存过期时间
         RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration
                 .defaultCacheConfig()
                 .entryTtl(Duration.ofHours(1));
-        return cacheManager;
+        return RedisCacheManager
+                .builder(RedisCacheWriter.nonLockingRedisCacheWriter(factory))
+                .cacheDefaults(redisCacheConfiguration).build();
     }
 
 
@@ -69,12 +78,12 @@ public class RedisConfig extends CachingConfigurerSupport {
      * @return
      */
     @Bean
-    public RedisTemplate<String, Object> redisSerializerObj(RedisConnectionFactory redisConnectionFactory) {
+    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
 
-        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<String, Object>();
+        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory);
 
-        Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<Object>(Object.class);
+        Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<>(Object.class);
         ObjectMapper om = new ObjectMapper();
         om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
         om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);

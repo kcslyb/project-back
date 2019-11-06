@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "./mybatis-3-mapper.dtd">
+<mapper namespace="cn.kcs.user.dao.RolePermissionDao">
+
+    <resultMap type="cn.kcs.user.entity.RolePermission" id="RolePermissionMap">
+        <result property="rolePermissionId" column="role_permission_id" jdbcType="VARCHAR"/>
+        <result property="roleId" column="role_id" jdbcType="VARCHAR"/>
+        <result property="rolePermissionTitle" column="role_permission_title" jdbcType="VARCHAR"/>
+        <result property="rolePermissionLabel" column="role_permission_label" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="RolePermissionMap">
+        select
+          role_permission_id, role_id, role_permission_title, role_permission_label
+        from myproject.role_permission
+        where role_id = #{0}
+    </select>
+
+    <!--batchDeleteByRoleId-->
+    <delete id="batchDeleteByRoleId">
+        delete from myproject.role_permission where role_id = #{0}
+    </delete>
+
+    <!--batchDeleteByRoleId-->
+    <insert id="batchInsertByRolePermission">
+        insert into myproject.role_permission(role_permission_id, role_id, role_permission_title, role_permission_label)
+        values
+            <foreach collection="list" item="item" index="index" separator=",">
+                (#{item.rolePermissionId}, #{item.roleId}, #{item.rolePermissionTitle}, #{item.rolePermissionLabel})
+            </foreach>
+    </insert>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="RolePermissionMap">
+        select
+          role_permission_id, role_id, role_permission_title, role_permission_label
+        from myproject.role_permission
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="RolePermissionMap">
+        select
+          role_permission_id, role_id, role_permission_title, role_permission_label
+        from myproject.role_permission
+        <where>
+            <if test="rolePermissionId != null and rolePermissionId != ''">
+                and role_permission_id = #{rolePermissionId}
+            </if>
+            <if test="roleId != null and roleId != ''">
+                and role_id = #{roleId}
+            </if>
+            <if test="rolePermissionTitle != null and rolePermissionTitle != ''">
+                and role_permission_title = #{rolePermissionTitle}
+            </if>
+            <if test="rolePermissionLabel != null and rolePermissionLabel != ''">
+                and role_permission_label = #{rolePermissionLabel}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="" useGeneratedKeys="true">
+        insert into myproject.role_permission(role_permission_id, role_id, role_permission_title, role_permission_label)
+        values (#{rolePermissionId}, #{roleId}, #{rolePermissionTitle}, #{rolePermissionLabel})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update myproject.role_permission
+        <set>
+            <if test="rolePermissionId != null and rolePermissionId != ''">
+                role_permission_id = #{rolePermissionId},
+            </if>
+            <if test="roleId != null and roleId != ''">
+                role_id = #{roleId},
+            </if>
+            <if test="rolePermissionTitle != null and rolePermissionTitle != ''">
+                role_permission_title = #{rolePermissionTitle},
+            </if>
+            <if test="rolePermissionLabel != null and rolePermissionLabel != ''">
+                role_permission_label = #{rolePermissionLabel},
+            </if>
+        </set>
+        where role_id = #{}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from myproject.role_permission_id where role_id = #{0}
+    </delete>
+
+</mapper>

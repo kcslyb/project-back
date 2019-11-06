@@ -46,7 +46,7 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAllByMsg" resultMap="TMsgMap">
         select
-            msg_id, msg_sender, msg_receiver, msg_content, msg_creattime, msg_status, msg_standby
+        msg_id, msg_sender, msg_receiver, msg_content, msg_creattime, msg_status, msg_standby
         from myproject.t_msg
         <where>
             <if test="msgSender != null and msgSender != ''">

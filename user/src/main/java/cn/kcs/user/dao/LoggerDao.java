@@ -29,7 +29,7 @@ public interface LoggerDao {
      * @param limit     查询条数
      * @return 对象列表
      */
-    List<LoggerDto> queryAllByLimit(@Param("logger") LoggerDto loggerDto, @Param("offset") int offset, @Param("limit") int limit);
+    List<LoggerDto> queryAllByLimit(@Param("loggerDto") LoggerDto loggerDto, @Param("offset") int offset, @Param("limit") int limit);
 
 
     /**

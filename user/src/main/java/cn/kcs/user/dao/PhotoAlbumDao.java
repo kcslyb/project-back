@@ -2,9 +2,6 @@ package cn.kcs.user.dao;
 
 import cn.kcs.user.entity.PhotoAlbum;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 
 import java.util.List;
 
@@ -27,11 +24,11 @@ public interface PhotoAlbumDao {
     /**
      * 查询指定行数据
      *
+     * @param photoAlbum photoAlbum
      * @param offset 查询起始位置
      * @param limit  查询条数
      * @return 对象列表
      */
-    @Cacheable(value = "photo")
     List<PhotoAlbum> queryAllByLimit(@Param("photo") PhotoAlbum photoAlbum, @Param("offset") int offset, @Param("limit") int limit);
 
 
@@ -41,7 +38,6 @@ public interface PhotoAlbumDao {
      * @param photoAlbum 实例对象
      * @return 对象列表
      */
-    @Cacheable(value = "photo")
     List<PhotoAlbum> queryAll(PhotoAlbum photoAlbum);
 
     /**
@@ -50,7 +46,6 @@ public interface PhotoAlbumDao {
      * @param photoAlbum 实例对象
      * @return 影响行数
      */
-    @CacheEvict(value = "photo", allEntries = true)
     int insert(PhotoAlbum photoAlbum);
 
     /**
@@ -59,7 +54,6 @@ public interface PhotoAlbumDao {
      * @param photoAlbums 实例对象
      * @return 影响行数
      */
-    @CacheEvict(value = "photo", allEntries = true)
     int insertBatch(@Param("list") List<PhotoAlbum> photoAlbums);
 
     /**
@@ -68,7 +62,6 @@ public interface PhotoAlbumDao {
      * @param photoAlbum 实例对象
      * @return 影响行数
      */
-    @CachePut(value = "photo")
     int update(PhotoAlbum photoAlbum);
 
     /**
@@ -77,7 +70,6 @@ public interface PhotoAlbumDao {
      * @param photoId 主键
      * @return 影响行数
      */
-    @CacheEvict(value = "photo", allEntries = true)
     int deleteById(String photoId);
 
 }

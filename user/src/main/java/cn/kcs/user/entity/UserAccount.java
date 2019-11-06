@@ -54,10 +54,20 @@ public class UserAccount implements Serializable {
     @Excel(name = "角色名称", height = 20, width = 30, isImportField = "true_st")
     private String userRoleName;
 
-    private List<TPermissionMenu> userPermission;
+    private List<String> permissionList;
 
     @Excel(name = "用户等级", height = 20, width = 30, isImportField = "true_st")
     private String userDepartmentName;
+
+    private String sessionCode;
+
+    public String getSessionCode() {
+        return sessionCode;
+    }
+
+    public void setSessionCode(String sessionCode) {
+        this.sessionCode = sessionCode;
+    }
 
     public String getUserLoginNumber() {
         return userLoginNumber;
@@ -75,12 +85,12 @@ public class UserAccount implements Serializable {
         this.userRoleName = userRoleName;
     }
 
-    public List<TPermissionMenu> getUserPermission() {
-        return userPermission;
+    public List<String> getPermissionList() {
+        return permissionList;
     }
 
-    public void setUserPermission(List<TPermissionMenu> userPermission) {
-        this.userPermission = userPermission;
+    public void setPermissionList(List<String> permissionList) {
+        this.permissionList = permissionList;
     }
 
     public String getUserDepartmentName() {
@@ -187,25 +197,4 @@ public class UserAccount implements Serializable {
         this.userUpdateTime = userUpdateTime;
     }
 
-    @Override
-    public String toString() {
-        return "UserAccount{" +
-                "userId='" + userId + '\'' +
-                ", userName='" + userName + '\'' +
-                ", userPhone='" + userPhone + '\'' +
-                ", userEmail='" + userEmail + '\'' +
-                ", userAvatar='" + userAvatar + '\'' +
-                ", userRole='" + userRole + '\'' +
-                ", userDepartment='" + userDepartment + '\'' +
-                ", userPassword='" + userPassword + '\'' +
-                ", userStatus='" + userStatus + '\'' +
-                ", userLoginNumber='" + userLoginNumber + '\'' +
-                ", userLastLoginTime=" + userLastLoginTime +
-                ", userCreateTime=" + userCreateTime +
-                ", userUpdateTime=" + userUpdateTime +
-                ", userRoleName='" + userRoleName + '\'' +
-                ", userPermission=" + userPermission +
-                ", userDepartmentName='" + userDepartmentName + '\'' +
-                '}';
-    }
 }

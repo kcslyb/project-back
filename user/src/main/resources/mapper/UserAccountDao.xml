@@ -25,7 +25,8 @@
         select
         user_id, user_name, user_phone, user_email, user_avatar, user_role, user_department, user_password, user_status,
         user_last_login_time, user_create_time, user_update_time, user_login_number, role_description, department_name
-        from (myproject.user_account left JOIN myproject.t_role on user_role = role_id) left JOIN myproject.user_department on user_department = department_id
+        from (myproject.user_account left JOIN myproject.role on user_role = role_id) left JOIN
+        myproject.user_department on user_department = department_id
         where user_id = #{userId}
     </select>
 
@@ -34,7 +35,8 @@
         select
         user_id, user_name, user_phone, user_email, user_avatar, user_role, user_department, user_password, user_status,
         user_last_login_time, user_create_time, user_update_time, user_login_number, role_description, department_name
-        from (myproject.user_account left JOIN myproject.t_role on user_role = role_id) left JOIN myproject.user_department on user_department = department_id
+        from (myproject.user_account left JOIN myproject.role on user_role = role_id) left JOIN
+        myproject.user_department on user_department = department_id
         limit #{offset}, #{limit}
     </select>
 
@@ -43,7 +45,7 @@
         select
         user_id, user_name, user_phone, user_email, user_avatar, user_role, user_department, user_password, user_status,
         user_last_login_time, user_create_time, user_update_time, user_login_number, role_description, department_name
-        from (myproject.user_account left JOIN myproject.t_role on user_role = role_id) left JOIN
+        from (myproject.user_account left JOIN myproject.role on user_role = role_id) left JOIN
         myproject.user_department on user_department = department_id
         <where>
             <if test="userId != null and userId != ''">

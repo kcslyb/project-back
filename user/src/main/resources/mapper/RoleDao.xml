@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "./mybatis-3-mapper.dtd">
+<mapper namespace="cn.kcs.user.dao.RoleDao">
+
+    <resultMap type="cn.kcs.user.entity.Role" id="RoleMap">
+        <result property="roleId" column="role_id" jdbcType="VARCHAR"/>
+        <result property="roleName" column="role_name" jdbcType="VARCHAR"/>
+        <result property="roleDescription" column="role_description" jdbcType="VARCHAR"/>
+        <result property="roleType" column="role_type" jdbcType="VARCHAR"/>
+        <result property="roleDeleteFlag" column="role_delete_flag" jdbcType="VARCHAR"/>
+        <result property="roleCreateTime" column="role_create_time" jdbcType="TIMESTAMP"/>
+        <result property="roleUpdateTime" column="role_update_time" jdbcType="TIMESTAMP"/>
+        <result property="roleCreateBy" column="role_create_by" jdbcType="VARCHAR"/>
+        <result property="roleUpdateBy" column="role_update_by" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="RoleMap">
+        select
+        role_id, role_name, role_description, role_type, role_delete_flag, role_create_time, role_update_time,
+        role_create_by, role_update_by
+        from myproject.role
+        where role_id = #{roleId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="RoleMap">
+        select
+        role_id, role_name, role_description, role_type, role_delete_flag, role_create_time, role_update_time,
+        role_create_by, role_update_by
+        from myproject.role
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="RoleMap">
+        select
+        role_id, role_name, role_description, role_type, role_delete_flag, role_create_time, role_update_time,
+        role_create_by, role_update_by
+        from myproject.role
+        <where>
+            <if test="roleId != null and roleId != ''">
+                and role_id = #{roleId}
+            </if>
+            <if test="roleName != null and roleName != ''">
+                and role_name = #{roleName}
+            </if>
+            <if test="roleDescription != null and roleDescription != ''">
+                and role_description = #{roleDescription}
+            </if>
+            <if test="roleType != null and roleType != ''">
+                and role_type = #{roleType}
+            </if>
+            <if test="roleDeleteFlag != null and roleDeleteFlag != ''">
+                and role_delete_flag = #{roleDeleteFlag}
+            </if>
+            <if test="roleCreateTime != null">
+                and role_create_time = #{roleCreateTime}
+            </if>
+            <if test="roleUpdateTime != null">
+                and role_update_time = #{roleUpdateTime}
+            </if>
+            <if test="roleCreateBy != null and roleCreateBy != ''">
+                and role_create_by = #{roleCreateBy}
+            </if>
+            <if test="roleUpdateBy != null and roleUpdateBy != ''">
+                and role_update_by = #{roleUpdateBy}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="roleId" useGeneratedKeys="true">
+        insert into myproject.role(role_Id, role_name, role_description, role_type, role_delete_flag, role_create_time,
+        role_update_time, role_create_by, role_update_by)
+        values (#{roleId}, #{roleName}, #{roleDescription}, #{roleType}, #{roleDeleteFlag}, #{roleCreateTime},
+        #{roleUpdateTime}, #{roleCreateBy}, #{roleUpdateBy})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update myproject.role
+        <set>
+            <if test="roleName != null and roleName != ''">
+                role_name = #{roleName},
+            </if>
+            <if test="roleDescription != null and roleDescription != ''">
+                role_description = #{roleDescription},
+            </if>
+            <if test="roleType != null and roleType != ''">
+                role_type = #{roleType},
+            </if>
+            <if test="roleDeleteFlag != null and roleDeleteFlag != ''">
+                role_delete_flag = #{roleDeleteFlag},
+            </if>
+            <if test="roleCreateTime != null">
+                role_create_time = #{roleCreateTime},
+            </if>
+            <if test="roleUpdateTime != null">
+                role_update_time = #{roleUpdateTime},
+            </if>
+            <if test="roleCreateBy != null and roleCreateBy != ''">
+                role_create_by = #{roleCreateBy},
+            </if>
+            <if test="roleUpdateBy != null and roleUpdateBy != ''">
+                role_update_by = #{roleUpdateBy},
+            </if>
+        </set>
+        where role_id = #{roleId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from myproject.role where role_id = #{roleId}
+    </delete>
+
+</mapper>

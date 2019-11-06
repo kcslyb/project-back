@@ -51,7 +51,7 @@ mybatis:
   configuration:
     cache-enabled: true
 #upload_folder_path
-upload_folder_path: /Users/kcs/WebstormProjects/project/static/
+upload_folder_path: /Users/kcs/WebstormProjects/typescript/src/assets/static/
 #日志开关
 log_aop_switch: true
 #队列一
@@ -62,10 +62,3 @@ mq_msg_routing_key_name: msg_routing_key_name
 mq_accept_queue_name: accept_queue_name
 mq_accept_exchange_name: accept_exchange_name
 mq_accept_routing_key_name: accept_routing_key_name
-#  spring.mail.default-encoding=UTF-8
-#  spring.mail.host=smtp.qq.com
-#  spring.mail.username=你的邮箱
-#  spring.mail.password=邮箱授权码
-#  spring.mail.properties.mail.smtp.auth=true
-#  spring.mail.properties.mail.smtp.starttls.enable=true
-#  spring.mail.properties.mail.smtp.starttls.required=true

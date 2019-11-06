@@ -7,9 +7,6 @@ import cn.kcs.user.dao.TFileDao;
 import cn.kcs.user.entity.TFile;
 import cn.kcs.user.service.TFileService;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -45,13 +42,11 @@ public class TFileServiceImpl implements TFileService {
      * @return 对象列表
      */
     @Override
-    @Cacheable(value = "file")
     public List<TFile> queryAllByLimit(TFile tFile, int offset, int limit) {
         return this.tFileDao.queryAllByLimit(tFile, offset, limit);
     }
 
     @Override
-    @Cacheable(value = "file")
     public List<TFile> queryAll(TFile tFile) {
         return this.tFileDao.queryAll(tFile);
     }
@@ -63,13 +58,13 @@ public class TFileServiceImpl implements TFileService {
      * @return 实例对象
      */
     @Override
-    @CacheEvict(value = "file", allEntries = true)
     public TFile insert(TFile tFile) {
         tFile.setFileId(ShortUUID.generate());
         tFile.setFileOwner(LoginInfo.getUserId());
         tFile.setFileOwnerName(LoginInfo.getUserName());
         tFile.setFileCreateTime(CustomDateUtil.currentFormatDate());
         tFile.setFileDownloadNumber("0");
+        tFile.setFileDeleteFlag("0");
         if (StringUtils.isEmpty(tFile.getFileDescription())) {
             tFile.setFileDescription("");
         }
@@ -85,7 +80,6 @@ public class TFileServiceImpl implements TFileService {
      * @return 实例对象
      */
     @Override
-    @CachePut(value = "file")
     public TFile update(TFile tFile) {
         this.tFileDao.update(tFile);
         return this.queryById(tFile.getFileId());
@@ -98,7 +92,6 @@ public class TFileServiceImpl implements TFileService {
      * @return 是否成功
      */
     @Override
-    @CacheEvict(value = "file", allEntries = true)
     public boolean deleteById(String fileId) {
         return this.tFileDao.deleteById(fileId) > 0;
     }

@@ -40,16 +40,21 @@ public class AopLog {
 
     @Before("webLog()")
     public void doBefore(JoinPoint joinPoint) {
-        logger.info(joinPoint.toString());
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
+        Object[] args = joinPoint.getArgs();
         LoggerDto loggerDto = new LoggerDto();
-        loggerDto.setLogRequestUrl(request.getRequestURI());
+        loggerDto.setLogRequestUrl(attributes.getSessionId().concat("-").concat(request.getRequestURI()));
         loggerDto.setLogRequestRemoteIp(request.getRemoteAddr());
-        loggerDto.setLogRequestParameter(request.getContextPath());
+        loggerDto.setLogRequestParameter(String.valueOf(args.length));
         loggerDto.setLogRequestMethodAndInterface(request.getMethod().concat("-").concat(joinPoint.getStaticPart().getSignature().getName()));
         loggerDto.setLogRequestPageName(request.getLocalName());
-        loggerDto.setLogRequestDescribe(request.getRequestURL().toString());
+        String s = request.getRequestURL().toString();
+        boolean flag = (s.length() > 50);
+        if (flag) {
+            s = s.substring(0, 50);
+        }
+        loggerDto.setLogRequestDescribe(s);
         loggerDto.setLogType("1");
         if (logAopSwitch) {
             loggerService.insert(loggerDto);
@@ -58,7 +63,7 @@ public class AopLog {
         logger.info("请求IP :" + loggerDto.getLogRequestRemoteIp());
         logger.info("请求时间 : " + loggerDto.getLogRequestTime());
         logger.info("请求类型和接口 : " + loggerDto.getLogRequestMethodAndInterface());
-        logger.info("请求路径 : " + loggerDto.getLogRequestUrl());
+        logger.info("请求路径 : " + loggerDto.getLogRequestDescribe());
     }
 
 }

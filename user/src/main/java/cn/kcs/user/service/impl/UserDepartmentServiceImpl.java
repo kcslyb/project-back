@@ -6,6 +6,7 @@ import cn.kcs.user.dao.UserDepartmentDao;
 import cn.kcs.user.entity.UserAccount;
 import cn.kcs.user.entity.UserDepartment;
 import cn.kcs.user.entity.dto.DepartmentDto;
+import cn.kcs.user.service.UserAccountService;
 import cn.kcs.user.service.UserDepartmentService;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,9 @@ public class UserDepartmentServiceImpl implements UserDepartmentService {
 
     @Resource
     private UserAccountDao userAccountDao;
+
+    @Resource
+    private UserAccountService userAccountService;
 
     /**
      * 通过ID查询单条数据
@@ -81,7 +85,7 @@ public class UserDepartmentServiceImpl implements UserDepartmentService {
                 DepartmentDto departmentDto = new DepartmentDto();
                 UserAccount userAccount = new UserAccount();
                 userAccount.setUserDepartment(userDepartment.getDepartmentId());
-                List<UserAccount> userAccounts = userAccountDao.queryAll(userAccount);
+                List<UserAccount> userAccounts = userAccountService.queryAll(userAccount);
                 departmentDto.setUserDepartment(userDepartment);
                 departmentDto.setUserAccounts(userAccounts);
                 departmentUser.add(departmentDto);

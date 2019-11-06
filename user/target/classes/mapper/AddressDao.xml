@@ -13,7 +13,7 @@
     <!--查询单个-->
     <select id="queryById" resultMap="AddressMap">
         select
-          address_id, address_name, address_detail, address_for_user, address_delete_flag
+        address_id, address_name, address_detail, address_for_user, address_delete_flag
         from myproject.address
         where address_id = #{addressId}
     </select>
@@ -21,7 +21,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="AddressMap">
         select
-          address_id, address_name, address_detail, address_for_user, address_delete_flag
+        address_id, address_name, address_detail, address_for_user, address_delete_flag
         from myproject.address
         limit #{offset}, #{limit}
     </select>
@@ -29,7 +29,7 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="AddressMap">
         select
-          address_id, address_name, address_detail, address_for_user, address_delete_flag
+        address_id, address_name, address_detail, address_for_user, address_delete_flag
         from myproject.address
         <where>
             <if test="addressId != null and addressId != ''">

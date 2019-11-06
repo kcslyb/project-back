@@ -1,5 +1,7 @@
 package cn.kcs.common.util;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -59,11 +61,12 @@ public class Md5Utils {
     }
 
     public static String GetMD5Code(String strObj) {
+        if (StringUtils.isBlank(strObj)) {
+            return "";
+        }
         String resultString = null;
         try {
-            resultString = new String(strObj);
             MessageDigest md = MessageDigest.getInstance("MD5");
-            // md.digest() 该函数返回值为存放哈希值结果的byte数组
             resultString = byteToString(md.digest(strObj.getBytes()));
         } catch (NoSuchAlgorithmException ex) {
             ex.printStackTrace();

@@ -15,7 +15,6 @@ public class UserInfo implements Serializable {
     private String userEmail;
     private String roleName;
     private String userAvatar;
-    private List<String> menus;
     private List<String> permissions;
 
     public String getUserId() {
@@ -66,14 +65,6 @@ public class UserInfo implements Serializable {
         this.roleName = roleName;
     }
 
-    public List<String> getMenus() {
-        return menus;
-    }
-
-    public void setMenus(List<String> menus) {
-        this.menus = menus;
-    }
-
     public List<String> getPermissions() {
         return permissions;
     }
@@ -82,17 +73,4 @@ public class UserInfo implements Serializable {
         this.permissions = permissions;
     }
 
-    @Override
-    public String toString() {
-        return "UserInfo{" +
-                "userId='" + userId + '\'' +
-                ", userName='" + userName + '\'' +
-                ", userPhone='" + userPhone + '\'' +
-                ", userEmail='" + userEmail + '\'' +
-                ", roleName='" + roleName + '\'' +
-                ", userAvatar='" + userAvatar + '\'' +
-                ", menus=" + menus +
-                ", permissions=" + permissions +
-                '}';
-    }
 }

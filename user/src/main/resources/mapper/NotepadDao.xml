@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "./mybatis-3-mapper.dtd">
+<mapper namespace="cn.kcs.user.dao.NotepadDao">
+
+    <resultMap type="cn.kcs.user.entity.Notepad" id="TNotepadMap">
+        <result property="noteId" column="note_id" jdbcType="VARCHAR"/>
+        <result property="noteCreated" column="note_created" jdbcType="VARCHAR"/>
+        <result property="noteContent" column="note_content" jdbcType="VARCHAR"/>
+        <result property="noteCreateTime" column="note_create_time" jdbcType="TIMESTAMP"/>
+        <result property="noteModifyTime" column="note_modify_time" jdbcType="TIMESTAMP"/>
+        <result property="noteTitle" column="note_title" jdbcType="VARCHAR"/>
+        <result property="noteType" column="note_type" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="queryById" resultMap="TNotepadMap">
+        select
+        note_id, note_created, note_content, note_create_time, note_modify_time, note_title, note_type
+        from myproject.notepad
+        where note_id = #{noteId}
+    </select>
+
+    <select id="queryAllByLimit" resultMap="TNotepadMap">
+        select
+        note_id, note_created, note_content, note_create_time, note_modify_time, note_title, note_type
+        from myproject.notepad
+        <where>
+            <if test="noteType != null and noteType != ''">
+                and note_type = #{noteType}
+            </if>
+        </where>
+        order by note_modify_time DESC
+        limit #{offset}, #{limit}
+    </select>
+
+    <select id="queryAll" resultMap="TNotepadMap">
+        select
+        note_id, note_created, note_content, note_create_time, note_modify_time, note_title, note_type
+        from myproject.notepad
+        <where>
+            <if test="noteId != null and noteId != ''">
+                and note_id = #{noteId}
+            </if>
+            <if test="noteCreated != null and noteCreated != ''">
+                and note_created = #{noteCreated}
+            </if>
+            <if test="noteContent != null and noteContent != ''">
+                and note_content = #{noteContent}
+            </if>
+            <if test="noteCreateTime != null">
+                and note_create_time = #{noteCreateTime}
+            </if>
+            <if test="noteModifyTime != null">
+                and note_modify_time = #{noteModifyTime}
+            </if>
+            <if test="noteTitle != null and noteTitle != ''">
+                and note_title = #{noteTitle}
+            </if>
+            <if test="noteType != null and noteType != ''">
+                and note_type = #{noteType}
+            </if>
+        </where>
+        order by note_modify_time DESC
+    </select>
+
+    <insert id="insert" keyProperty="" useGeneratedKeys="true">
+        insert into myproject.notepad(note_id, note_created, note_content, note_create_time, note_modify_time,
+        note_title, note_type)
+        values (#{noteId}, #{noteCreated}, #{noteContent}, #{noteCreateTime}, #{noteModifyTime}, #{noteTitle},
+        #{noteType})
+    </insert>
+
+    <update id="update">
+        update myproject.notepad
+        <set>
+            <if test="noteId != null and noteId != ''">
+                note_id = #{noteId},
+            </if>
+            <if test="noteCreated != null and noteCreated != ''">
+                note_created = #{noteCreated},
+            </if>
+            <if test="noteContent != null and noteContent != ''">
+                note_content = #{noteContent},
+            </if>
+            <if test="noteCreateTime != null">
+                note_create_time = #{noteCreateTime},
+            </if>
+            <if test="noteModifyTime != null">
+                note_modify_time = #{noteModifyTime},
+            </if>
+            <if test="noteTitle != null and noteTitle != ''">
+                note_title = #{noteTitle},
+            </if>
+            <if test="noteType != null and noteType != ''">
+                note_type = #{noteType},
+            </if>
+        </set>
+        where note_id = #{noteId}
+    </update>
+
+    <delete id="deleteById">
+        delete from myproject.notepad where note_id= #{noteId}
+    </delete>
+
+</mapper>

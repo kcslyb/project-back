@@ -12,9 +12,9 @@ import java.util.Enumeration;
 import java.util.List;
 
 /**
- * @description:josn 工具
- * @author: kcs
- * @create: 2018-10-26 11:25
+ * json 工具
+ * @author kcs
+ * @date 2018-10-26 11:25
  **/
 public class CommonUtil {
 

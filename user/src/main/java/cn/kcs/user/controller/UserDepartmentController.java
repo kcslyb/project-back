@@ -5,7 +5,6 @@ import cn.kcs.encrypt.anno.Encrypt;
 import cn.kcs.user.entity.UserDepartment;
 import cn.kcs.user.entity.dto.DepartmentDto;
 import cn.kcs.user.service.UserDepartmentService;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,9 +17,8 @@ import java.util.List;
  * @author makejava
  * @since 2019-03-22 10:08:44
  */
-@Api(value = "user department", description = "用户部门 API")
 @RestController
-@RequestMapping("user/department")
+@RequestMapping("/department")
 public class UserDepartmentController {
     /**
      * 服务对象
@@ -37,8 +35,8 @@ public class UserDepartmentController {
     @Decrypt
     @Encrypt
     @ApiOperation(value = "通过主键查询单条数据")
-    @GetMapping
-    public UserDepartment selectOne(String id) {
+    @GetMapping("{id}")
+    public UserDepartment queryById(@PathVariable String id) {
         return this.userDepartmentService.queryById(id);
     }
 

@@ -23,16 +23,16 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)
     public ResponseEntity defaultErrorHandler(Exception e) throws Exception {
-        String errorPosition = "";
-        //如果错误堆栈信息存在
         if (e.getStackTrace().length > 0) {
             StackTraceElement element = e.getStackTrace()[0];
-            String fileName = element.getFileName() == null ? "未找到错误文件" : element.getFileName();
-            int lineNumber = element.getLineNumber();
-            errorPosition = fileName + ":" + lineNumber;
+            StringBuffer stringBuffer = new StringBuffer();
+            stringBuffer.append(element.getClassName()).append(":")
+                    .append(element.getFileName())
+                    .append(element.getLineNumber());
+            logger.error("服务器异常:{}:{};错误位置:{}", e.getCause(), e.getMessage(), stringBuffer);
         }
-        logger.error("服务器异常{}；错误位置:{}", e.getMessage(), errorPosition);
-        return new ResponseEntity<>(errorPosition, HttpStatus.NOT_IMPLEMENTED);
+        logger.error("", e);
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     /**

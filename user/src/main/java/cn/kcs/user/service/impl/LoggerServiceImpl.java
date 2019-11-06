@@ -6,6 +6,7 @@ import cn.kcs.common.uuidutil.ShortUUID;
 import cn.kcs.user.dao.LoggerDao;
 import cn.kcs.user.entity.LoggerDto;
 import cn.kcs.user.service.LoggerService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -65,7 +66,9 @@ public class LoggerServiceImpl implements LoggerService {
     @Override
     public boolean insert(LoggerDto loggerDto) {
         loggerDto.setLogId(ShortUUID.generate());
-        loggerDto.setLogUserId(LoginInfo.getUserId());
+        String userId = StringUtils.isBlank(LoginInfo.getUserId()) ? "登录" : LoginInfo.getUserId();
+        String userName = StringUtils.isBlank(LoginInfo.getUserName()) ? "" : LoginInfo.getUserName();
+        loggerDto.setLogUserId(userId.concat("-").concat(userName));
         loggerDto.setLogRequestTime(CustomDateUtil.currentFormatDate());
         return this.loggerDao.insert(loggerDto) > 0;
     }

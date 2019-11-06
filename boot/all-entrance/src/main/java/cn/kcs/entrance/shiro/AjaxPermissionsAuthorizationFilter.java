@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -25,6 +26,7 @@ public class AjaxPermissionsAuthorizationFilter extends FormAuthenticationFilter
         PrintWriter out = null;
         HttpServletResponse res = (HttpServletResponse) response;
         try {
+            res.setStatus(HttpStatus.UNAUTHORIZED.value());
             res.setCharacterEncoding("UTF-8");
             res.setContentType("application/json");
             out = response.getWriter();
