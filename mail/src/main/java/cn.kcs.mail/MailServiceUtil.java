@@ -7,52 +7,52 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
 import java.io.File;
-import java.util.List;
 
 /**
  * @author kcs
  * @date 9/12/19
  **/
 
-@Service("mailService")
+@Component
 public class MailServiceUtil {
-    Logger logger = LoggerFactory.getLogger(this.getClass());
+    Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     @Value("${spring.mail.username}")
     private String from;
     @Autowired
     private JavaMailSender mailSender;
 
-    private void sendSimpleMail(String to, String title, String content) {
+    public void sendSimpleMail(MailDto mailDto) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(from);
-        message.setTo(to);
-        message.setSubject(title);
-        message.setText(content);
+        message.setTo(mailDto.getTo());
+        message.setSubject(mailDto.getTitle());
+        message.setText(mailDto.getContent());
         mailSender.send(message);
-        logger.info("邮件发送成功");
+        LOGGER.info("[{}]向[{}]发送了邮件; 主题为[{}]; 内容为[{}]", from, mailDto.getTo(), mailDto.getTitle(), mailDto.getContent());
     }
 
-    private void sendAttachmentsMail(String to, String title, String content, List<File> fileList) {
+    public void sendAttachmentsMail(MailDto mailDto) {
         MimeMessage message = mailSender.createMimeMessage();
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
             helper.setFrom(from);
-            helper.setTo(to);
-            helper.setSubject(title);
-            helper.setText(content);
-            for (File file : fileList) {
+            helper.setTo(mailDto.getTo());
+            helper.setSubject(mailDto.getTitle());
+            helper.setText(mailDto.getContent());
+            for (File file : mailDto.getFileList()) {
                 String fileName = MimeUtility.encodeText(file.getName(), "UTF-8", "B");
                 helper.addAttachment(fileName, file);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("", e);
         }
         mailSender.send(message);
-        logger.info("邮件发送成功");
+        LOGGER.info("[{}]向[{}]发送了邮件; 主题为[{}]; 内容为[{}]; 附件个数[{}]",
+                from, mailDto.getTo(), mailDto.getTitle(), mailDto.getContent(), mailDto.getFileList().size());
     }
 }
