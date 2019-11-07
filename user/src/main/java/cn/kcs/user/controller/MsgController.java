@@ -1,15 +1,11 @@
 package cn.kcs.user.controller;
 
-import cn.kcs.common.util.CommonUtil;
 import cn.kcs.encrypt.anno.Decrypt;
 import cn.kcs.encrypt.anno.Encrypt;
 import cn.kcs.user.entity.TMsg;
 import cn.kcs.user.entity.dto.ContactDto;
 import cn.kcs.user.entity.dto.MsgDto;
 import cn.kcs.user.service.TMsgService;
-import cn.kcs.user.service.UserAccountService;
-import com.alibaba.fastjson.JSONObject;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,10 +17,9 @@ import java.util.List;
 /**
  * (TMsg)表控制层
  *
- * @author makejava
- * @since 2018-12-30 19:47:03
+ * @author kcs
+ * @date 2018-12-30 19:47:03
  */
-@Api(value = "msg", description = "MSG API")
 @RestController
 @RequestMapping("msg")
 public class MsgController {
@@ -33,9 +28,6 @@ public class MsgController {
      */
     @Autowired
     private TMsgService tMsgService;
-
-    @Autowired
-    private UserAccountService userAccountService;
 
     /**
      * 通过主键查询单条数据
@@ -87,35 +79,9 @@ public class MsgController {
     @Encrypt
     @ApiOperation(value = "修改msg")
     @PostMapping("{str}/edit")
-    public JSONObject updateNote(@PathVariable String str) {
-        if (str == null) {
-            return CommonUtil.successJson(0);
-        }
-        return CommonUtil.successJson(this.tMsgService.update(str));
+    public ResponseEntity updateNote(@PathVariable String str) {
+        int update = this.tMsgService.update(str);
+        return new ResponseEntity<>(update > 0, HttpStatus.OK);
     }
 
-//    @ApiOperation(value = "导入contact")
-//    @PostMapping("import/contact")
-//    public void importVCFFileContact(String filepath) {
-//        if (filepath == null) {
-//            filepath = "/Users/kcs/idea-workspace/myproject/notepad/src/main/resources/contact.vcf";
-//        }
-//        try {
-//            List<Concat> contates = VcfUtil.importVCFFileContact(new FileInputStream(new File(filepath)));
-//            for (Concat contate : contates) {
-//                UserDto userDto = new UserDto();
-//                userDto.setUserName(contate.getTrueName());
-//                userDto.setUserPassword(contate.getTelePhone());
-//                userDto.setUserPhone(contate.getTelePhone());
-//                if ("".equals(contate.getEmail())){
-//                    userDto.setUserEmail(contate.getTelePhone()+"@163.com");
-//                }
-//                userDto.setUserStatus("0");
-//                userDto.setRoleDto(new RoleDto());
-//                userService.add(userDto);
-//            }
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//    }
 }

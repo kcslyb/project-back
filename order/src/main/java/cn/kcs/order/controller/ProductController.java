@@ -1,17 +1,18 @@
 package cn.kcs.order.controller;
 
-import cn.kcs.common.util.CommonUtil;
+import cn.kcs.common.util.ResponseDto;
 import cn.kcs.encrypt.anno.Decrypt;
 import cn.kcs.encrypt.anno.Encrypt;
 import cn.kcs.order.entity.Product;
 import cn.kcs.order.entity.dto.ProductDto;
 import cn.kcs.order.service.ProductService;
-import com.alibaba.fastjson.JSONObject;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (Product)表控制层
@@ -19,7 +20,6 @@ import javax.annotation.Resource;
  * @author makejava
  * @since 2019-04-23 14:38:33
  */
-@Api(value = "product", description = "product API")
 @RestController
 @RequestMapping("product")
 public class ProductController {
@@ -52,8 +52,9 @@ public class ProductController {
     @Encrypt
     @ApiOperation(value = "添加数据")
     @PostMapping(value = {"", "/add"})
-    public JSONObject add(@RequestBody Product product) {
-        return CommonUtil.successJson(this.productService.insert(product));
+    public ResponseEntity add(@RequestBody Product product) {
+        ProductDto insert = this.productService.insert(product);
+        return new ResponseEntity<>(insert, HttpStatus.OK);
     }
 
     /**
@@ -66,8 +67,9 @@ public class ProductController {
     @Encrypt
     @ApiOperation(value = "删除单条数据")
     @DeleteMapping("/{id}")
-    public JSONObject delete(@PathVariable String id) {
-        return CommonUtil.successJson(this.productService.deleteById(id));
+    public ResponseEntity delete(@PathVariable String id) {
+        boolean delete = this.productService.deleteById(id);
+        return new ResponseEntity<>(delete, HttpStatus.OK);
     }
 
     /**
@@ -80,8 +82,9 @@ public class ProductController {
     @Decrypt
     @ApiOperation(value = "修改单条数据")
     @PutMapping()
-    public JSONObject edit(@RequestBody Product product) {
-        return CommonUtil.successJson(this.productService.update(product));
+    public ResponseEntity edit(@RequestBody Product product) {
+        ProductDto update = this.productService.update(product);
+        return new ResponseEntity<>(update, HttpStatus.OK);
     }
 
     /**
@@ -93,7 +96,7 @@ public class ProductController {
     @Encrypt
     @ApiOperation(value = "查询所以数据")
     @GetMapping("query/pager")
-    public JSONObject query(Product product, String offset, String limit) {
+    public ResponseEntity query(Product product, String offset, String limit) {
         if (offset == null || "".equals(offset)) {
             offset = "0";
         } else {
@@ -103,6 +106,10 @@ public class ProductController {
             limit = "10";
         }
         int size = this.productService.queryAll(product);
-        return CommonUtil.successPage(this.productService.queryAllByLimit(product, Integer.parseInt(offset), Integer.parseInt(limit)), size);
+        List<ProductDto> productDtoList = this.productService.queryAllByLimit(product,
+                Integer.parseInt(offset), Integer.parseInt(limit));
+        ResponseDto<ProductDto> productDtoResponseDto = new ResponseDto<>(productDtoList,
+                size, Integer.parseInt(limit), Integer.parseInt(offset));
+        return new ResponseEntity<>(productDtoResponseDto, HttpStatus.OK);
     }
 }

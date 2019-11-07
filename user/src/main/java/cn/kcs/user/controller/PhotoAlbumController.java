@@ -1,12 +1,13 @@
 package cn.kcs.user.controller;
 
-import cn.kcs.common.util.CommonUtil;
+import cn.kcs.common.util.ResponseDto;
 import cn.kcs.encrypt.anno.Decrypt;
 import cn.kcs.encrypt.anno.Encrypt;
 import cn.kcs.user.entity.PhotoAlbum;
 import cn.kcs.user.service.PhotoAlbumService;
-import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -62,7 +63,7 @@ public class PhotoAlbumController {
     @Encrypt
     @ApiOperation(value = "查询所以数据")
     @GetMapping("query/pager")
-    public JSONObject query(PhotoAlbum photoAlbum, Integer offset, Integer limit) {
+    public ResponseEntity query(PhotoAlbum photoAlbum, Integer offset, Integer limit) {
         if (limit == null || limit < 0) {
             limit = 10;
         }
@@ -72,7 +73,9 @@ public class PhotoAlbumController {
             offset = (offset - 1) * limit;
         }
         int size = this.photoAlbumService.queryAll(photoAlbum);
-        return CommonUtil.successPage(this.photoAlbumService.queryAllByLimit(photoAlbum, offset, limit), size);
+        List<PhotoAlbum> photoAlbums = this.photoAlbumService.queryAllByLimit(photoAlbum, offset, limit);
+        ResponseDto<PhotoAlbum> orderDtoResponseDto = new ResponseDto<>(photoAlbums, size, limit, offset);
+        return new ResponseEntity<>(orderDtoResponseDto, HttpStatus.OK);
     }
 
 

@@ -1,6 +1,7 @@
 package cn.kcs.user.service;
 
 import cn.kcs.user.entity.UserAccount;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -67,5 +68,5 @@ public interface UserAccountService {
      * @param account 实体
      * @return 是否成功
      */
-    boolean signInAccount(UserAccount account);
+    ResponseEntity registerAccount(UserAccount account);
 }

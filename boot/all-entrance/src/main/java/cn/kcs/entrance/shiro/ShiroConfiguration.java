@@ -48,12 +48,13 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/webjars/**", "anon");
         filterChainDefinitionMap.put("/swagger-resources/**", "anon");
         filterChainDefinitionMap.put("/v2/**", "anon");
+        filterChainDefinitionMap.put("/api", "anon");
+        filterChainDefinitionMap.put("/mail", "anon");
+        filterChainDefinitionMap.put("/login", "anon");
+        filterChainDefinitionMap.put("/error", "anon");
+        filterChainDefinitionMap.put("/logout", "anon");
         filterChainDefinitionMap.put("/user/account", "anon");
         filterChainDefinitionMap.put("/user/account/add", "anon");
-        filterChainDefinitionMap.put("/api", "anon");
-        filterChainDefinitionMap.put("/login", "anon");
-        filterChainDefinitionMap.put("/logout", "anon");
-        filterChainDefinitionMap.put("/error", "anon");
         filterChainDefinitionMap.put("/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         Map<String, Filter> filterMap = new LinkedHashMap<>();

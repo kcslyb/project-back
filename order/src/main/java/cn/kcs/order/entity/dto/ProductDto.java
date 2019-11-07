@@ -1,5 +1,6 @@
 package cn.kcs.order.entity.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -7,7 +8,7 @@ import java.util.Date;
  * @author: kcs
  * @create: 2019-04-23 15:22
  **/
-public class ProductDto {
+public class ProductDto implements Serializable {
 
     private String productId;
 

@@ -1,21 +1,25 @@
 package cn.kcs.order.controller;
 
-import cn.kcs.common.util.CommonUtil;
+import cn.kcs.common.util.ResponseDto;
 import cn.kcs.encrypt.anno.Decrypt;
 import cn.kcs.encrypt.anno.Encrypt;
 import cn.kcs.order.entity.Order;
+import cn.kcs.order.entity.dto.OrderDto;
+import cn.kcs.order.entity.dto.OrderGoodsDto;
 import cn.kcs.order.entity.dto.OrderGoodsSimpleDto;
 import cn.kcs.order.entity.dto.SimpleProduct;
 import cn.kcs.order.service.OrderService;
 import cn.kcs.rabbitmq.MsgSender;
-import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (Order)表控制层
@@ -47,9 +51,10 @@ public class OrderController {
     @Encrypt
     @Decrypt
     @ApiOperation(value = "通过主键查询单条数据")
-    @GetMapping("")
-    public JSONObject selectById(String id) {
-        return CommonUtil.successJson(this.orderService.queryById(id));
+    @GetMapping()
+    public ResponseEntity selectById(String id) {
+        OrderDto orderDto = this.orderService.queryById(id);
+        return new ResponseEntity<>(orderDto, HttpStatus.OK);
     }
 
     /**
@@ -62,8 +67,9 @@ public class OrderController {
     @Decrypt
     @ApiOperation(value = "通过主键查询订单货品")
     @GetMapping("/info")
-    public JSONObject queryOrderGoodsByOrderId(String id) {
-        return CommonUtil.successJson(this.orderService.queryOrderGoodsByOrderId(id));
+    public ResponseEntity queryOrderGoodsByOrderId(String id) {
+        List<OrderGoodsDto> orderGoodsList = this.orderService.queryOrderGoodsByOrderId(id);
+        return new ResponseEntity<>(orderGoodsList, HttpStatus.OK);
     }
 
     /**
@@ -75,8 +81,9 @@ public class OrderController {
     @Encrypt
     @ApiOperation(value = "添加数据")
     @PostMapping()
-    public JSONObject add(@RequestBody Order order) {
-        return CommonUtil.successJson(this.orderService.insert(order));
+    public ResponseEntity add(@RequestBody Order order) {
+        OrderDto insert = this.orderService.insert(order);
+        return new ResponseEntity<>(insert, HttpStatus.OK);
     }
 
     /**
@@ -89,8 +96,9 @@ public class OrderController {
     @Encrypt
     @ApiOperation(value = "删除单条数据")
     @DeleteMapping("/{id}")
-    public JSONObject delete(@PathVariable String id) {
-        return CommonUtil.successJson(this.orderService.deleteById(id));
+    public ResponseEntity delete(@PathVariable String id) {
+        boolean delete = this.orderService.deleteById(id);
+        return new ResponseEntity<>(delete, HttpStatus.OK);
     }
 
     /**
@@ -103,14 +111,12 @@ public class OrderController {
     @Encrypt
     @ApiOperation(value = "添加订单货品")
     @PostMapping("product/add")
-    public JSONObject insertByOrderIdAndProductId(@RequestBody OrderGoodsSimpleDto orderGoodsSimpleDto) {
+    public ResponseEntity insertByOrderIdAndProductId(@RequestBody OrderGoodsSimpleDto orderGoodsSimpleDto) {
         if (CollectionUtils.isEmpty(orderGoodsSimpleDto.getOrderProductIds())) {
-            return CommonUtil.errorJson();
+            return new ResponseEntity<>("OrderProductId list is null", HttpStatus.BAD_REQUEST);
         }
-        if (orderService.insertByOrderIdAndProductId(orderGoodsSimpleDto)) {
-            return CommonUtil.successJson();
-        }
-        return CommonUtil.errorJson();
+        boolean flag = orderService.insertByOrderIdAndProductId(orderGoodsSimpleDto);
+        return new ResponseEntity<>(flag, HttpStatus.OK);
 
     }
 
@@ -124,11 +130,9 @@ public class OrderController {
     @Encrypt
     @ApiOperation(value = "修改订单货品")
     @PutMapping("product/update")
-    public JSONObject updateByOrderIdAndProductId(@RequestBody OrderGoodsSimpleDto orderGoodsSimpleDto) {
-        if (orderService.updateByOrderIdAndProductId(orderGoodsSimpleDto)) {
-            return CommonUtil.successJson();
-        }
-        return CommonUtil.errorJson();
+    public ResponseEntity updateByOrderIdAndProductId(@RequestBody OrderGoodsSimpleDto orderGoodsSimpleDto) {
+        boolean flag = orderService.updateByOrderIdAndProductId(orderGoodsSimpleDto);
+        return new ResponseEntity<>(flag, HttpStatus.OK);
 
     }
 
@@ -141,11 +145,12 @@ public class OrderController {
     @Encrypt
     @ApiOperation(value = "删除订单货品")
     @DeleteMapping("product/delete")
-    public JSONObject deleteByOrderIdAndProductId(String orderId, SimpleProduct simpleProduct) {
-        if (orderService.deleteByOrderIdAndProductId(orderId, simpleProduct)) {
-            return CommonUtil.successJson();
+    public ResponseEntity deleteByOrderIdAndProductId(String orderId, SimpleProduct simpleProduct) {
+        boolean flag = orderService.deleteByOrderIdAndProductId(orderId, simpleProduct);
+        if (!flag) {
+            return new ResponseEntity<>("操作失败，请稍后再试", HttpStatus.BAD_REQUEST);
         }
-        return CommonUtil.errorJson();
+        return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
     /**
@@ -158,8 +163,9 @@ public class OrderController {
     @Decrypt
     @ApiOperation(value = "修改单条数据")
     @PutMapping()
-    public JSONObject edit(@RequestBody Order order) {
-        return CommonUtil.successJson(this.orderService.update(order));
+    public ResponseEntity edit(@RequestBody Order order) {
+        OrderDto update = this.orderService.update(order);
+        return new ResponseEntity<>(update, HttpStatus.OK);
     }
 
     /**
@@ -172,10 +178,14 @@ public class OrderController {
     @Decrypt
     @ApiOperation(value = "结算订单")
     @PostMapping("/settle")
-    public JSONObject simpleEdit(String orderId) {
+    public ResponseEntity simpleEdit(String orderId) {
         Order order = new Order();
         order.setOrderId(orderId);
-        return CommonUtil.successJson(this.orderService.simpleUpdate(order));
+        boolean flag = this.orderService.simpleUpdate(order);
+        if (!flag) {
+            return new ResponseEntity<>("操作失败，请稍后再试", HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
     /**
@@ -188,10 +198,14 @@ public class OrderController {
     @Decrypt
     @ApiOperation(value = "上菜")
     @PostMapping("/serving")
-    public JSONObject serving(String orderId) {
+    public ResponseEntity serving(String orderId) {
         Order order = new Order();
         order.setOrderId(orderId);
-        return CommonUtil.successJson(this.orderService.serving(order));
+        boolean flag = this.orderService.serving(order);
+        if (!flag) {
+            return new ResponseEntity<>("操作失败，请稍后再试", HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
     /**
@@ -203,7 +217,7 @@ public class OrderController {
     @Encrypt
     @ApiOperation(value = "查询所以数据")
     @GetMapping("query/pager")
-    public JSONObject query(Order order, Integer offset, Integer limit) {
+    public ResponseEntity query(Order order, Integer offset, Integer limit) {
         if (offset == null || "".equals(offset) || offset <= 0) {
             offset = 0;
         } else {
@@ -213,7 +227,9 @@ public class OrderController {
             limit = 10;
         }
         int size = this.orderService.queryAll(order);
-        return CommonUtil.successPage(this.orderService.queryAllByLimit(order, offset, limit), size);
+        List<OrderDto> orderDtoList = this.orderService.queryAllByLimit(order, offset, limit);
+        ResponseDto<OrderDto> orderDtoResponseDto = new ResponseDto<>(orderDtoList, size, limit, offset);
+        return new ResponseEntity<>(orderDtoResponseDto, HttpStatus.OK);
     }
 
 }

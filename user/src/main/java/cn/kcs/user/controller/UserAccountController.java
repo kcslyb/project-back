@@ -4,11 +4,13 @@ import cn.afterturn.easypoi.excel.ExcelExportUtil;
 import cn.afterturn.easypoi.excel.entity.ExportParams;
 import cn.kcs.common.fileutil.DeleteFileUtil;
 import cn.kcs.common.fileutil.DownloadFileUtil;
+import cn.kcs.common.util.CommonUtil;
 import cn.kcs.encrypt.anno.Decrypt;
 import cn.kcs.encrypt.anno.Encrypt;
 import cn.kcs.user.entity.UserAccount;
 import cn.kcs.user.service.UserAccountService;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresRoles;
@@ -102,18 +104,23 @@ public class UserAccountController {
     @Encrypt
     @ApiOperation(value = "注册")
     @PostMapping(value = {"/add"})
-    public ResponseEntity signInAccount(@RequestBody UserAccount account) {
-        Session session = SecurityUtils.getSubject().getSession();
-        Object attribute = session.getAttribute(account.getUserEmail());
-        boolean sessionCode = attribute == null || (account.getSessionCode() == attribute);
-        String code = "kcslyb";
-        boolean superCode = code.equals(account.getSessionCode());
-        session.removeAttribute(account.getUserEmail());
-        if (!sessionCode || !superCode) {
-            return new ResponseEntity<>("验证码错误", HttpStatus.BAD_REQUEST);
+    public ResponseEntity registerAccount(@RequestBody UserAccount account) {
+        if (StringUtils.isBlank(account.getSessionCode())) {
+            return new ResponseEntity<>("注册失败,验证码为空", HttpStatus.BAD_REQUEST);
         }
-        boolean b = this.userAccountService.signInAccount(account);
-        return new ResponseEntity<>(b, HttpStatus.OK);
+        if (!CommonUtil.isEmail(account.getUserEmail())) {
+            return new ResponseEntity<>("注册失败,请请输入正确的邮箱", HttpStatus.BAD_REQUEST);
+        }
+        if (!CommonUtil.isPhone(account.getUserPhone())) {
+            return new ResponseEntity<>("注册失败,请请输入正确的手机号", HttpStatus.BAD_REQUEST);
+        }
+        Session session = SecurityUtils.getSubject().getSession();
+        Object code = session.getAttribute(account.getUserEmail());
+        if (code != null && code.toString().equals(account.getSessionCode())) {
+            return this.userAccountService.registerAccount(account);
+        }
+        session.removeAttribute(account.getUserEmail());
+        return new ResponseEntity<>("注册失败, 验证码错误", HttpStatus.BAD_REQUEST);
     }
 
     /**

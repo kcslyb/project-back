@@ -9,6 +9,9 @@ import cn.kcs.user.entity.UserAccount;
 import cn.kcs.user.entity.dto.RoleDto;
 import cn.kcs.user.service.RoleService;
 import cn.kcs.user.service.UserAccountService;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -39,17 +42,19 @@ public class UserAccountServiceImpl implements UserAccountService {
     @Override
     public UserAccount queryById(String userId) {
         UserAccount userAccount = this.userAccountDao.queryById(userId);
-        RoleDto roleDto = roleService.queryById(userAccount.getUserRole());
-        userAccount.setUserRoleName(roleDto.getRoleName());
-        List<RolePermission> rolePermissionList = roleDto.getRolePermissionList();
-        if (CollectionUtils.isEmpty(rolePermissionList)) {
-            return userAccount;
+        if (!StringUtils.isBlank(userAccount.getUserRole())) {
+            RoleDto roleDto = roleService.queryById(userAccount.getUserRole());
+            userAccount.setUserRoleName(roleDto.getRoleName());
+            List<RolePermission> rolePermissionList = roleDto.getRolePermissionList();
+            if (CollectionUtils.isEmpty(rolePermissionList)) {
+                return userAccount;
+            }
+            List<String> permissionList = new ArrayList<>();
+            rolePermissionList.forEach(value -> {
+                permissionList.add(value.getRolePermissionLabel());
+            });
+            userAccount.setPermissionList(permissionList);
         }
-        List<String> permissionList = new ArrayList<>();
-        rolePermissionList.forEach(value -> {
-            permissionList.add(value.getRolePermissionLabel());
-        });
-        userAccount.setPermissionList(permissionList);
         return userAccount;
     }
 
@@ -75,8 +80,10 @@ public class UserAccountServiceImpl implements UserAccountService {
     public List<UserAccount> queryAll(UserAccount userAccount) {
         List<UserAccount> userAccounts = this.userAccountDao.queryAll(userAccount);
         for (UserAccount account : userAccounts) {
-            RoleDto roleDto = roleService.queryById(account.getUserRole());
-            account.setUserRoleName(roleDto.getRoleName());
+            if (!StringUtils.isBlank(userAccount.getUserRole())) {
+                RoleDto roleDto = roleService.queryById(account.getUserRole());
+                account.setUserRoleName(roleDto.getRoleName());
+            }
         }
         return userAccounts;
     }
@@ -89,25 +96,15 @@ public class UserAccountServiceImpl implements UserAccountService {
      */
     @Override
     public boolean insert(UserAccount userAccount) {
+        userAccount.setUserPassword(Md5Utils.GetMD5Code(Md5Utils.GetMD5Code(userAccount.getUserPassword())));
+        List<UserAccount> userAccounts = queryAll(userAccount);
+        if (!CollectionUtils.isEmpty(userAccounts)) {
+            return false;
+        }
         userAccount.setUserId(ShortUUID.generate());
-        userAccount.setUserCreateTime(CustomDateUtil.stringToDate(CustomDateUtil.currentFormatDate(CustomDateUtil.DATE_TO_STRING_DETAIL_PATTERN), CustomDateUtil.DATE_TO_STRING_DETAIL_PATTERN));
-        userAccount.setUserUpdateTime(userAccount.getUserCreateTime());
-        userAccount.setUserLastLoginTime(userAccount.getUserCreateTime());
+        userAccount.setUserStatus("1");
         userAccount.setUserLoginNumber("0");
-        if (userAccount.getUserRole() == null || "".equals(userAccount.getUserRole())) {
-            userAccount.setUserRole("IHVHwXpHl2cmppU13Qx");
-        }
-        if (userAccount.getUserAvatar() == null || "".equals(userAccount.getUserAvatar())) {
-            userAccount.setUserAvatar("http://127.0.0.1:8018/static/imagejpeg/35569e03a92b836b621152f2ba311c6f.jpg");
-        }
-        if (userAccount.getUserStatus() == null || "".equals(userAccount.getUserStatus())) {
-            userAccount.setUserStatus("1");
-        }
-        if (userAccount.getUserPassword() == null || "".equals(userAccount.getUserPassword())) {
-            userAccount.setUserPassword(Md5Utils.GetMD5Code(Md5Utils.GetMD5Code("123456")));
-        } else {
-            userAccount.setUserPassword(Md5Utils.GetMD5Code(Md5Utils.GetMD5Code(userAccount.getUserPassword())));
-        }
+        userAccount.setUserCreateTime(CustomDateUtil.currentFormatDate());
         return this.userAccountDao.insert(userAccount) > 0;
     }
 
@@ -119,7 +116,7 @@ public class UserAccountServiceImpl implements UserAccountService {
      */
     @Override
     public UserAccount update(UserAccount userAccount) {
-        userAccount.setUserUpdateTime(CustomDateUtil.stringToDate(CustomDateUtil.currentFormatDate(CustomDateUtil.DATE_TO_STRING_DETAIL_PATTERN), CustomDateUtil.DATE_TO_STRING_DETAIL_PATTERN));
+        userAccount.setUserUpdateTime(CustomDateUtil.currentFormatDate());
         this.userAccountDao.update(userAccount);
         return this.queryById(userAccount.getUserId());
     }
@@ -142,7 +139,11 @@ public class UserAccountServiceImpl implements UserAccountService {
      * @return 是否成功
      */
     @Override
-    public boolean signInAccount(UserAccount account) {
-        return insert(account);
+    public ResponseEntity registerAccount(UserAccount account) {
+        boolean insert = insert(account);
+        if (!insert) {
+            return new ResponseEntity<>("该账户已经存在", HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

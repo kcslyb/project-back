@@ -1,15 +1,17 @@
 package cn.kcs.order.controller;
 
-import cn.kcs.common.util.CommonUtil;
+import cn.kcs.common.util.ResponseDto;
 import cn.kcs.encrypt.anno.Decrypt;
 import cn.kcs.encrypt.anno.Encrypt;
 import cn.kcs.order.entity.Desk;
 import cn.kcs.order.service.DeskService;
-import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (Desk)表控制层
@@ -36,8 +38,9 @@ public class DeskController {
     @Decrypt
     @ApiOperation(value = "通过主键查询单条数据")
     @GetMapping("")
-    public JSONObject selectById(String id) {
-        return CommonUtil.successJson(this.deskService.queryById(id));
+    public ResponseEntity selectById(String id) {
+        Desk desk = this.deskService.queryById(id);
+        return new ResponseEntity<>(desk, HttpStatus.OK);
     }
 
     /**
@@ -49,8 +52,9 @@ public class DeskController {
     @Encrypt
     @ApiOperation(value = "添加数据")
     @PostMapping(value = {"", "/add"})
-    public JSONObject add(@RequestBody Desk desk) {
-        return CommonUtil.successJson(this.deskService.insert(desk));
+    public ResponseEntity add(@RequestBody Desk desk) {
+        Desk insert = this.deskService.insert(desk);
+        return new ResponseEntity<>(insert, HttpStatus.OK);
     }
 
     /**
@@ -63,8 +67,9 @@ public class DeskController {
     @Encrypt
     @ApiOperation(value = "删除单条数据")
     @DeleteMapping("/{id}")
-    public JSONObject delete(@PathVariable String id) {
-        return CommonUtil.successJson(this.deskService.deleteById(id));
+    public ResponseEntity delete(@PathVariable String id) {
+        boolean delete = this.deskService.deleteById(id);
+        return new ResponseEntity<>(delete, HttpStatus.OK);
     }
 
     /**
@@ -77,8 +82,9 @@ public class DeskController {
     @Decrypt
     @ApiOperation(value = "修改单条数据")
     @PutMapping()
-    public JSONObject edit(@RequestBody Desk desk) {
-        return CommonUtil.successJson(this.deskService.update(desk));
+    public ResponseEntity edit(@RequestBody Desk desk) {
+        Desk update = this.deskService.update(desk);
+        return new ResponseEntity<>(update, HttpStatus.OK);
     }
 
     /**
@@ -90,7 +96,7 @@ public class DeskController {
     @Encrypt
     @ApiOperation(value = "查询所以数据")
     @GetMapping("query/pager")
-    public JSONObject query(Desk desk, Integer offset, Integer limit) {
+    public ResponseEntity query(Desk desk, Integer offset, Integer limit) {
         if (offset == null || "".equals(offset)) {
             offset = 0;
         } else {
@@ -100,7 +106,9 @@ public class DeskController {
             limit = 10;
         }
         int size = this.deskService.queryAll(desk);
-        return CommonUtil.successPage(this.deskService.queryAllByLimit(desk, offset, limit), size);
+        List<Desk> desks = this.deskService.queryAllByLimit(desk, offset, limit);
+        ResponseDto<Desk> orderDtoResponseDto = new ResponseDto<>(desks, size, limit, offset);
+        return new ResponseEntity<>(orderDtoResponseDto, HttpStatus.OK);
     }
 
 }

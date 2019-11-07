@@ -1,9 +1,9 @@
 package cn.kcs.websocket;
 
-import cn.kcs.common.util.CommonUtil;
-import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,17 +21,23 @@ import java.io.IOException;
 @RequestMapping("/socket")
 public class CheckCenterController {
 
-    //推送数据接口
+    /**
+     * 推送数据接口
+     *
+     * @param cid     推送唯一标示
+     * @param message 推送信息
+     * @return
+     */
     @ResponseBody
     @RequestMapping("/push/{cid}")
     @ApiOperation(value = "推送数据接口")
-    public JSONObject pushToWeb(@PathVariable String cid, String message) {
+    public ResponseEntity pushToWeb(@PathVariable String cid, String message) {
         try {
             WebSocketServer.sendInfo(message, cid);
         } catch (IOException e) {
             e.printStackTrace();
-            return CommonUtil.errorJson(cid + "#" + e.getMessage());
+            return new ResponseEntity<>("信息推送异常,请稍后再试", HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return CommonUtil.successJson(cid + message);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

@@ -21,9 +21,10 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
- * @description: WebSocketServer
- * @author: kcs
- * @date: 2019-05-10 09:51
+ * WebSocketServer
+ *
+ * @author kcs
+ * @date 2019-05-10 09:51
  **/
 @Component
 @ServerEndpoint("/socket/{sid}")
@@ -31,9 +32,13 @@ public class WebSocketServer {
 
     public static WebSocketServer webSocketServer;
     static Logger logger = LoggerFactory.getLogger(WebSocketServer.class);
-    // 静态变量，用来记录当前在线连接数。应该把它设计成线程安全的。
+    /**
+     * 静态变量，用来记录当前在线连接数。应该把它设计成线程安全的。
+     */
     private static int onlineCount = 0;
-    // concurrent包的线程安全Set，用来存放每个客户端对应的MyWebSocket对象。
+    /**
+     * concurrent包的线程安全Set，用来存放每个客户端对应的MyWebSocket对象
+     */
     private static CopyOnWriteArraySet<WebSocketServer> webSocketSet = new CopyOnWriteArraySet<WebSocketServer>();
     @Autowired
     private MsgSender msgSender;
@@ -41,9 +46,13 @@ public class WebSocketServer {
     private TMsgDao tMsgDao;
     @Autowired
     private UserAccountDao userAccountDao;
-    // 与某个客户端的连接会话，需要通过它来给客户端发送数据
+    /**
+     * 与某个客户端的连接会话，需要通过它来给客户端发送数据
+     */
     private Session session;
-    // 接收sid
+    /**
+     * 接收sid
+     */
     private String sid = "";
 
     public static boolean isOnline(String sid) {
@@ -59,7 +68,7 @@ public class WebSocketServer {
      * 群发自定义消息
      */
     public static void sendInfo(String message, @PathParam("sid") String sid) throws IOException {
-        logger.info("推送消息到窗口" + sid + "，推送内容:" + message);
+        logger.info("推送消息到窗口[{}]推送内容:[{}]", sid, message);
         for (WebSocketServer item : webSocketSet) {
             try {
                 // 这里可以设定只推送给这个sid的，为null则全部推送
@@ -108,13 +117,13 @@ public class WebSocketServer {
         webSocketSet.add(this);
         // 在线数加1
         addOnlineCount();
-        logger.info("有新窗口开始监听:" + sid + ",当前在线人数为" + getOnlineCount());
+        logger.info("有新窗口[{}]被监听, 当前在线人数为[{}]", sid, getOnlineCount());
         TMsg tMsg = new TMsg();
         tMsg.setMsgStatus("0");
         tMsg.setMsgReceiver(sid);
         List<TMsg> list = webSocketServer.tMsgDao.queryAllByMsg(tMsg);
         if (CollectionUtils.isNotEmpty(list)) {
-            logger.info("sid" + "存在" + list.size() + "未读消息");
+            logger.info("sid[{}]存在[{}]未读消息", sid, list.size());
             for (TMsg msg : list) {
                 UserAccount userAccount = webSocketServer.userAccountDao.queryById(msg.getMsgSender());
                 msg.setMsgSender(userAccount.getUserName());
@@ -136,7 +145,7 @@ public class WebSocketServer {
         webSocketSet.remove(this);
         // 在线数减1
         subOnlineCount();
-        logger.info("有一连接关闭！当前在线人数为" + getOnlineCount());
+        logger.info("有一连接关闭！当前在线人数为[{}]", getOnlineCount());
     }
 
     /**
