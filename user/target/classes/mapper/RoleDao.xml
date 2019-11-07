@@ -17,7 +17,8 @@
     <!--查询单个-->
     <select id="queryById" resultMap="RoleMap">
         select
-          role_id, role_name, role_description, role_type, role_delete_flag, role_create_time, role_update_time, role_create_by, role_update_by
+        role_id, role_name, role_description, role_type, role_delete_flag, role_create_time, role_update_time,
+        role_create_by, role_update_by
         from myproject.role
         where role_id = #{roleId}
     </select>
@@ -25,7 +26,8 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="RoleMap">
         select
-          role_id, role_name, role_description, role_type, role_delete_flag, role_create_time, role_update_time, role_create_by, role_update_by
+        role_id, role_name, role_description, role_type, role_delete_flag, role_create_time, role_update_time,
+        role_create_by, role_update_by
         from myproject.role
         limit #{offset}, #{limit}
     </select>
@@ -33,7 +35,8 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="RoleMap">
         select
-          role_id, role_name, role_description, role_type, role_delete_flag, role_create_time, role_update_time, role_create_by, role_update_by
+        role_id, role_name, role_description, role_type, role_delete_flag, role_create_time, role_update_time,
+        role_create_by, role_update_by
         from myproject.role
         <where>
             <if test="roleId != null and roleId != ''">
@@ -68,8 +71,10 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="roleId" useGeneratedKeys="true">
-        insert into myproject.role(role_Id, role_name, role_description, role_type, role_delete_flag, role_create_time, role_update_time, role_create_by, role_update_by)
-        values (#{roleId}, #{roleName}, #{roleDescription}, #{roleType}, #{roleDeleteFlag}, #{roleCreateTime}, #{roleUpdateTime}, #{roleCreateBy}, #{roleUpdateBy})
+        insert into myproject.role(role_Id, role_name, role_description, role_type, role_delete_flag, role_create_time,
+        role_update_time, role_create_by, role_update_by)
+        values (#{roleId}, #{roleName}, #{roleDescription}, #{roleType}, #{roleDeleteFlag}, #{roleCreateTime},
+        #{roleUpdateTime}, #{roleCreateBy}, #{roleUpdateBy})
     </insert>
 
     <!--通过主键修改数据-->

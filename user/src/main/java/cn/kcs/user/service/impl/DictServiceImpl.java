@@ -1,6 +1,7 @@
 package cn.kcs.user.service.impl;
 
 import cn.kcs.common.exception.CustomException;
+import cn.kcs.common.util.PageRequest;
 import cn.kcs.common.uuidutil.ShortUUID;
 import cn.kcs.user.dao.DictDao;
 import cn.kcs.user.dao.DictGroupDao;
@@ -58,12 +59,12 @@ public class DictServiceImpl implements DictService {
      * 查询多条数据
      *
      * @param dict    dict
-     * @param keyWord keyWord
+     * @param pageRequest pageRequest
      * @return 对象列表
      */
     @Override
-    public List<Dict> queryAll(Dict dict, String keyWord) {
-        return this.dictDao.queryAll(dict, keyWord);
+    public List<Dict> queryAll(Dict dict, PageRequest pageRequest) {
+        return this.dictDao.queryAll(dict, pageRequest);
     }
 
     /**

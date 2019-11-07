@@ -16,7 +16,8 @@
     <!--查询单个-->
     <select id="queryById" resultMap="GenealogyMap">
         select
-          genealogy_id, genealogy_name, genealogy_word, genealogy_region, genealogy_number, genealogy_proverbs, genealogy_description, genealogy_reserved
+        genealogy_id, genealogy_name, genealogy_word, genealogy_region, genealogy_number, genealogy_proverbs,
+        genealogy_description, genealogy_reserved
         from myproject.genealogy
         where genealogy_id = #{genealogyId}
     </select>
@@ -24,7 +25,8 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="GenealogyMap">
         select
-          genealogy_id, genealogy_name, genealogy_word, genealogy_region, genealogy_number, genealogy_proverbs, genealogy_description, genealogy_reserved
+        genealogy_id, genealogy_name, genealogy_word, genealogy_region, genealogy_number, genealogy_proverbs,
+        genealogy_description, genealogy_reserved
         from myproject.genealogy
         limit #{offset}, #{limit}
     </select>
@@ -32,7 +34,8 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="GenealogyMap">
         select
-          genealogy_id, genealogy_name, genealogy_word, genealogy_region, genealogy_number, genealogy_proverbs, genealogy_description, genealogy_reserved
+        genealogy_id, genealogy_name, genealogy_word, genealogy_region, genealogy_number, genealogy_proverbs,
+        genealogy_description, genealogy_reserved
         from myproject.genealogy
         <where>
             <if test="genealogyId != null and genealogyId != ''">
@@ -64,8 +67,10 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="genealogyId" useGeneratedKeys="true">
-        insert into myproject.genealogy(genealogy_id, genealogy_name, genealogy_word, genealogy_region, genealogy_number, genealogy_proverbs, genealogy_description, genealogy_reserved)
-        values (#{genealogyId}, #{genealogyName}, #{genealogyWord}, #{genealogyRegion}, #{genealogyNumber}, #{genealogyProverbs}, #{genealogyDescription}, #{genealogyReserved})
+        insert into myproject.genealogy(genealogy_id, genealogy_name, genealogy_word, genealogy_region,
+        genealogy_number, genealogy_proverbs, genealogy_description, genealogy_reserved)
+        values (#{genealogyId}, #{genealogyName}, #{genealogyWord}, #{genealogyRegion}, #{genealogyNumber},
+        #{genealogyProverbs}, #{genealogyDescription}, #{genealogyReserved})
     </insert>
 
     <!--通过主键修改数据-->

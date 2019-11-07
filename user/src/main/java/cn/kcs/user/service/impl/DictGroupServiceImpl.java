@@ -2,6 +2,7 @@ package cn.kcs.user.service.impl;
 
 import cn.kcs.common.exception.CustomException;
 import cn.kcs.common.util.CustomDateUtil;
+import cn.kcs.common.util.PageRequest;
 import cn.kcs.common.uuidutil.ShortUUID;
 import cn.kcs.user.dao.DictGroupDao;
 import cn.kcs.user.entity.DictGroup;
@@ -89,14 +90,14 @@ public class DictGroupServiceImpl implements DictGroupService {
     }
 
     @Override
-    public List<DictGroup> queryAll(DictGroup dictGroup, String keyWord) {
-        return dictGroupDao.queryAll(dictGroup, keyWord);
+    public List<DictGroup> queryAll(DictGroup dictGroup, PageRequest pageRequest) {
+        return dictGroupDao.queryAll(dictGroup, pageRequest);
     }
 
     @Override
     public List<DictGroup> queryGroupByLabel(String groupLabel) {
         DictGroup dictGroup = new DictGroup();
         dictGroup.setLabel(groupLabel);
-        return queryAll(dictGroup, "");
+        return queryAll(dictGroup, new PageRequest());
     }
 }

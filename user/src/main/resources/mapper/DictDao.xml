@@ -52,11 +52,15 @@
             <if test="dict.deleteFlag != null and dict.deleteFlag != ''">
                 and delete_flag = #{dict.deleteFlag}
             </if>
-            <if test="keyWord != null and keyWord != ''">
-                and (dict_key like concat('%',concat(#{keyWord},'%')) or label like concat('%',concat(#{keyWord},'%')))
+            <if test="pageRequest.keyWord != null and pageRequest.keyWord != ''">
+                and (dict_key like concat('%',concat(#{pageRequest.keyWord},'%')) or label like
+                concat('%',concat(#{pageRequest.keyWord},'%')))
             </if>
         </where>
         ORDER BY sort DESC
+        <if test="pageRequest.start != null and pageRequest.start != '' and pageRequest.size != null and pageRequest.size != ''">
+            LIMIT #{pageRequest.start}, #{pageRequest.size}
+        </if>
     </select>
 
     <!--新增所有列-->

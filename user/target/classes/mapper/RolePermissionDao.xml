@@ -12,7 +12,7 @@
     <!--查询单个-->
     <select id="queryById" resultMap="RolePermissionMap">
         select
-          role_permission_id, role_id, role_permission_title, role_permission_label
+        role_permission_id, role_id, role_permission_title, role_permission_label
         from myproject.role_permission
         where role_id = #{0}
     </select>
@@ -26,15 +26,15 @@
     <insert id="batchInsertByRolePermission">
         insert into myproject.role_permission(role_permission_id, role_id, role_permission_title, role_permission_label)
         values
-            <foreach collection="list" item="item" index="index" separator=",">
-                (#{item.rolePermissionId}, #{item.roleId}, #{item.rolePermissionTitle}, #{item.rolePermissionLabel})
-            </foreach>
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.rolePermissionId}, #{item.roleId}, #{item.rolePermissionTitle}, #{item.rolePermissionLabel})
+        </foreach>
     </insert>
 
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="RolePermissionMap">
         select
-          role_permission_id, role_id, role_permission_title, role_permission_label
+        role_permission_id, role_id, role_permission_title, role_permission_label
         from myproject.role_permission
         limit #{offset}, #{limit}
     </select>
@@ -42,7 +42,7 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="RolePermissionMap">
         select
-          role_permission_id, role_id, role_permission_title, role_permission_label
+        role_permission_id, role_id, role_permission_title, role_permission_label
         from myproject.role_permission
         <where>
             <if test="rolePermissionId != null and rolePermissionId != ''">

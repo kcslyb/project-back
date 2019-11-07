@@ -17,7 +17,8 @@
     <!--查询单个-->
     <select id="queryById" resultMap="UserMap">
         select
-          user_id, user_name, user_alias, user_word, user_account_id, user_status, user_marital_status, user_birth_time, user_leave_time
+        user_id, user_name, user_alias, user_word, user_account_id, user_status, user_marital_status, user_birth_time,
+        user_leave_time
         from myproject.user
         where user_account_id = #{userId}
     </select>
@@ -25,7 +26,8 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="UserMap">
         select
-          user_id, user_name, user_alias, user_word, user_account_id, user_status, user_marital_status, user_birth_time, user_leave_time
+        user_id, user_name, user_alias, user_word, user_account_id, user_status, user_marital_status, user_birth_time,
+        user_leave_time
         from myproject.user
         limit #{offset}, #{limit}
     </select>
@@ -33,7 +35,8 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="UserMap">
         select
-          user_id, user_name, user_alias, user_word, user_account_id, user_status, user_marital_status, user_birth_time, user_leave_time
+        user_id, user_name, user_alias, user_word, user_account_id, user_status, user_marital_status, user_birth_time,
+        user_leave_time
         from myproject.user
         <where>
             <if test="userId != null and userId != ''">
@@ -68,8 +71,10 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="userId" useGeneratedKeys="true">
-        insert into myproject.user(user_id, user_name, user_alias, user_word, user_account_id, user_status, user_marital_status, user_birth_time, user_leave_time)
-        values (#{userId}, #{userName}, #{userAlias}, #{userWord}, #{userAccountId}, #{userStatus}, #{userMaritalStatus}, #{userBirthTime}, #{userLeaveTime})
+        insert into myproject.user(user_id, user_name, user_alias, user_word, user_account_id, user_status,
+        user_marital_status, user_birth_time, user_leave_time)
+        values (#{userId}, #{userName}, #{userAlias}, #{userWord}, #{userAccountId}, #{userStatus},
+        #{userMaritalStatus}, #{userBirthTime}, #{userLeaveTime})
     </insert>
 
     <!--通过主键修改数据-->

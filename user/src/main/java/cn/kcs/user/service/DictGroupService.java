@@ -1,5 +1,6 @@
 package cn.kcs.user.service;
 
+import cn.kcs.common.util.PageRequest;
 import cn.kcs.user.entity.DictGroup;
 import org.springframework.http.ResponseEntity;
 
@@ -58,10 +59,10 @@ public interface DictGroupService {
      * 查询多条数据
      *
      * @param dictGroup dictGroup
-     * @param keyWord   keyWord
+     * @param pageRequest pageRequest
      * @return 对象列表
      */
-    List<DictGroup> queryAll(DictGroup dictGroup, String keyWord);
+    List<DictGroup> queryAll(DictGroup dictGroup, PageRequest pageRequest);
 
     /**
      * 查询多条数据

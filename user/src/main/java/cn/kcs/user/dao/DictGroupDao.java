@@ -1,5 +1,6 @@
 package cn.kcs.user.dao;
 
+import cn.kcs.common.util.PageRequest;
 import cn.kcs.user.entity.DictGroup;
 import org.apache.ibatis.annotations.Param;
 
@@ -34,11 +35,10 @@ public interface DictGroupDao {
     /**
      * 通过实体作为筛选条件查询
      *
-     * @param dictGroup 实例对象
-     * @param keyWord   keyWord
+     * @param dictGroup requestDto
      * @return 对象列表
      */
-    List<DictGroup> queryAll(@Param("dictGroup") DictGroup dictGroup, @Param("keyWord") String keyWord);
+    List<DictGroup> queryAll(@Param("dictGroup") DictGroup dictGroup, @Param("pageRequest") PageRequest pageRequest);
 
     /**
      * 新增数据

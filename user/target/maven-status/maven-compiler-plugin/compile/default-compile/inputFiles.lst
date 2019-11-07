@@ -31,6 +31,7 @@
 /Users/kcs/idea-workspace/project/user/src/main/java/cn/kcs/user/service/RolePermissionService.java
 /Users/kcs/idea-workspace/project/user/src/main/java/cn/kcs/user/controller/PhotoAlbumController.java
 /Users/kcs/idea-workspace/project/user/src/main/java/cn/kcs/user/service/AddressService.java
+/Users/kcs/idea-workspace/project/user/src/main/java/cn/kcs/user/entity/dto/MailRequest.java
 /Users/kcs/idea-workspace/project/user/src/main/java/cn/kcs/user/dao/DictGroupDao.java
 /Users/kcs/idea-workspace/project/user/src/main/java/cn/kcs/user/entity/dto/UserDto.java
 /Users/kcs/idea-workspace/project/user/src/main/java/cn/kcs/user/dao/DictDao.java

@@ -28,6 +28,7 @@ cn/kcs/user/dao/TFileDao.class
 cn/kcs/user/dao/TMsgDao.class
 cn/kcs/user/service/AddressService.class
 cn/kcs/user/entity/TFile.class
+cn/kcs/user/entity/dto/MailRequest.class
 cn/kcs/user/entity/Tease.class
 cn/kcs/user/service/DictGroupService.class
 cn/kcs/user/controller/RoleController.class

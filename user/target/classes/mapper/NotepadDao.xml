@@ -14,14 +14,14 @@
 
     <select id="queryById" resultMap="TNotepadMap">
         select
-          note_id, note_created, note_content, note_create_time, note_modify_time, note_title, note_type
+        note_id, note_created, note_content, note_create_time, note_modify_time, note_title, note_type
         from myproject.notepad
         where note_id = #{noteId}
     </select>
 
     <select id="queryAllByLimit" resultMap="TNotepadMap">
         select
-          note_id, note_created, note_content, note_create_time, note_modify_time, note_title, note_type
+        note_id, note_created, note_content, note_create_time, note_modify_time, note_title, note_type
         from myproject.notepad
         <where>
             <if test="noteType != null and noteType != ''">
@@ -63,8 +63,10 @@
     </select>
 
     <insert id="insert" keyProperty="" useGeneratedKeys="true">
-        insert into myproject.notepad(note_id, note_created, note_content, note_create_time, note_modify_time, note_title, note_type)
-        values (#{noteId}, #{noteCreated}, #{noteContent}, #{noteCreateTime}, #{noteModifyTime}, #{noteTitle}, #{noteType})
+        insert into myproject.notepad(note_id, note_created, note_content, note_create_time, note_modify_time,
+        note_title, note_type)
+        values (#{noteId}, #{noteCreated}, #{noteContent}, #{noteCreateTime}, #{noteModifyTime}, #{noteTitle},
+        #{noteType})
     </insert>
 
     <update id="update">
@@ -96,7 +98,7 @@
     </update>
 
     <delete id="deleteById">
-        delete from myproject.notepad where  note_id= #{noteId}
+        delete from myproject.notepad where note_id= #{noteId}
     </delete>
 
 </mapper>

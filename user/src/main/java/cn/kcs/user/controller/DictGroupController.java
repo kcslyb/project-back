@@ -1,5 +1,6 @@
 package cn.kcs.user.controller;
 
+import cn.kcs.common.util.PageRequest;
 import cn.kcs.encrypt.anno.Decrypt;
 import cn.kcs.encrypt.anno.Encrypt;
 import cn.kcs.user.entity.DictGroup;
@@ -34,8 +35,9 @@ public class DictGroupController {
     @Decrypt
     @Encrypt
     @GetMapping("query")
-    public ResponseEntity query(DictGroup dictGroup, String keyWord) {
-        List<DictGroup> dictGroupList = dictGroupService.queryAll(dictGroup, keyWord);
+    public ResponseEntity query(DictGroup dictGroup, PageRequest pageRequest) {
+        pageRequest.initStart(pageRequest);
+        List<DictGroup> dictGroupList = dictGroupService.queryAll(dictGroup, pageRequest);
         return new ResponseEntity<>(dictGroupList, HttpStatus.OK);
     }
 

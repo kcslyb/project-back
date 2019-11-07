@@ -1,5 +1,6 @@
 package cn.kcs.user.dao;
 
+import cn.kcs.common.util.PageRequest;
 import cn.kcs.user.entity.Dict;
 import org.apache.ibatis.annotations.Param;
 
@@ -35,10 +36,10 @@ public interface DictDao {
      * 通过实体作为筛选条件查询
      *
      * @param dict    实例对象
-     * @param keyWord keyWord
+     * @param pageRequest pageRequest
      * @return 对象列表
      */
-    List<Dict> queryAll(@Param("dict") Dict dict, @Param("keyWord") String keyWord);
+    List<Dict> queryAll(@Param("dict") Dict dict, @Param("pageRequest") PageRequest pageRequest);
 
     /**
      * 新增数据
