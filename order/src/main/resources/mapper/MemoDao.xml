@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "./mybatis-3-mapper.dtd">
+<mapper namespace="cn.kcs.order.dao.MemoDao">
+
+    <resultMap type="cn.kcs.order.entity.Memo" id="MemoMap">
+        <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="VARCHAR"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="remake" column="remake" jdbcType="VARCHAR"/>
+        <result property="overhead" column="overhead" jdbcType="NUMERIC"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="happenTime" column="happen_time" jdbcType="TIMESTAMP"/>
+        <result property="deleteFlag" column="delete_flag" jdbcType="OTHER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="MemoMap">
+        select
+        id, type, title, remake, overhead, create_by, create_time, happen_time, delete_flag
+        from myproject.memo
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryPager" resultMap="MemoMap">
+        select
+        id, type, title, remake, overhead, create_by, create_time, happen_time, delete_flag
+        from myproject.memo
+        <where>
+            <if test="memo.id != null and memo.id != ''">
+                and id = #{memo.id}
+            </if>
+            <if test="memo.type != null and memo.type != ''">
+                and type = #{memo.type}
+            </if>
+            <if test="memo.title != null and memo.title != ''">
+                and title = #{memo.title}
+            </if>
+            <if test="memo.remake != null and memo.remake != ''">
+                and remake = #{memo.remake}
+            </if>
+            <if test="memo.overhead != null">
+                and overhead = #{memo.overhead}
+            </if>
+            <if test="memo.createBy != null and memo.createBy != ''">
+                and create_by = #{memo.createBy}
+            </if>
+            <if test="memo.createTime != null">
+                and create_time = #{memo.createTime}
+            </if>
+            <if test="memo.happenTime != null and pageRequest.startTime != null and pageRequest.endTime != null">
+                and happen_time BETWEEN #{pageRequest.startTime} AND #{pageRequest.endTime}
+            </if>
+            <if test="memo.deleteFlag != null">
+                and delete_flag = #{memo.deleteFlag}
+            </if>
+            <if test="pageRequest.keyWord != null and pageRequest.keyWord != ''">
+                and (title like concat('%',concat(#{pageRequest.keyWord},'%')))
+            </if>
+        </where>
+        <if test="pageRequest.orderBy != null and pageRequest.orderBy != '' ">
+            ORDER BY #{pageRequest.orderBy} DESC
+        </if>
+        LIMIT #{pageRequest.start}, #{pageRequest.size}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="MemoMap">
+        select
+        id, type, title, remake, overhead, create_by, create_time, happen_time, delete_flag
+        from myproject.memo
+        <where>
+            <if test="memo.id != null and memo.id != ''">
+                and id = #{memo.id}
+            </if>
+            <if test="memo.type != null and memo.type != ''">
+                and type = #{memo.type}
+            </if>
+            <if test="memo.title != null and memo.title != ''">
+                and title = #{memo.title}
+            </if>
+            <if test="memo.remake != null and memo.remake != ''">
+                and remake = #{memo.remake}
+            </if>
+            <if test="memo.overhead != null">
+                and overhead = #{memo.overhead}
+            </if>
+            <if test="memo.createBy != null and memo.createBy != ''">
+                and create_by = #{memo.createBy}
+            </if>
+            <if test="memo.createTime != null">
+                and create_time = #{memo.createTime}
+            </if>
+            <if test="memo.happenTime != null and pageRequest.startTime != null and pageRequest.endTime != null">
+                and happen_time BETWEEN #{pageRequest.startTime} AND #{pageRequest.endTime}
+            </if>
+            <if test="memo.deleteFlag != null">
+                and delete_flag = #{memo.deleteFlag}
+            </if>
+            <if test="pageRequest.keyWord != null and pageRequest.keyWord != ''">
+                and (title like concat('%',concat(#{pageRequest.keyWord},'%')))
+            </if>
+        </where>
+        <if test="pageRequest.orderBy != null and pageRequest.orderBy != '' ">
+            ORDER BY #{pageRequest.orderBy} DESC
+        </if>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into myproject.memo(id, type, title, remake, overhead, create_by, create_time, happen_time, delete_flag)
+        values (#{id}, #{type}, #{title}, #{remake}, #{overhead}, #{createBy}, #{createTime}, #{happenTime},
+        #{deleteFlag})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update myproject.memo
+        <set>
+            <if test="type != null and type != ''">
+                type = #{type},
+            </if>
+            <if test="title != null and title != ''">
+                title = #{title},
+            </if>
+            <if test="remake != null and remake != ''">
+                remake = #{remake},
+            </if>
+            <if test="overhead != null">
+                overhead = #{overhead},
+            </if>
+            <if test="createBy != null and createBy != ''">
+                create_by = #{createBy},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="happenTime != null">
+                happen_time = #{happenTime},
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag = #{deleteFlag},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from myproject.memo where id = #{id}
+    </delete>
+
+</mapper>

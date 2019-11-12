@@ -5,6 +5,8 @@ import cn.afterturn.easypoi.excel.entity.ExportParams;
 import cn.kcs.common.fileutil.DeleteFileUtil;
 import cn.kcs.common.fileutil.DownloadFileUtil;
 import cn.kcs.common.util.CommonUtil;
+import cn.kcs.common.util.PageRequest;
+import cn.kcs.common.util.ResponseDto;
 import cn.kcs.encrypt.anno.Decrypt;
 import cn.kcs.encrypt.anno.Encrypt;
 import cn.kcs.user.entity.UserAccount;
@@ -162,17 +164,12 @@ public class UserAccountController {
     @Encrypt
     @ApiOperation(value = "查询所以数据")
     @GetMapping("query/pager")
-    public List<UserAccount> query(Integer offset, Integer limit) {
-        if (limit == null || limit < 0) {
-            limit = 10;
-        }
-        if (offset == null || offset < 0) {
-            offset = 0;
-        } else {
-            offset = (offset - 1) * limit;
-        }
-        List<UserAccount> tAccounts = this.userAccountService.queryAllByLimit(offset, limit);
-        return tAccounts;
+    public ResponseEntity query(UserAccount account, PageRequest pageRequest) {
+        pageRequest = pageRequest.initStart(pageRequest);
+        int size = userAccountService.queryAll(account).size();
+        List<UserAccount> accounts = this.userAccountService.queryAllByLimit(account, pageRequest);
+        ResponseDto<UserAccount> userAccountResponseDto = new ResponseDto<>(accounts, size, pageRequest.getSize(), pageRequest.getStart());
+        return new ResponseEntity<>(userAccountResponseDto, HttpStatus.OK);
     }
 
     /**

@@ -52,13 +52,12 @@
                 and modify_time = #{dictGroup.modifyTime}
             </if>
             <if test="pageRequest.keyWord != null and pageRequest.keyWord != ''">
-                and name like concat('%',concat(#{pageRequest.keyWord},'%')) or label like concat('%',concat(#{pageRequest.keyWord},'%'))
+                and name like concat('%',concat(#{pageRequest.keyWord},'%')) or label like
+                concat('%',concat(#{pageRequest.keyWord},'%'))
             </if>
         </where>
         ORDER BY create_time DESC
-        <if test="pageRequest.start != null and pageRequest.start != '' and pageRequest.size != null and pageRequest.size != ''">
-            LIMIT #{pageRequest.start}, #{pageRequest.size}
-        </if>
+        LIMIT #{pageRequest.start}, #{pageRequest.size}
     </select>
 
     <!--新增所有列-->

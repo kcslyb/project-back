@@ -1,5 +1,7 @@
 package cn.kcs.user.controller;
 
+import cn.kcs.common.util.PageRequest;
+import cn.kcs.common.util.ResponseDto;
 import cn.kcs.encrypt.anno.Decrypt;
 import cn.kcs.encrypt.anno.Encrypt;
 import cn.kcs.user.entity.LoggerDto;
@@ -10,9 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * (Logger)表控制层
@@ -50,22 +50,13 @@ public class LoggerController {
     @Decrypt
     @Encrypt
     @ApiOperation(value = "查询所以数据")
-    @GetMapping("query")
-    public ResponseEntity query(LoggerDto loggerDto, Integer offset, Integer limit) {
-        if (limit == null || limit < 0) {
-            limit = 10;
-        }
-        if (offset == null || offset < 0) {
-            offset = 0;
-        } else {
-            offset = (offset - 1) * limit;
-        }
+    @GetMapping("query/pager")
+    public ResponseEntity query(LoggerDto loggerDto, PageRequest pageRequest) {
+        pageRequest = pageRequest.initStart(pageRequest);
         int size = this.loggerService.queryAll(loggerDto).size();
-        List<LoggerDto> loggers = this.loggerService.queryAllByLimit(loggerDto, offset, limit);
-        Map<String, Object> map = new HashMap<>(2);
-        map.put("data", loggers);
-        map.put("count", size);
-        return new ResponseEntity<>(map, HttpStatus.OK);
+        List<LoggerDto> loggers = this.loggerService.queryAllByLimit(loggerDto, pageRequest.getStart(), pageRequest.getSize());
+        ResponseDto responseDto = new ResponseDto<>(loggers, size, pageRequest.getSize(), pageRequest.getStart());
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
 }

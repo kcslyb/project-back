@@ -37,7 +37,41 @@
         user_last_login_time, user_create_time, user_update_time, user_login_number, role_description, department_name
         from (myproject.user_account left JOIN myproject.role on user_role = role_id) left JOIN
         myproject.user_department on user_department = department_id
-        limit #{offset}, #{limit}
+        <where>
+            <if test="account.userId != null and account.userId != ''">
+                and user_id = #{account.userId}
+            </if>
+            <if test="account.userName != null and account.userName != ''">
+                and user_name = #{account.userName}
+            </if>
+            <if test="account.userPhone != null and account.userPhone != ''">
+                and user_phone = #{account.userPhone}
+            </if>
+            <if test="account.userEmail != null and account.userEmail != ''">
+                and user_email = #{account.userEmail}
+            </if>
+            <if test="account.userAvatar != null and account.userAvatar != ''">
+                and user_avatar = #{account.userAvatar}
+            </if>
+            <if test="account.userRole != null and account.userRole != ''">
+                and user_role = #{account.userRole}
+            </if>
+            <if test="account.userDepartment != null and account.userDepartment != ''">
+                and user_department = #{account.userDepartment}
+            </if>
+            <if test="account.userStatus != null and account.userStatus != ''">
+                and user_status = #{account.userStatus}
+            </if>
+            <if test="pageRequest.keyWord != null and pageRequest.keyWord != ''">
+                and (user_name like concat('%',concat(#{pageRequest.keyWord},'%'))
+                or user_phone like concat('%',concat(#{pageRequest.keyWord},'%'))
+                or user_email like concat('%',concat(#{pageRequest.keyWord},'%')))
+            </if>
+        </where>
+        <if test="pageRequest.orderBy != null and pageRequest.orderBy != '' ">
+            ORDER BY #{pageRequest.orderBy} DESC
+        </if>
+        LIMIT #{pageRequest.start}, #{pageRequest.size}
     </select>
 
     <!--通过实体作为筛选条件查询-->

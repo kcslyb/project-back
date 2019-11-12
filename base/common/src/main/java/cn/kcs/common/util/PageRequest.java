@@ -11,6 +11,8 @@ public class PageRequest implements Serializable {
     private Integer size;
     private String keyWord;
     private String orderBy;
+    private String startTime;
+    private String endTime;
 
     public Integer getStart() {
         return start;
@@ -44,14 +46,36 @@ public class PageRequest implements Serializable {
         this.orderBy = orderBy;
     }
 
-    public void initStart(PageRequest pageRequest) {
+    public PageRequest(Integer start, Integer size) {
+        this.start = start;
+        this.size = size;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
+    public PageRequest initStart(PageRequest pageRequest) {
         if (pageRequest.size == null || pageRequest.size <= 0) {
             pageRequest.size = 10;
         }
         if (pageRequest.start == null || pageRequest.start <= 1) {
-            pageRequest.start = 1;
+            pageRequest.start = 0;
         } else {
-            pageRequest.start = (pageRequest.start - 1) * pageRequest.size + 1;
+            pageRequest.start = (pageRequest.start - 1) * pageRequest.size;
         }
+        return pageRequest;
     }
 }

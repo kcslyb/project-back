@@ -36,7 +36,7 @@ public class DictGroupController {
     @Encrypt
     @GetMapping("query")
     public ResponseEntity query(DictGroup dictGroup, PageRequest pageRequest) {
-        pageRequest.initStart(pageRequest);
+        pageRequest = pageRequest.initStart(pageRequest);
         List<DictGroup> dictGroupList = dictGroupService.queryAll(dictGroup, pageRequest);
         return new ResponseEntity<>(dictGroupList, HttpStatus.OK);
     }

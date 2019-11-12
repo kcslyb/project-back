@@ -1,18 +1,18 @@
-package cn.kcs.user.dao;
+package cn.kcs.order.dao;
 
 import cn.kcs.common.util.PageRequest;
-import cn.kcs.user.entity.DictGroup;
+import cn.kcs.order.entity.Memo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 /**
- * (DictGroup)表数据库访问层
+ * (Memo)表数据库访问层
  *
  * @author kcs
- * @since 2019-11-01 11:37:54
+ * @since 2019-11-08 18:23:51
  */
-public interface DictGroupDao {
+public interface MemoDao {
 
     /**
      * 通过ID查询单条数据
@@ -20,42 +20,42 @@ public interface DictGroupDao {
      * @param id 主键
      * @return 实例对象
      */
-    DictGroup queryById(String id);
+    Memo queryById(String id);
 
     /**
      * 查询指定行数据
      *
-     * @param offset 查询起始位置
-     * @param limit  查询条数
+     * @param memo        memo
+     * @param pageRequest page request
      * @return 对象列表
      */
-    List<DictGroup> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
+    List<Memo> queryPager(@Param("memo") Memo memo, @Param("pageRequest") PageRequest pageRequest);
 
 
     /**
      * 通过实体作为筛选条件查询
      *
-     * @param dictGroup dictGroup
-     * @param pageRequest pageRequest
+     * @param memo        memo
+     * @param pageRequest page request
      * @return 对象列表
      */
-    List<DictGroup> queryAll(@Param("dictGroup") DictGroup dictGroup, @Param("pageRequest") PageRequest pageRequest);
+    List<Memo> queryAll(@Param("memo") Memo memo, @Param("pageRequest") PageRequest pageRequest);
 
     /**
      * 新增数据
      *
-     * @param dictGroup 实例对象
+     * @param memo 实例对象
      * @return 影响行数
      */
-    int insert(DictGroup dictGroup);
+    int insert(Memo memo);
 
     /**
      * 修改数据
      *
-     * @param dictGroup 实例对象
+     * @param memo 实例对象
      * @return 影响行数
      */
-    int update(DictGroup dictGroup);
+    int update(Memo memo);
 
     /**
      * 通过主键删除数据

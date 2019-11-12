@@ -7,6 +7,7 @@ import org.apache.shiro.session.Session;
 
 /**
  * login info
+ *
  * @author kcs
  * @date 2019-01-14 16:53
  **/

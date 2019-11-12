@@ -11,10 +11,11 @@ import java.util.*;
 
 /**
  * dom4j utill
+ *
  * @author kcs
  * @date 2019-03-08 10:02
  **/
-public class DOM4Jutil {
+public class Dom4jUtil {
     public static void main(String[] args) {
         List<Map<String, String>> list = readerXML("/Users/kcs/idea-workspace/project/base/common/src/main/resources/menu.xml");
         System.out.println(list.toString());

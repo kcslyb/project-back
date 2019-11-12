@@ -7,6 +7,7 @@ import cn.kcs.user.dao.DictDao;
 import cn.kcs.user.dao.DictGroupDao;
 import cn.kcs.user.entity.Dict;
 import cn.kcs.user.entity.DictGroup;
+import cn.kcs.user.service.DictGroupService;
 import cn.kcs.user.service.DictService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,9 @@ public class DictServiceImpl implements DictService {
 
     @Autowired
     private DictGroupDao dictGroupDao;
+
+    @Autowired
+    private DictGroupService dictGroupService;
 
     /**
      * 通过ID查询单条数据
@@ -68,6 +72,23 @@ public class DictServiceImpl implements DictService {
     }
 
     /**
+     * 查询多条数据
+     *
+     * @param label label
+     * @return 对象列表
+     */
+    @Override
+    public List<Dict> queryByDictGroupLabel(String label) {
+        Dict dict = new Dict();
+        List<DictGroup> dictGroups = dictGroupService.queryGroupByLabel(label);
+        if (CollectionUtils.isEmpty(dictGroups)) {
+            return null;
+        }
+        dict.setGroupId(dictGroups.get(0).getId());
+        return this.dictDao.queryAll(dict, new PageRequest(0, 50));
+    }
+
+    /**
      * 新增数据
      *
      * @param dict 实例对象
@@ -82,7 +103,7 @@ public class DictServiceImpl implements DictService {
         Dict d = new Dict();
         d.setKey(dict.getKey());
         d.setGroupId(dictGroup.getId());
-        List<Dict> dictList = dictDao.queryAll(d, null);
+        List<Dict> dictList = dictDao.queryAll(d, new PageRequest(0, 10));
         if (!CollectionUtils.isEmpty(dictList)) {
             return new ResponseEntity<>("操作失败,字典组" + dictGroup.getLabel() + "已存在key为[" + d.getKey() + "]的字典", HttpStatus.BAD_REQUEST);
         }
@@ -101,7 +122,7 @@ public class DictServiceImpl implements DictService {
         Dict d = new Dict();
         d.setGroupId(dictGroup.getId());
         d.setKey(dict.getKey());
-        List<Dict> dictList = dictDao.queryAll(d, null);
+        List<Dict> dictList = dictDao.queryAll(d, new PageRequest(0, 10));
         if (!CollectionUtils.isEmpty(dictList) && !dictList.get(0).getId().equals(dict.getId())) {
             return new ResponseEntity<>("操作失败,字典组" + dictGroup.getLabel() + "已存在key为[" + d.getKey() + "]的字典", HttpStatus.BAD_REQUEST);
         }

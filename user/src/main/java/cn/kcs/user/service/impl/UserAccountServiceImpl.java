@@ -2,6 +2,7 @@ package cn.kcs.user.service.impl;
 
 import cn.kcs.common.util.CustomDateUtil;
 import cn.kcs.common.util.Md5Utils;
+import cn.kcs.common.util.PageRequest;
 import cn.kcs.common.uuidutil.ShortUUID;
 import cn.kcs.user.dao.UserAccountDao;
 import cn.kcs.user.entity.RolePermission;
@@ -61,13 +62,13 @@ public class UserAccountServiceImpl implements UserAccountService {
     /**
      * 查询多条数据
      *
-     * @param offset 查询起始位置
-     * @param limit  查询条数
+     * @param account 查询起始位置
+     * @param pageRequest  查询条数
      * @return 对象列表
      */
     @Override
-    public List<UserAccount> queryAllByLimit(int offset, int limit) {
-        return this.userAccountDao.queryAllByLimit(offset, limit);
+    public List<UserAccount> queryAllByLimit(UserAccount account, PageRequest pageRequest) {
+        return this.userAccountDao.queryAllByLimit(account, pageRequest);
     }
 
     /**

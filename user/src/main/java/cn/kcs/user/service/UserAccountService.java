@@ -1,5 +1,6 @@
 package cn.kcs.user.service;
 
+import cn.kcs.common.util.PageRequest;
 import cn.kcs.user.entity.UserAccount;
 import org.springframework.http.ResponseEntity;
 
@@ -24,11 +25,11 @@ public interface UserAccountService {
     /**
      * 查询多条数据
      *
-     * @param offset 查询起始位置
-     * @param limit  查询条数
+     * @param account 查询起始位置
+     * @param pageRequest  查询条数
      * @return 对象列表
      */
-    List<UserAccount> queryAllByLimit(int offset, int limit);
+    List<UserAccount> queryAllByLimit(UserAccount account, PageRequest pageRequest);
 
     /**
      * 通过实体作为筛选条件查询

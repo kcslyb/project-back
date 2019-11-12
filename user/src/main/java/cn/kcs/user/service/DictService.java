@@ -41,6 +41,14 @@ public interface DictService {
     List<Dict> queryAll(Dict dict, PageRequest pageRequest);
 
     /**
+     * 查询多条数据
+     *
+     * @param label label
+     * @return 对象列表
+     */
+    List<Dict> queryByDictGroupLabel(String label);
+
+    /**
      * 新增数据
      *
      * @param dict 实例对象

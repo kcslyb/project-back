@@ -5,8 +5,9 @@ import java.io.*;
 import java.net.URLEncoder;
 
 /**
+ * download file util
+ *
  * @author kcs
- * @description download file util
  * @date 2019/08/14 11:00
  **/
 public class DownloadFileUtil {

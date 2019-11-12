@@ -98,6 +98,6 @@ public class DictGroupServiceImpl implements DictGroupService {
     public List<DictGroup> queryGroupByLabel(String groupLabel) {
         DictGroup dictGroup = new DictGroup();
         dictGroup.setLabel(groupLabel);
-        return queryAll(dictGroup, new PageRequest());
+        return queryAll(dictGroup, new PageRequest(0, 10));
     }
 }

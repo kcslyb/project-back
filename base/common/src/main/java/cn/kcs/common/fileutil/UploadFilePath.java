@@ -1,5 +1,8 @@
 package cn.kcs.common.fileutil;
 
+/**
+ * @author kcs
+ */
 public class UploadFilePath {
     String relativePath;
     String absolutePath;

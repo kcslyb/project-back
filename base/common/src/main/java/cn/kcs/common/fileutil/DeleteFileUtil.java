@@ -6,9 +6,10 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 
 /**
- * @description: delete file util
- * @author: kcs
- * @date: 2019/08/14 10:16
+ * delete file util
+ *
+ * @author kcs
+ * @date 2019/08/14 10:16
  **/
 public class DeleteFileUtil {
 

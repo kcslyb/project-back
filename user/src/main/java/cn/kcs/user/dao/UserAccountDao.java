@@ -1,5 +1,6 @@
 package cn.kcs.user.dao;
 
+import cn.kcs.common.util.PageRequest;
 import cn.kcs.user.entity.UserAccount;
 import org.apache.ibatis.annotations.Param;
 
@@ -24,11 +25,11 @@ public interface UserAccountDao {
     /**
      * 查询指定行数据
      *
-     * @param offset 查询起始位置
-     * @param limit  查询条数
+     * @param account 查询起始位置
+     * @param pageRequest  查询条数
      * @return 对象列表
      */
-    List<UserAccount> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
+    List<UserAccount> queryAllByLimit(@Param("account") UserAccount account, @Param("pageRequest") PageRequest pageRequest);
 
 
     /**

@@ -57,9 +57,7 @@
             </if>
         </where>
         ORDER BY create_time DESC
-        <if test="pageRequest.start != null and pageRequest.start != '' and pageRequest.size != null and pageRequest.size != ''">
-            LIMIT #{pageRequest.start}, #{pageRequest.size}
-        </if>
+        LIMIT #{pageRequest.start}, #{pageRequest.size}
     </select>
 
     <!--新增所有列-->

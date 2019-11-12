@@ -6,6 +6,7 @@ import java.io.InputStream;
 
 /**
  * 本地文件存储
+ * @author kcs
  */
 public interface FileRepository {
 

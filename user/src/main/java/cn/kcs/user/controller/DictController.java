@@ -50,8 +50,21 @@ public class DictController {
     @Encrypt
     @GetMapping("query")
     public ResponseEntity query(Dict dict, PageRequest pageRequest) {
-        pageRequest.initStart(pageRequest);
+        pageRequest = pageRequest.initStart(pageRequest);
         List<Dict> dictList = this.dictService.queryAll(dict, pageRequest);
+        return new ResponseEntity<>(dictList, HttpStatus.OK);
+    }
+
+    /**
+     * 通过主键查询单条数据
+     *
+     * @return 多条数据
+     */
+    @Decrypt
+    @Encrypt
+    @GetMapping("query/{label}")
+    public ResponseEntity queryByDictGroupLabel(@PathVariable String label) {
+        List<Dict> dictList = this.dictService.queryByDictGroupLabel(label);
         return new ResponseEntity<>(dictList, HttpStatus.OK);
     }
 
