@@ -70,7 +70,7 @@ public class TFileServiceImpl implements TFileService {
         }
         tFile.setFileDescription("由" + tFile.getFileOwnerName() + "上传:" + tFile.getFileDescription());
         this.tFileDao.insert(tFile);
-        return tFile;
+        return tFileDao.queryById(tFile.getFileId());
     }
 
     /**

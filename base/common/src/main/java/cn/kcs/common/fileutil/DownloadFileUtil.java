@@ -1,5 +1,8 @@
 package cn.kcs.common.fileutil;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLEncoder;
@@ -11,6 +14,8 @@ import java.net.URLEncoder;
  * @date 2019/08/14 11:00
  **/
 public class DownloadFileUtil {
+    private static Logger logger = LoggerFactory.getLogger("DownloadFileUtil");
+
     public static void downloadFile(HttpServletResponse response, String fileName, String path) {
         if (fileName != null) {
             //设置文件路径
@@ -22,7 +27,7 @@ public class DownloadFileUtil {
                     response.setHeader("Content-Disposition",
                             "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));
                 } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
+                    logger.error(e.getMessage(), e);
                 }
                 byte[] buffer = new byte[1024];
                 FileInputStream fis = null;
@@ -37,20 +42,20 @@ public class DownloadFileUtil {
                         i = bis.read(buffer);
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    logger.error(e.getMessage(), e);
                 } finally {
                     if (bis != null) {
                         try {
                             bis.close();
                         } catch (IOException e) {
-                            e.printStackTrace();
+                            logger.error(e.getMessage(), e);
                         }
                     }
                     if (fis != null) {
                         try {
                             fis.close();
                         } catch (IOException e) {
-                            e.printStackTrace();
+                            logger.error(e.getMessage(), e);
                         }
                     }
                 }

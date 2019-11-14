@@ -145,8 +145,8 @@ public class FileController {
                 b = inputStream.read(buffer);
                 out.write(buffer, 0, b);
             }
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        } catch (IOException e) {
+            LOGGER.error(e.getMessage(), e);
         }
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -173,7 +173,7 @@ public class FileController {
             QrCodeUtil.encode(text, filepath);
             LOGGER.info("已生成二维码文件，文件目录：[{}]", filepath);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         DownloadFileUtil.downloadFile(response, fileName, filepath);
         DeleteFileUtil.deleteFile(filepath);
@@ -225,10 +225,9 @@ public class FileController {
             //文件写入指定路径
             byte[] bytes = file.getBytes();
             Files.write(path, bytes);
-            LOGGER.debug("文件写入成功...");
+            LOGGER.info("文件写入成功...");
         } catch (IOException e) {
-            e.printStackTrace();
-            LOGGER.debug("服务器文件写入错误...");
+            LOGGER.error("服务器文件写入错误...");
         }
         return new ResponseEntity<>(resultFile, HttpStatus.OK);
     }

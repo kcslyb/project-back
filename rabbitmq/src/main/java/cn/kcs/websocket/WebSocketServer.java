@@ -78,7 +78,7 @@ public class WebSocketServer {
                     item.sendMessage(message);
                 }
             } catch (IOException e) {
-                logger.info("推送消息失败:{}", e.getMessage());
+                logger.info("推送消息失败:", e);
             }
         }
     }
@@ -130,7 +130,7 @@ public class WebSocketServer {
                 try {
                     sendInfo(JSONObject.toJSONString(msg), sid);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    logger.info("SOCKET推送信息异常:", e);
                 }
             }
         }
@@ -159,7 +159,7 @@ public class WebSocketServer {
         try {
             webSocketServer.msgSender.sender("msg_exchange_name", "msg_routing_key_name", message);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.info("SOCKET推送信息异常:", e);
         }
     }
 
@@ -169,14 +169,13 @@ public class WebSocketServer {
      */
     @OnError
     public void onError(Session session, Throwable error) {
-        logger.error("发生错误:{}", error.getMessage());
-        error.printStackTrace();
+        logger.error("session id[{}]推送消息发生错误:", session.getId(), error);
     }
 
     /**
      * 实现服务器主动推送
      */
-    public void sendMessage(String message) throws IOException {
+    private void sendMessage(String message) throws IOException {
         this.session.getBasicRemote().sendText(message);
     }
 }

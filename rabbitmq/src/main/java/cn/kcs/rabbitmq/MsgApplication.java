@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * @description: Msg Application
- * @author: kcs
- * @create: 2019-05-05 16:48
+ * Msg Application
+ * @author kcs
+ * @date 2019-05-05 16:48
  **/
 @SpringBootApplication
 public class MsgApplication {

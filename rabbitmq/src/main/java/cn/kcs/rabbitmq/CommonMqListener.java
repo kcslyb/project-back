@@ -16,16 +16,18 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.nio.charset.StandardCharsets;
 
 /**
- * @description: Common Mq Listener
- * @author: kcs
- * @date: 2019-05-07 15:35
+ * Common Mq Listener
+ *
+ * @author kcs
+ * @date 2019-05-07 15:35
  **/
 @Component
 public class CommonMqListener {
 
-    private static final Logger log = LoggerFactory.getLogger(CommonMqListener.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CommonMqListener.class);
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
@@ -57,7 +59,7 @@ public class CommonMqListener {
     @RabbitListener(queues = "msg_queue_name", containerFactory = "singleListenerContainer")
     public void consumeUserMsg(@Payload byte[] message) {
         try {
-            String string = StringEscapeUtils.unescapeJavaScript(new String(message, "utf-8"));
+            String string = StringEscapeUtils.unescapeJavaScript(new String(message, StandardCharsets.UTF_8));
             String substring = string.substring(1, string.length() - 1);
             TMsg msgDto = objectMapper.readValue(substring, TMsg.class);
             TMsg msg = new TMsg(msgDto);
@@ -67,9 +69,9 @@ public class CommonMqListener {
                 WebSocketServer.sendInfo(JSONObject.toJSONString(msgDto), msgDto.getMsgReceiver());
             }
             commonMqListener.tMsgService.insert(msg);
-            log.info("[--]监听到[msg]消息： {} ", msgDto.toString());
+            LOGGER.info("队列[msg_queue_name]监听到[msg]消息： {} ", msgDto.toString());
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.info("SOCKET推送信息异常:", e);
         }
     }
 
@@ -81,11 +83,10 @@ public class CommonMqListener {
     @RabbitListener(queues = "accept_queue_name", containerFactory = "multiListenerContainer")
     public void consumeUserAccept(@Payload byte[] message) {
         try {
-            log.info("[--]监听到消息： {} ", objectMapper.writeValueAsString(message));
-            log.info("[--]监听到 [accept] 消息： {} ", new String(message, "utf-8"));
-            WebSocketServer.sendInfo(new String(message, "utf-8"), "info");
+            LOGGER.info("队列[accept_queue_name]监听到 [accept] 消息： {} ", new String(message, StandardCharsets.UTF_8));
+            WebSocketServer.sendInfo(new String(message, StandardCharsets.UTF_8), "info");
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.info("SOCKET推送信息异常:", e);
         }
     }
 }

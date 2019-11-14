@@ -12,9 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @description: Sender
- * @author: kcs
- * @create: 2019-05-05 16:22
+ * Sender
+ *
+ * @author kcs
+ * @date 2019-05-05 16:22
  **/
 @Configuration
 public class MsgSender {

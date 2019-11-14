@@ -12,7 +12,7 @@ public class CustomException extends RuntimeException {
     /**
      * 调用时可以在任何代码处直接throws这个Exception,
      *
-     * @param responseEntity 以错误的  做参数
+     * @param responseEntity Response Entity
      */
 
     public CustomException(ResponseEntity responseEntity) {

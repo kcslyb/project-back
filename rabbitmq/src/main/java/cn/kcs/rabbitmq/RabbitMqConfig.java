@@ -14,10 +14,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
+import java.util.Objects;
+
 /**
- * @description: RabbitConfig
- * @author: kcs
- * @create: 2019-05-05 16:18
+ * RabbitConfig
+ *
+ * @author kcs
+ * @date 2019-05-05 16:18
  **/
 @Configuration
 public class RabbitMqConfig {
@@ -32,7 +35,7 @@ public class RabbitMqConfig {
 
     @Bean
     public Queue queue() {
-        return new Queue(environment.getProperty("mq_msg_queue_name"), true);
+        return new Queue(Objects.requireNonNull(environment.getProperty("mq_msg_queue_name")), true);
     }
 
     @Bean
@@ -47,7 +50,7 @@ public class RabbitMqConfig {
 
     @Bean
     public Queue acceptQueue() {
-        return new Queue(environment.getProperty("mq_accept_queue_name"), true);
+        return new Queue(Objects.requireNonNull(environment.getProperty("mq_accept_queue_name")), true);
     }
 
     @Bean

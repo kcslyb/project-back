@@ -1,13 +1,14 @@
-package cn.kcs.rabbitmq.messageDto;
+package cn.kcs.rabbitmq.message;
 
 import cn.kcs.user.entity.TMsg;
 
 import java.io.Serializable;
 
 /**
- * @description: TMsg tMsg
- * @author: kcs
- * @date: 2019-05-11 08:16
+ * TMsg tMsg
+ *
+ * @author kcs
+ * @date 2019-05-11 08:16
  **/
 public class MsgDto implements Serializable {
 
