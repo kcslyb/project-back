@@ -30,11 +30,11 @@
             <version>${project.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>cn.kcs</groupId>
-            <artifactId>rabbitmq</artifactId>
-            <version>${project.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>cn.kcs</groupId>-->
+<!--            <artifactId>rabbitmq</artifactId>-->
+<!--            <version>${project.version}</version>-->
+<!--        </dependency>-->
 
         <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
         <dependency>

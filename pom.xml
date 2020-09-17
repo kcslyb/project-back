@@ -14,10 +14,10 @@
         <module>boot</module>
         <module>user</module>
         <module>order</module>
-        <module>rabbitmq</module>
+<!--        <module>rabbitmq</module>-->
         <module>encrypt</module>
         <module>schedule</module>
-        <module>mail</module>
+<!--        <module>mail</module>-->
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

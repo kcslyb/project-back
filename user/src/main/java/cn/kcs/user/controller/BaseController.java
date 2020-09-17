@@ -1,14 +1,10 @@
 package cn.kcs.user.controller;
 
-import cn.kcs.common.util.CommonUtil;
 import cn.kcs.common.util.Md5Utils;
-import cn.kcs.common.util.RandomUtil;
 import cn.kcs.common.util.constants.Constants;
 import cn.kcs.encrypt.anno.Decrypt;
 import cn.kcs.encrypt.anno.Encrypt;
-import cn.kcs.mail.MailServiceUtil;
 import cn.kcs.user.entity.dto.LoginDto;
-import cn.kcs.user.entity.dto.MailRequest;
 import cn.kcs.user.entity.dto.UserInfo;
 import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.Api;
@@ -17,7 +13,6 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,9 +27,6 @@ import org.springframework.web.servlet.ModelAndView;
 @Api(value = "用户", description = "用户登录")
 @RestController
 public class BaseController {
-
-    @Autowired
-    private MailServiceUtil mailServiceUtil;
 
     @Decrypt
     @Encrypt
@@ -84,24 +76,24 @@ public class BaseController {
         return new ModelAndView("redirect:/swagger-ui.html");
     }
 
-    @Encrypt
-    @Decrypt
-    @PostMapping("/mail")
-    public ResponseEntity sendMail(@RequestBody MailRequest mailRequest) {
-        if (!CommonUtil.isEmail(mailRequest.getReceive())) {
-            return new ResponseEntity<>("请输入正确的邮箱", HttpStatus.BAD_REQUEST);
-        }
-        String receive = mailRequest.getReceive();
-        String code = RandomUtil.generateRandomNumber(6);
-        System.out.println("验证码为:[{" + code + "}]");
-        Session session = SecurityUtils.getSubject().getSession();
-        Object attribute = session.getAttribute(receive);
-        if (attribute != null) {
-            session.removeAttribute(receive);
-        }
-        session.setAttribute(receive, code);
-        return new ResponseEntity(HttpStatus.OK);
+//    @Encrypt
+//    @Decrypt
+//    @PostMapping("/mail")
+//    public ResponseEntity sendMail(@RequestBody MailRequest mailRequest) {
+//        if (!CommonUtil.isEmail(mailRequest.getReceive())) {
+//            return new ResponseEntity<>("请输入正确的邮箱", HttpStatus.BAD_REQUEST);
+//        }
+//        String receive = mailRequest.getReceive();
+//        String code = RandomUtil.generateRandomNumber(6);
+//        System.out.println("验证码为:[{" + code + "}]");
+//        Session session = SecurityUtils.getSubject().getSession();
+//        Object attribute = session.getAttribute(receive);
+//        if (attribute != null) {
+//            session.removeAttribute(receive);
+//        }
+//        session.setAttribute(receive, code);
+//        return new ResponseEntity(HttpStatus.OK);
 //        MailDto mailDto = new MailDto(new String[]{receive}, "register code", code);
 //        return mailServiceUtil.sendSimpleMail(mailDto);
-    }
+//    }
 }

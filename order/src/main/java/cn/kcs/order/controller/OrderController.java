@@ -9,7 +9,6 @@ import cn.kcs.order.entity.dto.OrderGoodsDto;
 import cn.kcs.order.entity.dto.OrderGoodsSimpleDto;
 import cn.kcs.order.entity.dto.SimpleProduct;
 import cn.kcs.order.service.OrderService;
-import cn.kcs.rabbitmq.MsgSender;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +34,6 @@ public class OrderController {
      */
     @Resource
     private OrderService orderService;
-
-    @Autowired
-    private MsgSender msgSender;
 
     @Autowired
     private Environment environment;
