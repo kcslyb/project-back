@@ -84,6 +84,7 @@ public class DictServiceImpl implements DictService {
         if (CollectionUtils.isEmpty(dictGroups)) {
             return null;
         }
+        dict.setDeleteFlag("1");
         dict.setGroupId(dictGroups.get(0).getId());
         return this.dictDao.queryAll(dict, new PageRequest(0, 50));
     }
