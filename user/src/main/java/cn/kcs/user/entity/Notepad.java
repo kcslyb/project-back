@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * (TNotepad)实体类
  *
- * @author makejava
+ * @author kcs
  * @since 2018-12-28 14:44:16
  */
 public class Notepad implements Serializable {

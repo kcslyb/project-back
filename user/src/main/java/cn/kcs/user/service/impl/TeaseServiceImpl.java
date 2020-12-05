@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * (Tease)表服务实现类
  *
- * @author makejava
+ * @author kcs
  * @since 2019-01-06 20:33:36
  */
 @Service("teaseService")

@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * (PhotoAlbum)实体类
  *
- * @author makejava
+ * @author kcs
  * @since 2019-05-08 11:33:55
  */
 public class PhotoAlbum implements Serializable {

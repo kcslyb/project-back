@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * (TMsg)实体类
  *
- * @author makejava
+ * @author kcs
  * @since 2018-12-30 19:47:03
  */
 public class TMsg implements Serializable {

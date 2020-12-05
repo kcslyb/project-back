@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * (Product)表控制层
  *
- * @author makejava
+ * @author kcs
  * @since 2019-04-23 14:38:33
  */
 @RestController

@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * (TDictionary)实体类
  *
- * @author makejava
+ * @author kcs
  * @since 2019-03-14 20:34:49
  */
 public class TDictionary implements Serializable {

@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * (TFile)表服务接口
  *
- * @author makejava
+ * @author kcs
  * @since 2019-04-19 15:17:08
  */
 public interface TFileService {

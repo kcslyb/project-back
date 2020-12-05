@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * (TDictionary)表服务实现类
  *
- * @author makejava
+ * @author kcs
  * @since 2019-03-14 20:35:00
  */
 @Service("tDictionaryService")

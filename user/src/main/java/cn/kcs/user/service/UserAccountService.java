@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * (UserAccount)表服务接口
  *
- * @author makejava
+ * @author kcs
  * @since 2019-03-21 14:46:59
  */
 public interface UserAccountService {

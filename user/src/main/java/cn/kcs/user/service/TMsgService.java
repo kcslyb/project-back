@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * (TMsg)表服务接口
  *
- * @author makejava
+ * @author kcs
  * @since 2018-12-30 19:47:03
  */
 public interface TMsgService {

@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * (TOrderProduct)实体类
  *
- * @author makejava
+ * @author kcs
  * @since 2019-04-28 22:46:37
  */
 public class TOrderProduct implements Serializable {

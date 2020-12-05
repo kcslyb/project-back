@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * (UserAccount)实体类
  *
- * @author makejava
+ * @author kcs
  * @since 2019-03-21 14:46:59
  */
 @ExcelTarget("UserAccount")

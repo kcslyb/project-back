@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * (Desk)表数据库访问层
  *
- * @author makejava
+ * @author kcs
  * @since 2019-04-24 14:35:14
  */
 public interface DeskDao {

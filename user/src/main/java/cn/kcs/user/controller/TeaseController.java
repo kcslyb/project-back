@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * (Tease)表控制层
  *
- * @author makejava
+ * @author kcs
  * @since 2019-01-06 20:33:36
  */
 @Api(value = "tease", description = "tease API")

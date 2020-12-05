@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * (TDictionary)表服务接口
  *
- * @author makejava
+ * @author kcs
  * @since 2019-03-14 20:34:58
  */
 public interface TDictionaryService {

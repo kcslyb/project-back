@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * (TDictionary)表数据库访问层
  *
- * @author makejava
+ * @author kcs
  * @since 2019-03-14 20:34:57
  */
 public interface TDictionaryDao {

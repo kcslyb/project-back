@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * (Desk)表服务实现类
  *
- * @author makejava
+ * @author kcs
  * @since 2019-04-24 14:35:14
  */
 @Service("deskService")

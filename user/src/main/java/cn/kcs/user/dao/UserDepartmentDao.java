@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * (UserDepartment)表数据库访问层
  *
- * @author makejava
+ * @author kcs
  * @since 2019-03-22 10:08:44
  */
 public interface UserDepartmentDao {

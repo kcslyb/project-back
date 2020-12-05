@@ -26,24 +26,25 @@
         from myproject.schedule
         <where>
             <if test="scheduleId != null and scheduleId != ''">
-                and schedule_id = #{scheduleId}
+                and schedule_id = #{schedule.scheduleId}
             </if>
             <if test="scheduleTitle != null and scheduleTitle != ''">
-                and schedule_title = #{scheduleTitle}
+                and schedule_title = #{schedule.scheduleTitle}
             </if>
             <if test="scheduleCreateBy != null and scheduleCreateBy != ''">
-                and schedule_create_by = #{scheduleCreateBy}
+                and schedule_create_by = #{schedule.scheduleCreateBy}
             </if>
             <if test="scheduleCreateTime != null">
-                and schedule_create_time = #{scheduleCreateTime}
+                and schedule_create_time = #{schedule.scheduleCreateTime}
             </if>
             <if test="scheduleStatus != null">
-                and schedule_status = #{scheduleStatus}
+                and schedule_status = #{schedule.scheduleStatus}
             </if>
             <if test="scheduleRemake != null and scheduleRemake != ''">
-                and schedule_remake = #{scheduleRemake}
+                and schedule_remake = #{schedule.scheduleRemake}
             </if>
         </where>
+        ORDER BY schedule_create_time DESC
         limit #{offset}, #{limit}
     </select>
 

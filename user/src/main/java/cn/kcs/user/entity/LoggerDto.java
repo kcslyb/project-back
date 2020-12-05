@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * (Logger)实体类
  *
- * @author makejava
+ * @author kcs
  * @since 2019-09-06 13:05:53
  */
 public class LoggerDto implements Serializable {

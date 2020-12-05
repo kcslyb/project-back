@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "./mybatis-3-mapper.dtd">
+<mapper namespace="cn.kcs.schedule.dao.ConvertProductDao">
+
+    <resultMap type="cn.kcs.schedule.entity.ConvertProduct" id="ConvertProductMap">
+        <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="productWorkId" column="product_work_id" jdbcType="VARCHAR"/>
+        <result property="typeNumber" column="type_number" jdbcType="NUMERIC"/>
+        <result property="typeUnit" column="type_unit" jdbcType="VARCHAR"/>
+        <result property="typeUnitName" column="type_unit_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="ConvertProductMap">
+        select
+          id, product_work_id, type_number, type_unit, type_unit_name
+        from myproject.convert_product
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="ConvertProductMap">
+        select
+          id, product_work_id, type_number, type_unit, type_unit_name
+        from myproject.convert_product
+        <where>
+            <if test="convertProduct.id != null and convertProduct.id != ''">
+                and id = #{convertProduct.id}
+            </if>
+            <if test="convertProduct.productWorkId != null and convertProduct.productWorkId != ''">
+                and product_work_id = #{convertProduct.productWorkId}
+            </if>
+            <if test="convertProduct.typeNumber != null">
+                and type_number = #{convertProduct.typeNumber}
+            </if>
+            <if test="convertProduct.typeUnit != null and convertProduct.typeUnit != ''">
+                and type_unit = #{convertProduct.typeUnit}
+            </if>
+            <if test="convertProduct.typeUnitName != null and convertProduct.typeUnitName != ''">
+                and type_unit_name = #{convertProduct.typeUnitName}
+            </if>
+        </where>
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="ConvertProductMap">
+        select
+        id, product_work_id, type_number, type_unit, type_unit_name
+        from myproject.convert_product
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="productWorkId != null and productWorkId != ''">
+                and product_work_id = #{productWorkId}
+            </if>
+            <if test="typeNumber != null">
+                and type_number = #{typeNumber}
+            </if>
+            <if test="typeUnit != null and typeUnit != ''">
+                and type_unit = #{typeUnit}
+            </if>
+            <if test="typeUnitName != null and typeUnitName != ''">
+                and type_unit_name = #{typeUnitName}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into myproject.convert_product(id, product_work_id, type_number, type_unit, type_unit_name)
+        values (#{id}, #{productWorkId}, #{typeNumber}, #{typeUnit}, #{typeUnitName})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update myproject.convert_product
+        <set>
+            <if test="productWorkId != null and productWorkId != ''">
+                product_work_id = #{productWorkId},
+            </if>
+            <if test="typeNumber != null">
+                type_number = #{typeNumber},
+            </if>
+            <if test="typeUnit != null and typeUnit != ''">
+                type_unit = #{typeUnit},
+            </if>
+            <if test="typeUnitName != null and typeUnitName != ''">
+                type_unit_name = #{typeUnitName},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from myproject.convert_product where id = #{id}
+    </delete>
+
+</mapper>

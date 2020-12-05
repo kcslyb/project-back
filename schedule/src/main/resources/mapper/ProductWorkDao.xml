@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "./mybatis-3-mapper.dtd">
+<mapper namespace="cn.kcs.schedule.dao.ProductWorkDao">
+
+    <resultMap type="cn.kcs.schedule.entity.ProductWork" id="ProductWorkMap">
+        <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createByName" column="create_by_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="happenTime" column="happen_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateByName" column="update_by_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="resultNumber" column="result_number" jdbcType="NUMERIC"/>
+        <result property="resultUnit" column="result_unit" jdbcType="VARCHAR"/>
+        <result property="resultUnitName" column="result_unit_name" jdbcType="VARCHAR"/>
+        <result property="minNumber" column="min_number" jdbcType="NUMERIC"/>
+        <result property="minUnit" column="min_unit" jdbcType="VARCHAR"/>
+        <result property="minUnitName" column="min_unit_name" jdbcType="VARCHAR"/>
+        <result property="deleteFlag" column="delete_flag" jdbcType="BOOLEAN"/>
+        <result property="participants" column="participants" jdbcType="VARCHAR"/>
+        <result property="participantsNumber" column="participants_number" jdbcType="INTEGER"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="ProductWorkMap">
+        select
+            id, create_by, create_by_name, create_time, happen_time, update_by, update_by_name, update_time,
+            result_number, result_unit, result_unit_name, min_number, min_unit, min_unit_name, delete_flag,
+            participants, participants_number, remark
+        from myproject.product_work
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="ProductWorkMap">
+        select
+            id, create_by, create_by_name, create_time, happen_time, update_by, update_by_name, update_time,
+            result_number, result_unit, result_unit_name, min_number, min_unit, min_unit_name, delete_flag,
+            participants, participants_number, remark
+        from myproject.product_work
+        <where>
+            <if test="productWork.id != null and productWork.id != ''">
+                and id = #{productWork.id}
+            </if>
+            <if test="productWork.createBy != null and productWork.createBy != ''">
+                and create_by = #{productWork.createBy}
+            </if>
+            <if test="productWork.createByName != null and productWork.createByName != ''">
+                and create_by_name = #{productWork.createByName}
+            </if>
+            <if test="productWork.createTime != null">
+                and create_time = #{productWork.createTime}
+            </if>
+            <if test="productWork.happenTime != null">
+                and happen_time = #{productWork.happenTime}
+            </if>
+            <if test="productWork.updateBy != null and productWork.updateBy != ''">
+                and update_by = #{productWork.updateBy}
+            </if>
+            <if test="productWork.updateByName != null and productWork.updateByName != ''">
+                and update_by_name = #{productWork.updateByName}
+            </if>
+            <if test="productWork.updateTime != null">
+                and update_time = #{productWork.updateTime}
+            </if>
+            <if test="productWork.resultNumber != null">
+                and result_number = #{productWork.resultNumber}
+            </if>
+            <if test="productWork.resultUnit != null and productWork.resultUnit != ''">
+                and result_unit = #{productWork.resultUnit}
+            </if>
+            <if test="productWork.resultUnitName != null and productWork.resultUnitName != ''">
+                and result_unit_name = #{productWork.resultUnitName}
+            </if>
+            <if test="productWork.minNumber != null">
+                and min_number = #{productWork.minNumber}
+            </if>
+            <if test="productWork.minUnit != null and productWork.minUnit != ''">
+                and min_unit = #{productWork.minUnit}
+            </if>
+            <if test="productWork.minUnitName != null and productWork.minUnitName != ''">
+                and min_unit_name = #{productWork.minUnitName}
+            </if>
+            <if test="productWork.deleteFlag != null">
+                and delete_flag = #{productWork.deleteFlag}
+            </if>
+        </where>
+        ORDER BY happen_time DESC
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="ProductWorkMap">
+        select
+            id, create_by, create_by_name, create_time, happen_time, update_by, update_by_name, update_time,
+            result_number, result_unit, result_unit_name, min_number, min_unit, min_unit_name, delete_flag,
+            participants, participants_number, remark
+        from myproject.product_work
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createByName != null and createByName != ''">
+                and create_by_name = #{createByName}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="happenTime != null">
+                and happen_time = #{happenTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateByName != null and updateByName != ''">
+                and update_by_name = #{updateByName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="resultNumber != null">
+                and result_number = #{resultNumber}
+            </if>
+            <if test="resultUnit != null and resultUnit != ''">
+                and result_unit = #{resultUnit}
+            </if>
+            <if test="resultUnitName != null and resultUnitName != ''">
+                and result_unit_name = #{resultUnitName}
+            </if>
+            <if test="minNumber != null">
+                and min_number = #{minNumber}
+            </if>
+            <if test="minUnit != null and minUnit != ''">
+                and min_unit = #{minUnit}
+            </if>
+            <if test="minUnitName != null and minUnitName != ''">
+                and min_unit_name = #{minUnitName}
+            </if>
+            <if test="deleteFlag != null">
+                and delete_flag = #{deleteFlag}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into myproject.product_work(id, create_by, create_by_name, create_time, happen_time, update_by, update_by_name, update_time, result_number, result_unit, result_unit_name, min_number, min_unit, min_unit_name, delete_flag, participants, participants_number, remark)
+        values (#{id}, #{createBy}, #{createByName}, #{createTime}, #{happenTime}, #{updateBy}, #{updateByName}, #{updateTime}, #{resultNumber}, #{resultUnit}, #{resultUnitName}, #{minNumber}, #{minUnit}, #{minUnitName}, #{deleteFlag}, #{participants}, #{participantsNumber}, #{remark})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update myproject.product_work
+        <set>
+            <if test="createBy != null and createBy != ''">
+                create_by = #{createBy},
+            </if>
+            <if test="createByName != null and createByName != ''">
+                create_by_name = #{createByName},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="happenTime != null">
+                happen_time = #{happenTime},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+            <if test="updateByName != null and updateByName != ''">
+                update_by_name = #{updateByName},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="resultNumber != null">
+                result_number = #{resultNumber},
+            </if>
+            <if test="resultUnit != null and resultUnit != ''">
+                result_unit = #{resultUnit},
+            </if>
+            <if test="resultUnitName != null and resultUnitName != ''">
+                result_unit_name = #{resultUnitName},
+            </if>
+            <if test="minNumber != null">
+                min_number = #{minNumber},
+            </if>
+            <if test="minUnit != null and minUnit != ''">
+                min_unit = #{minUnit},
+            </if>
+            <if test="minUnitName != null and minUnitName != ''">
+                min_unit_name = #{minUnitName},
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag = #{deleteFlag},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from myproject.product_work where id = #{id}
+    </delete>
+
+</mapper>

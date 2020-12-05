@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * (TOrderProduct)表数据库访问层
  *
- * @author makejava
+ * @author kcs
  * @since 2019-04-28 22:46:39
  */
 public interface TOrderProductDao {

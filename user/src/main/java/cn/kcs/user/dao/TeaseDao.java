@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * (Tease)表数据库访问层
  *
- * @author makejava
+ * @author kcs
  * @since 2019-01-06 20:33:36
  */
 public interface TeaseDao {

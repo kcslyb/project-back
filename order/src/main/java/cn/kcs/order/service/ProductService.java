@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * (Product)表服务接口
  *
- * @author makejava
+ * @author kcs
  * @since 2019-04-23 14:38:33
  */
 public interface ProductService {

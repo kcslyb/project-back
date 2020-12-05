@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * (TMsg)表数据库访问层
  *
- * @author makejava
+ * @author kcs
  * @since 2018-12-30 19:47:03
  */
 public interface TMsgDao {

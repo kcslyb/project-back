@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * (Product)实体类
  *
- * @author makejava
+ * @author kcs
  * @since 2019-04-23 14:38:33
  */
 public class Product implements Serializable {

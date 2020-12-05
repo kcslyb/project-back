@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * (PhotoAlbum)表服务接口
  *
- * @author makejava
+ * @author kcs
  * @since 2019-05-08 11:33:55
  */
 public interface PhotoAlbumService {

@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * (Tease)实体类
  *
- * @author makejava
+ * @author kcs
  * @since 2019-01-06 20:33:36
  */
 public class Tease implements Serializable {

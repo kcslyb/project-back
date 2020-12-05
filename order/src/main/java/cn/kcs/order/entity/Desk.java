@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * (Desk)实体类
  *
- * @author makejava
+ * @author kcs
  * @since 2019-04-24 14:35:14
  */
 public class Desk implements Serializable {

@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * (Address)实体类
  *
- * @author makejava
+ * @author kcs
  * @since 2019-06-05 14:24:49
  */
 public class Address implements Serializable {

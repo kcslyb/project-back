@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * (TFile)实体类
  *
- * @author makejava
+ * @author kcs
  * @since 2019-04-19 15:17:07
  */
 public class TFile implements Serializable {

@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * (UserDepartment)实体类
  *
- * @author makejava
+ * @author kcs
  * @since 2019-03-22 10:08:43
  */
 public class UserDepartment implements Serializable {
