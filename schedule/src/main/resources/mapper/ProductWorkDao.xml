@@ -199,6 +199,15 @@
             <if test="deleteFlag != null">
                 delete_flag = #{deleteFlag},
             </if>
+            <if test="participants != null and participants !=''">
+                participants = #{participants},
+            </if>
+            <if test="participantsNumber != null and participantsNumber !=''">
+                participants_number = #{participantsNumber},
+            </if>
+            <if test="remark != null and remark !=''">
+                remark = #{remark},
+            </if>
         </set>
         where id = #{id}
     </update>
