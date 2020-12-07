@@ -107,22 +107,22 @@ public class UserAccountController {
     @ApiOperation(value = "注册")
     @PostMapping(value = {"/add"})
     public ResponseEntity registerAccount(@RequestBody UserAccount account) {
-        if (StringUtils.isBlank(account.getSessionCode())) {
-            return new ResponseEntity<>("注册失败,验证码为空", HttpStatus.BAD_REQUEST);
-        }
+//        if (StringUtils.isBlank(account.getSessionCode())) {
+//            return new ResponseEntity<>("注册失败,验证码为空", HttpStatus.BAD_REQUEST);
+//        }
         if (!CommonUtil.isEmail(account.getUserEmail())) {
             return new ResponseEntity<>("注册失败,请请输入正确的邮箱", HttpStatus.BAD_REQUEST);
         }
         if (!CommonUtil.isPhone(account.getUserPhone())) {
             return new ResponseEntity<>("注册失败,请请输入正确的手机号", HttpStatus.BAD_REQUEST);
         }
-        Session session = SecurityUtils.getSubject().getSession();
-        Object code = session.getAttribute(account.getUserEmail());
-        if (code != null && code.toString().equals(account.getSessionCode())) {
+//        Session session = SecurityUtils.getSubject().getSession();
+//        Object code = session.getAttribute(account.getUserEmail());
+//        if (code != null && code.toString().equals(account.getSessionCode())) {
             return this.userAccountService.registerAccount(account);
-        }
-        session.removeAttribute(account.getUserEmail());
-        return new ResponseEntity<>("注册失败, 验证码错误", HttpStatus.BAD_REQUEST);
+//        }
+//        session.removeAttribute(account.getUserEmail());
+//        return new ResponseEntity<>("注册失败, 验证码错误", HttpStatus.BAD_REQUEST);
     }
 
     /**

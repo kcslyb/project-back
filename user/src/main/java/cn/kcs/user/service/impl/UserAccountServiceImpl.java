@@ -97,15 +97,15 @@ public class UserAccountServiceImpl implements UserAccountService {
      */
     @Override
     public boolean insert(UserAccount userAccount) {
-        userAccount.setUserPassword(Md5Utils.GetMD5Code(Md5Utils.GetMD5Code(userAccount.getUserPassword())));
         List<UserAccount> userAccounts = queryAll(userAccount);
         if (!CollectionUtils.isEmpty(userAccounts)) {
             return false;
         }
-        userAccount.setUserId(ShortUUID.generate());
         userAccount.setUserStatus("1");
         userAccount.setUserLoginNumber("0");
+        userAccount.setUserId(ShortUUID.generate());
         userAccount.setUserCreateTime(CustomDateUtil.currentFormatDate());
+        userAccount.setUserPassword(Md5Utils.GetMD5Code(Md5Utils.GetMD5Code(userAccount.getUserPassword())));
         return this.userAccountDao.insert(userAccount) > 0;
     }
 
@@ -143,7 +143,7 @@ public class UserAccountServiceImpl implements UserAccountService {
     public ResponseEntity registerAccount(UserAccount account) {
         boolean insert = insert(account);
         if (!insert) {
-            return new ResponseEntity<>("该账户已经存在", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("该用户名已被占用", HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity(HttpStatus.OK);
     }
