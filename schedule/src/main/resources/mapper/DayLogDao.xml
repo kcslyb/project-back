@@ -49,7 +49,7 @@
             <if test="dayLog.createTime != null">
                 and create_time = #{dayLog.createTime}
             </if>
-            <if test="dayLog.startTime != null AND dayLog.endTime != null">
+            <if test="dayLog.startTime != null and dayLog.endTime != null">
                 and happen_time BETWEEN #{dayLog.startTime} AND #{dayLog.endTime}
             </if>
             <if test="dayLog.remark != null and dayLog.remark != ''">
@@ -100,7 +100,7 @@
             <if test="createTime != null">
                 and create_time = #{createTime}
             </if>
-            <if test="startTime != null AND endTime != null">
+            <if test="startTime != null and endTime != null">
                 and happen_time BETWEEN #{startTime} AND #{endTime}
             </if>
             <if test="remark != null and remark != ''">
