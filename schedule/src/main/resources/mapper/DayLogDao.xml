@@ -21,7 +21,8 @@
     <!--查询单个-->
     <select id="queryById" resultMap="DayLogMap">
         select
-          id, title, create_by_id, create_by_name, create_time, happen_time, remark, delete_flag, update_by_id, update_by_name, update_time, reserved_key_one, reserved_key_two
+        id, title, create_by_id, create_by_name, create_time, happen_time, remark, delete_flag, update_by_id,
+        update_by_name, update_time, reserved_key_one, reserved_key_two
         from myproject.day_log
         where id = #{id}
     </select>
@@ -29,7 +30,8 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="DayLogMap">
         select
-          id, title, create_by_id, create_by_name, create_time, happen_time, remark, delete_flag, update_by_id, update_by_name, update_time, reserved_key_one, reserved_key_two
+        id, title, create_by_id, create_by_name, create_time, happen_time, remark, delete_flag, update_by_id,
+        update_by_name, update_time, reserved_key_one, reserved_key_two
         from myproject.day_log
         <where>
             <if test="dayLog.id != null and dayLog.id != ''">
@@ -47,7 +49,7 @@
             <if test="dayLog.createTime != null">
                 and create_time = #{dayLog.createTime}
             </if>
-            <if test="dayLog.happenTime != null">
+            <if test="dayLog.startTime != null AND dayLog.endTime != null">
                 and happen_time BETWEEN #{dayLog.startTime} AND #{dayLog.endTime}
             </if>
             <if test="dayLog.remark != null and dayLog.remark != ''">
@@ -83,44 +85,44 @@
         update_by_name, update_time, reserved_key_one, reserved_key_two
         from myproject.day_log
         <where>
-            <if test="dayLog.id != null and dayLog.id != ''">
-                and id = #{dayLog.id}
+            <if test="id != null and id != ''">
+                and id = #{id}
             </if>
-            <if test="dayLog.title != null and dayLog.title != ''">
-                and title = #{dayLog.title}
+            <if test="title != null and title != ''">
+                and title = #{title}
             </if>
-            <if test="dayLog.createById != null and dayLog.createById != ''">
-                and create_by_id = #{dayLog.createById}
+            <if test="createById != null and createById != ''">
+                and create_by_id = #{createById}
             </if>
-            <if test="dayLog.createByName != null and dayLog.createByName != ''">
-                and create_by_name = #{dayLog.createByName}
+            <if test="createByName != null and createByName != ''">
+                and create_by_name = #{createByName}
             </if>
-            <if test="dayLog.createTime != null">
-                and create_time = #{dayLog.createTime}
+            <if test="createTime != null">
+                and create_time = #{createTime}
             </if>
-            <if test="dayLog.happenTime != null">
-                and happen_time = #{dayLog.happenTime}
+            <if test="startTime != null AND endTime != null">
+                and happen_time BETWEEN #{startTime} AND #{endTime}
             </if>
-            <if test="dayLog.remark != null and dayLog.remark != ''">
-                and remark = #{dayLog.remark}
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
             </if>
-            <if test="dayLog.deleteFlag != null and dayLog.deleteFlag != ''">
-                and delete_flag = #{dayLog.deleteFlag}
+            <if test="deleteFlag != null and deleteFlag != ''">
+                and delete_flag = #{deleteFlag}
             </if>
-            <if test="dayLog.updateById != null and dayLog.updateById != ''">
-                and update_by_id = #{dayLog.updateById}
+            <if test="updateById != null and updateById != ''">
+                and update_by_id = #{updateById}
             </if>
-            <if test="dayLog.updateByName != null and dayLog.updateByName != ''">
-                and update_by_name = #{dayLog.updateByName}
+            <if test="updateByName != null and updateByName != ''">
+                and update_by_name = #{updateByName}
             </if>
-            <if test="dayLog.updateTime != null">
-                and update_time = #{dayLog.updateTime}
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
             </if>
-            <if test="dayLog.reservedKeyOne != null and dayLog.reservedKeyOne != ''">
-                and reserved_key_one = #{dayLog.reservedKeyOne}
+            <if test="reservedKeyOne != null and reservedKeyOne != ''">
+                and reserved_key_one = #{reservedKeyOne}
             </if>
-            <if test="dayLog.reservedKeyTwo != null and dayLog.reservedKeyTwo != ''">
-                and reserved_key_two = #{dayLog.reservedKeyTwo}
+            <if test="reservedKeyTwo != null and reservedKeyTwo != ''">
+                and reserved_key_two = #{reservedKeyTwo}
             </if>
         </where>
     </select>

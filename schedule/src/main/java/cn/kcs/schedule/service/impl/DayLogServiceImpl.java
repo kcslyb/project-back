@@ -91,6 +91,7 @@ public class DayLogServiceImpl implements DayLogService {
 
     @Override
     public ResponseDto queryPager(DayLog dayLog, PageRequest pageRequest) {
+        dayLog.setDeleteFlag("0");
         int size = this.dayLogDao.queryAll(dayLog).size();
         List<DayLog> dayLogs = this.queryAllByLimit(dayLog, pageRequest.getStart(), pageRequest.getSize());
         return new ResponseDto(dayLogs,size, pageRequest.getSize(), pageRequest.getStart());
