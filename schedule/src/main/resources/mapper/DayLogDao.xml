@@ -130,7 +130,7 @@
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         insert into myproject.day_log(id, title, create_by_id, create_by_name, create_time, happen_time, remark, delete_flag, update_by_id, update_by_name, update_time, reserved_key_one, reserved_key_two)
-        values (#{id}, (#{title}, #{createById}, #{createByName}, #{createTime}, #{happenTime}, #{remark}, #{deleteFlag}, #{updateById}, #{updateByName}, #{updateTime}, #{reservedKeyOne}, #{reservedKeyTwo})
+        values (#{id}, #{title}, #{createById}, #{createByName}, #{createTime}, #{happenTime}, #{remark}, #{deleteFlag}, #{updateById}, #{updateByName}, #{updateTime}, #{reservedKeyOne}, #{reservedKeyTwo})
     </insert>
 
     <!--通过主键修改数据-->
