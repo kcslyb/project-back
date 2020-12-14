@@ -1,5 +1,6 @@
 package cn.kcs.user.service;
 
+import cn.kcs.common.util.PageRequest;
 import cn.kcs.user.entity.LoggerDto;
 
 import java.util.List;
@@ -28,7 +29,7 @@ public interface LoggerService {
      * @param limit     查询条数
      * @return 对象列表
      */
-    List<LoggerDto> queryAllByLimit(LoggerDto loggerDto, int offset, int limit);
+    List<LoggerDto> queryAllByLimit(LoggerDto loggerDto, PageRequest pageRequest, int offset, int limit);
 
     /**
      * 查询多条数据

@@ -2,6 +2,7 @@ package cn.kcs.user.service.impl;
 
 import cn.kcs.common.logininfo.LoginInfo;
 import cn.kcs.common.util.CustomDateUtil;
+import cn.kcs.common.util.PageRequest;
 import cn.kcs.common.uuidutil.ShortUUID;
 import cn.kcs.user.dao.LoggerDao;
 import cn.kcs.user.entity.LoggerDto;
@@ -42,8 +43,8 @@ public class LoggerServiceImpl implements LoggerService {
      * @return 对象列表
      */
     @Override
-    public List<LoggerDto> queryAllByLimit(LoggerDto loggerDto, int offset, int limit) {
-        return this.loggerDao.queryAllByLimit(loggerDto, offset, limit);
+    public List<LoggerDto> queryAllByLimit(LoggerDto loggerDto, PageRequest pageRequest, int offset, int limit) {
+        return this.loggerDao.queryAllByLimit(loggerDto, pageRequest, offset, limit);
     }
 
     /**

@@ -55,8 +55,8 @@
             <if test="loggerDto.logRequestDescribe != null and loggerDto.logRequestDescribe != ''">
                 and log_request_describe = #{loggerDto.logRequestDescribe}
             </if>
-            <if test="loggerDto.logRequestTime != null">
-                and log_request_time = #{loggerDto.logRequestTime}
+            <if test="pageRequest.startTime != null and pageRequest.startTime != null">
+                and log_request_time BETWEEN #{pageRequest.startTime} AND #{pageRequest.endTime}
             </if>
             <if test="loggerDto.logType != null and loggerDto.logType != ''">
                 and log_type = #{loggerDto.logType}

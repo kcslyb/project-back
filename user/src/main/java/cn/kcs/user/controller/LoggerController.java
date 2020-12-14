@@ -1,5 +1,6 @@
 package cn.kcs.user.controller;
 
+import cn.kcs.common.logininfo.LoginInfo;
 import cn.kcs.common.util.PageRequest;
 import cn.kcs.common.util.ResponseDto;
 import cn.kcs.encrypt.anno.Decrypt;
@@ -53,8 +54,10 @@ public class LoggerController {
     @GetMapping("query/pager")
     public ResponseEntity query(LoggerDto loggerDto, PageRequest pageRequest) {
         pageRequest = pageRequest.initStart(pageRequest);
+        loggerDto.setLogUserId(LoginInfo.getUserId());
         int size = this.loggerService.queryAll(loggerDto).size();
-        List<LoggerDto> loggers = this.loggerService.queryAllByLimit(loggerDto, pageRequest.getStart(), pageRequest.getSize());
+        List<LoggerDto> loggers = this.loggerService.queryAllByLimit(loggerDto,
+                pageRequest, pageRequest.getStart(), pageRequest.getSize());
         ResponseDto responseDto = new ResponseDto<>(loggers, size, pageRequest.getSize(), pageRequest.getStart());
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }

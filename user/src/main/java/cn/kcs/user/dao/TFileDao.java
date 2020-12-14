@@ -3,6 +3,7 @@ package cn.kcs.user.dao;
 import cn.kcs.user.entity.TFile;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -63,4 +64,5 @@ public interface TFileDao {
      */
     int deleteById(@Param("fileId") String fileId);
 
+    List<TFile> queryByIds(@Param("fileIds") List<String> fileIds);
 }

@@ -73,6 +73,7 @@ public class DayLogServiceImpl implements DayLogService {
     public boolean update(DayLog dayLog) {
         dayLog.setUpdateById(LoginInfo.getUserId());
         dayLog.setUpdateByName(LoginInfo.getUserName());
+        dayLog.setUpdateTime(CustomDateUtil.currentFormatDate());
         return this.dayLogDao.update(dayLog) > 0;
     }
 

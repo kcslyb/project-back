@@ -9,6 +9,7 @@ import cn.kcs.common.uuidutil.ShortUUID;
 import cn.kcs.encrypt.anno.Decrypt;
 import cn.kcs.encrypt.anno.Encrypt;
 import cn.kcs.user.entity.TFile;
+import cn.kcs.user.entity.dto.FileDto;
 import cn.kcs.user.service.TFileService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -275,5 +276,17 @@ public class FileController {
         }
         tFileService.deleteById(id);
         return new ResponseEntity<>("该文件不存在", HttpStatus.BAD_REQUEST);
+    }
+
+    @Decrypt
+    @Encrypt
+    @ApiOperation(value = "获取文件base64", response = TFile.class)
+    @ApiResponses(value = {
+                @ApiResponse(code = 404, message = "获取失败", response = String.class),
+                @ApiResponse(code = 200, message = "获取成功", response = String.class)})
+    @PostMapping(value = "accessFileBase64")
+    public ResponseEntity<List<FileDto>> accessFileBase64(@RequestBody List<String> fileIds) {
+        List<FileDto> fileDtoList = tFileService.queryFileBase64ByIds(fileIds);
+        return new ResponseEntity<>(fileDtoList, HttpStatus.OK);
     }
 }

@@ -24,6 +24,17 @@
         from myproject.t_file
         where file_id = #{fileId}
     </select>
+    <!--查询单个多个-->
+    <select id="queryByIds" parameterType="java.util.ArrayList" resultMap="TFileMap">
+        select
+        file_id, file_name, file_path, file_description, file_create_time, file_size, file_type, file_owner,
+        file_owner_name, file_download_number
+        from myproject.t_file
+        where file_id in
+        <foreach collection="fileIds" item="id" index="index" separator=",">
+            #{id}
+        </foreach>
+    </select>
 
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="TFileMap">

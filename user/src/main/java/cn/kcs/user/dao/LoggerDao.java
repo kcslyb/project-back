@@ -1,5 +1,6 @@
 package cn.kcs.user.dao;
 
+import cn.kcs.common.util.PageRequest;
 import cn.kcs.user.entity.LoggerDto;
 import org.apache.ibatis.annotations.Param;
 
@@ -29,7 +30,11 @@ public interface LoggerDao {
      * @param limit     查询条数
      * @return 对象列表
      */
-    List<LoggerDto> queryAllByLimit(@Param("loggerDto") LoggerDto loggerDto, @Param("offset") int offset, @Param("limit") int limit);
+    List<LoggerDto> queryAllByLimit(
+            @Param("loggerDto") LoggerDto loggerDto,
+            @Param("loggerDto") PageRequest pageRequest,
+            @Param("offset") int offset,
+            @Param("limit") int limit);
 
 
     /**

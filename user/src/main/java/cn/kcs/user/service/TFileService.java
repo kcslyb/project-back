@@ -1,7 +1,10 @@
 package cn.kcs.user.service;
 
 import cn.kcs.user.entity.TFile;
+import cn.kcs.user.entity.dto.FileDto;
+import org.springframework.http.ResponseEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -60,4 +63,5 @@ public interface TFileService {
      */
     boolean deleteById(String fileId);
 
+    List<FileDto> queryFileBase64ByIds(List<String> fileIds);
 }
