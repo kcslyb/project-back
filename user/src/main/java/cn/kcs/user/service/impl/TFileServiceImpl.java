@@ -9,7 +9,6 @@ import cn.kcs.user.entity.TFile;
 import cn.kcs.user.entity.dto.FileDto;
 import cn.kcs.user.service.TFileService;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -115,7 +114,7 @@ public class TFileServiceImpl implements TFileService {
                 fileDto.setFileCreateTime(tFile.getFileCreateTime());
                 fileDto.setFileSize(tFile.getFileSize());
                 fileDto.setFileType(tFile.getFileType());
-                String base64 = FileToBase64.encodeBase64File(tFile.getFilePath());
+                String base64 = "data:" + fileDto.getFileType() + ";base64," + FileToBase64.encodeBase64File(tFile.getFilePath());
                 fileDto.setBase64(base64);
                 fileDtoList.add(fileDto);
             } catch (Exception e) {

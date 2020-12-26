@@ -32,7 +32,7 @@ public interface LoggerDao {
      */
     List<LoggerDto> queryAllByLimit(
             @Param("loggerDto") LoggerDto loggerDto,
-            @Param("loggerDto") PageRequest pageRequest,
+            @Param("pageRequest") PageRequest pageRequest,
             @Param("offset") int offset,
             @Param("limit") int limit);
 
@@ -43,7 +43,7 @@ public interface LoggerDao {
      * @param loggerDto 实例对象
      * @return 对象列表
      */
-    List<LoggerDto> queryAll(LoggerDto loggerDto);
+    List<LoggerDto> queryAll(@Param("loggerDto") LoggerDto loggerDto, @Param("pageRequest") PageRequest pageRequest);
 
     /**
      * 新增数据

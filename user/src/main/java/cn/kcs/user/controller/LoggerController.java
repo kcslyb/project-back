@@ -1,6 +1,7 @@
 package cn.kcs.user.controller;
 
 import cn.kcs.common.logininfo.LoginInfo;
+import cn.kcs.common.util.CustomDateUtil;
 import cn.kcs.common.util.PageRequest;
 import cn.kcs.common.util.ResponseDto;
 import cn.kcs.encrypt.anno.Decrypt;
@@ -8,11 +9,13 @@ import cn.kcs.encrypt.anno.Encrypt;
 import cn.kcs.user.entity.LoggerDto;
 import cn.kcs.user.service.LoggerService;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -54,8 +57,10 @@ public class LoggerController {
     @GetMapping("query/pager")
     public ResponseEntity query(LoggerDto loggerDto, PageRequest pageRequest) {
         pageRequest = pageRequest.initStart(pageRequest);
-        loggerDto.setLogUserId(LoginInfo.getUserId());
-        int size = this.loggerService.queryAll(loggerDto).size();
+        if (StringUtils.isEmpty(loggerDto.getLogUserId())) {
+            loggerDto.setLogUserId(LoginInfo.getUserId());
+        }
+        int size = this.loggerService.queryAll(loggerDto, pageRequest).size();
         List<LoggerDto> loggers = this.loggerService.queryAllByLimit(loggerDto,
                 pageRequest, pageRequest.getStart(), pageRequest.getSize());
         ResponseDto responseDto = new ResponseDto<>(loggers, size, pageRequest.getSize(), pageRequest.getStart());

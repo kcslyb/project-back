@@ -37,7 +37,7 @@ public interface LoggerService {
      * @param loggerDto logger
      * @return 对象列表
      */
-    List<LoggerDto> queryAll(LoggerDto loggerDto);
+    List<LoggerDto> queryAll(LoggerDto loggerDto, PageRequest pageRequest);
 
     /**
      * 新增数据

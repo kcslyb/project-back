@@ -30,8 +30,8 @@
         file_id, file_name, file_path, file_description, file_create_time, file_size, file_type, file_owner,
         file_owner_name, file_download_number
         from myproject.t_file
-        where file_id in
-        <foreach collection="fileIds" item="id" index="index" separator=",">
+        where file_id IN
+        <foreach collection="fileIds" item="id" index="index" open="(" close=")" separator=",">
             #{id}
         </foreach>
     </select>

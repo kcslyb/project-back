@@ -35,7 +35,7 @@
                 and log_id = #{loggerDto.logId}
             </if>
             <if test="loggerDto.logUserId != null and loggerDto.logUserId != ''">
-                and log_user_id = #{loggerDto.logUserId}
+                and log_user_id like concat('%',concat(#{loggerDto.logUserId},'%'))
             </if>
             <if test="loggerDto.logRequestUrl != null and loggerDto.logRequestUrl != ''">
                 and log_request_url = #{loggerDto.logRequestUrl}
@@ -73,35 +73,35 @@
         log_request_method_and_interface, log_request_page_name, log_request_describe, log_request_time, log_type
         from myproject.logger
         <where>
-            <if test="logId != null and logId != ''">
-                and log_id = #{logId}
+            <if test="loggerDto.logId != null and loggerDto.logId != ''">
+                and log_id = #{loggerDto.logId}
             </if>
-            <if test="logUserId != null and logUserId != ''">
-                and log_user_id = #{logUserId}
+            <if test="loggerDto.logUserId != null and loggerDto.logUserId != ''">
+                and log_user_id like concat('%',concat(#{loggerDto.logUserId},'%'))
             </if>
-            <if test="logRequestUrl != null and logRequestUrl != ''">
-                and log_request_url = #{logRequestUrl}
+            <if test="loggerDto.logRequestUrl != null and loggerDto.logRequestUrl != ''">
+                and log_request_url = #{loggerDto.logRequestUrl}
             </if>
-            <if test="logRequestRemoteIp != null and logRequestRemoteIp != ''">
-                and log_request_remote_ip = #{logRequestRemoteIp}
+            <if test="loggerDto.logRequestRemoteIp != null and loggerDto.logRequestRemoteIp != ''">
+                and log_request_remote_ip = #{loggerDto.logRequestRemoteIp}
             </if>
-            <if test="logRequestParameter != null and logRequestParameter != ''">
-                and log_request_parameter = #{logRequestParameter}
+            <if test="loggerDto.logRequestParameter != null and loggerDto.logRequestParameter != ''">
+                and log_request_parameter = #{loggerDto.logRequestParameter}
             </if>
-            <if test="logRequestMethodAndInterface != null and logRequestMethodAndInterface != ''">
-                and log_request_method_and_interface = #{logRequestMethodAndInterface}
+            <if test="loggerDto.logRequestMethodAndInterface != null and loggerDto.logRequestMethodAndInterface != ''">
+                and loggerDto.log_request_method_and_interface = #{loggerDto.logRequestMethodAndInterface}
             </if>
-            <if test="logRequestPageName != null and logRequestPageName != ''">
-                and log_request_page_name = #{logRequestPageName}
+            <if test="loggerDto.logRequestPageName != null and loggerDto.logRequestPageName != ''">
+                and log_request_page_name = #{loggerDto.logRequestPageName}
             </if>
-            <if test="logRequestDescribe != null and logRequestDescribe != ''">
-                and log_request_describe = #{logRequestDescribe}
+            <if test="loggerDto.logRequestDescribe != null and loggerDto.logRequestDescribe != ''">
+                and log_request_describe = #{loggerDto.logRequestDescribe}
             </if>
-            <if test="logRequestTime != null">
-                and log_request_time = #{logRequestTime}
+            <if test="pageRequest.startTime != null and pageRequest.startTime != null">
+                and log_request_time BETWEEN #{pageRequest.startTime} AND #{pageRequest.endTime}
             </if>
-            <if test="logType != null and logType != ''">
-                and log_type = #{logType}
+            <if test="loggerDto.logType != null and loggerDto.logType != ''">
+                and log_type = #{loggerDto.logType}
             </if>
         </where>
     </select>

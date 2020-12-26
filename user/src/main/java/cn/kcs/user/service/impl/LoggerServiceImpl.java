@@ -54,8 +54,8 @@ public class LoggerServiceImpl implements LoggerService {
      * @return 对象列表
      */
     @Override
-    public List<LoggerDto> queryAll(LoggerDto loggerDto) {
-        return this.loggerDao.queryAll(loggerDto);
+    public List<LoggerDto> queryAll(LoggerDto loggerDto, PageRequest pageRequest) {
+        return this.loggerDao.queryAll(loggerDto, pageRequest);
     }
 
     /**
