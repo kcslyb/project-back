@@ -153,6 +153,7 @@ public class ProductWorkServiceImpl implements ProductWorkService {
     @Override
     public ResponseDto<ProductWorkDto> queryPager(ProductWork productWork, PageRequest pageRequest) {
         productWork.setDeleteFlag(false);
+        productWork.setCreateBy(LoginInfo.getUserId());
         int size = productWorkDao.queryAll(productWork).size();
         List<ProductWorkDto> productWorkDtoList = new ArrayList<>();
         List<ProductWork> productWorks = productWorkDao.queryAllByLimit(productWork, pageRequest.getStart(), pageRequest.getSize());
