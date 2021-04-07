@@ -1,6 +1,8 @@
 package cn.kcs.schedule.dao;
 
+import cn.kcs.common.util.ResponseDto;
 import cn.kcs.schedule.entity.DayLog;
+import cn.kcs.schedule.entity.DayLogCount;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -67,4 +69,5 @@ public interface DayLogDao {
      */
     int deleteById(@Param("id") String id);
 
+    List<DayLogCount> queryCount(DayLog dayLog);
 }

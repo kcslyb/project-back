@@ -17,6 +17,11 @@
         <result property="reservedKeyOne" column="reserved_key_one" jdbcType="VARCHAR"/>
         <result property="reservedKeyTwo" column="reserved_key_two" jdbcType="VARCHAR"/>
     </resultMap>
+    <resultMap type="cn.kcs.schedule.entity.DayLogCount" id="DayLogCountMap">
+        <result property="count" column="count" jdbcType="NUMERIC"/>
+        <result property="reservedKeyOne" column="reserved_key_one" jdbcType="VARCHAR"/>
+        <result property="reservedKeyTwo" column="reserved_key_two" jdbcType="VARCHAR"/>
+    </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="DayLogMap">
@@ -181,5 +186,22 @@
     <delete id="deleteById">
         delete from myproject.day_log where id = #{id}
     </delete>
+
+    <!--通过主键删除-->
+    <select id="queryCount" resultMap="DayLogCountMap">
+        select count(reserved_key_one) as count, reserved_key_one from myproject.day_log
+        <where>
+            <if test="deleteFlag != null and deleteFlag != ''">
+                and delete_flag = #{deleteFlag}
+            </if>
+            <if test="startTime != null and endTime != null">
+                and happen_time BETWEEN #{startTime} AND #{endTime}
+            </if>
+            <if test="createById != null and createById != ''">
+                and create_by_id = #{createById}
+            </if>
+        </where>
+        GROUP BY reserved_key_one
+    </select>
 
 </mapper>

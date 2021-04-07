@@ -7,6 +7,7 @@ import cn.kcs.common.util.ResponseDto;
 import cn.kcs.common.uuidutil.ShortUUID;
 import cn.kcs.schedule.dao.DayLogDao;
 import cn.kcs.schedule.entity.DayLog;
+import cn.kcs.schedule.entity.DayLogCount;
 import cn.kcs.schedule.service.DayLogService;
 import cn.kcs.user.entity.Dict;
 import cn.kcs.user.service.DictService;
@@ -14,7 +15,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -114,5 +114,25 @@ public class DayLogServiceImpl implements DayLogService {
             }
         }
         return new ResponseDto(dayLogs, size, pageRequest.getSize(), pageRequest.getStart());
+    }
+
+    @Override
+    public List<DayLogCount> queryCount(DayLog dayLog) {
+        dayLog.setDeleteFlag("0");
+        dayLog.setCreateById(LoginInfo.getUserId());
+        List<DayLogCount> dayLogCounts = this.dayLogDao.queryCount(dayLog);
+        Map<String, String> collect = this.getDictMap();
+        for (int i = 0; i < dayLogCounts.size(); i++) {
+            String key = dayLogCounts.get(i).getReservedKeyOne();
+            if (StringUtils.isNotEmpty(key)) {
+                dayLogCounts.get(i).setReservedKeyTwo(collect.get(key));
+            }
+        }
+        return dayLogCounts;
+    }
+
+    public Map<String, String> getDictMap () {
+        List<Dict> dictList = dictService.queryByDictGroupLabel("eventType");
+         return dictList.stream().collect(Collectors.toMap(Dict::getKey, Dict::getLabel));
     }
 }

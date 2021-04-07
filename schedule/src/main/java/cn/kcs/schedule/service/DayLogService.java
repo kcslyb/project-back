@@ -3,6 +3,7 @@ package cn.kcs.schedule.service;
 import cn.kcs.common.util.PageRequest;
 import cn.kcs.common.util.ResponseDto;
 import cn.kcs.schedule.entity.DayLog;
+import cn.kcs.schedule.entity.DayLogCount;
 
 import java.util.List;
 
@@ -56,4 +57,6 @@ public interface DayLogService {
     boolean deleteById(String id);
 
     ResponseDto queryPager(DayLog dayLog, PageRequest pageRequest);
+
+    List<DayLogCount> queryCount(DayLog dayLog);
 }

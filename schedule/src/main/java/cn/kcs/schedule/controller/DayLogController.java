@@ -5,6 +5,7 @@ import cn.kcs.common.util.ResponseDto;
 import cn.kcs.encrypt.anno.Decrypt;
 import cn.kcs.encrypt.anno.Encrypt;
 import cn.kcs.schedule.entity.DayLog;
+import cn.kcs.schedule.entity.DayLogCount;
 import cn.kcs.schedule.service.DayLogService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (DayLog)表控制层
@@ -56,6 +58,19 @@ public class DayLogController {
         pageRequest.initStart(pageRequest);
         ResponseDto responseDto = dayLogService.queryPager(dayLog, pageRequest);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
+    /**
+     * 查询統計
+     *
+     * @param dayLog dayLog
+     * @return object list
+     */
+    @Decrypt
+    @Encrypt
+    @GetMapping("query/count")
+    public ResponseEntity queryCount(DayLog dayLog) {
+        List<DayLogCount> dayLogCounts = dayLogService.queryCount(dayLog);
+        return new ResponseEntity<>(dayLogCounts, HttpStatus.OK);
     }
 
     /**
