@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "./mybatis-3-mapper.dtd">
+<mapper namespace="cn.kcs.user.dao.BookmarksDao">
+
+    <resultMap type="cn.kcs.user.entity.Bookmarks" id="BookmarksMap">
+        <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="href" column="href" jdbcType="VARCHAR"/>
+        <result property="iconFileId" column="icon_file_id" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="sort" column="sort" jdbcType="VARCHAR"/>
+        <result property="deleteFlag" column="delete_flag" jdbcType="VARCHAR"/>
+        <result property="commonFlag" column="common_flag" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BookmarksMap">
+        select
+        id, title, href, icon_file_id, create_time, create_by, sort, delete_flag, common_flag
+        from myproject.bookmarks
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BookmarksMap">
+        select
+        id, title, href, icon_file_id, create_time, create_by, sort, delete_flag, common_flag
+        from myproject.bookmarks
+        <where>
+            <if test="bookmarks.id != null and bookmarks.id != ''">
+                and id = #{bookmarks.id}
+            </if>
+            <if test="bookmarks.title != null and bookmarks.title != ''">
+                and title = #{bookmarks.title}
+            </if>
+            <if test="bookmarks.href != null and bookmarks.href != ''">
+                and href = #{bookmarks.href}
+            </if>
+            <if test="bookmarks.iconFileId != null and bookmarks.iconFileId != ''">
+                and icon_file_id = #{bookmarks.iconFileId}
+            </if>
+            <if test="bookmarks.createTime != null">
+                and create_time = #{bookmarks.createTime}
+            </if>
+            <if test="bookmarks.createBy != null and bookmarks.createBy != ''">
+                and create_by = #{bookmarks.createBy}
+            </if>
+            <if test="bookmarks.sort != null and bookmarks.sort != ''">
+                and sort = #{bookmarks.sort}
+            </if>
+            <if test="bookmarks.deleteFlag != null and bookmarks.deleteFlag != ''">
+                and delete_flag = #{bookmarks.deleteFlag}
+            </if>
+            <if test="bookmarks.commonFlag != null and bookmarks.commonFlag != ''">
+                and common_flag = #{bookmarks.commonFlag}
+            </if>
+        </where>
+        ORDER BY sort, create_time DESC
+        limit #{pageRequest.start}, #{pageRequest.size}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BookmarksMap">
+        select
+        id, title, href, icon_file_id, create_time, create_by, sort, delete_flag, common_flag
+        from myproject.bookmarks
+        <where>
+            <if test="bookmarks.id != null and bookmarks.id != ''">
+                and id = #{bookmarks.id}
+            </if>
+            <if test="bookmarks.title != null and bookmarks.title != ''">
+                and title = #{bookmarks.title}
+            </if>
+            <if test="bookmarks.href != null and bookmarks.href != ''">
+                and href = #{bookmarks.href}
+            </if>
+            <if test="bookmarks.iconFileId != null and bookmarks.iconFileId != ''">
+                and icon_file_id = #{bookmarks.iconFileId}
+            </if>
+            <if test="bookmarks.createTime != null">
+                and create_time = #{bookmarks.createTime}
+            </if>
+            <if test="bookmarks.createBy != null and bookmarks.createBy != ''">
+                and create_by = #{bookmarks.createBy}
+            </if>
+            <if test="bookmarks.sort != null and bookmarks.sort != ''">
+                and sort = #{bookmarks.sort}
+            </if>
+            <if test="bookmarks.deleteFlag != null and bookmarks.deleteFlag != ''">
+                and delete_flag = #{bookmarks.deleteFlag}
+            </if>
+            <if test="bookmarks.commonFlag != null and bookmarks.commonFlag != ''">
+                and common_flag = #{bookmarks.commonFlag}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert
+        into myproject.bookmarks(id, title, href, icon_file_id, create_time, create_by, sort, delete_flag, common_flag)
+        values (#{id}, #{title}, #{href}, #{iconFileId}, #{createTime}, #{createBy}, #{sort}, #{deleteFlag},
+        #{commonFlag})
+    </insert>
+
+    <!--     批量插入，-->
+    <insert id="insertBatch">
+        insert
+        into myproject.bookmarks(id, title, href, icon_file_id, create_time, create_by, sort, delete_flag, common_flag)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.id}, #{item.title}, #{item.href}, #{item.iconFileId}, #{item.createTime}, #{item.createBy},
+            #{item.sort}, #{item.deleteFlag}, #{item.commonFlag})
+        </foreach>
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update myproject.bookmarks
+        <set>
+            <if test="title != null and title != ''">
+                title = #{title},
+            </if>
+            <if test="href != null and href != ''">
+                href = #{href},
+            </if>
+            <if test="iconFileId != null and iconFileId != ''">
+                icon_file_id = #{iconFileId},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="createBy != null and createBy != ''">
+                create_by = #{createBy},
+            </if>
+            <if test="sort != null and sort != ''">
+                sort = #{sort},
+            </if>
+            <if test="deleteFlag != null and deleteFlag != ''">
+                delete_flag = #{deleteFlag},
+            </if>
+            <if test="commonFlag != null and commonFlag != ''">
+                common_flag = #{commonFlag},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from myproject.bookmarks where id = #{id}
+    </delete>
+
+</mapper>
