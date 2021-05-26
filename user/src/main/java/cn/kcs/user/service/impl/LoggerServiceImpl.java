@@ -67,7 +67,7 @@ public class LoggerServiceImpl implements LoggerService {
     @Override
     public boolean insert(LoggerDto loggerDto) {
         loggerDto.setLogId(ShortUUID.generate());
-        String userId = StringUtils.isBlank(LoginInfo.getUserId()) ? "登录" : LoginInfo.getUserId();
+        String userId = StringUtils.isBlank(LoginInfo.getUserId()) ? "未登录操作" : LoginInfo.getUserId();
         String userName = StringUtils.isBlank(LoginInfo.getUserName()) ? "" : LoginInfo.getUserName();
         loggerDto.setLogUserId(userId.concat("-").concat(userName));
         loggerDto.setLogRequestTime(CustomDateUtil.currentFormatDate());

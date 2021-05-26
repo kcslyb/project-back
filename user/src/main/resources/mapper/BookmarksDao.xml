@@ -56,7 +56,7 @@
                 and common_flag = #{bookmarks.commonFlag}
             </if>
         </where>
-        ORDER BY sort, create_time DESC
+        ORDER BY sort DESC
         limit #{pageRequest.start}, #{pageRequest.size}
     </select>
 

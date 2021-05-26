@@ -68,13 +68,13 @@ public class PageRequest implements Serializable {
     }
 
     public PageRequest initStart(PageRequest pageRequest) {
-        if (pageRequest.size == null || pageRequest.size <= 0) {
-            pageRequest.size = 10;
+        if (pageRequest.getSize() == null || pageRequest.getSize() <= 0) {
+            pageRequest.setSize(10);
         }
-        if (pageRequest.start == null || pageRequest.start <= 1) {
-            pageRequest.start = 0;
+        if (pageRequest.getStart() == null || pageRequest.getStart() <= 1) {
+            pageRequest.setStart(0);
         } else {
-            pageRequest.start = (pageRequest.start - 1) * pageRequest.size;
+            pageRequest.setStart((pageRequest.getStart() - 1) * pageRequest.getSize());
         }
         return pageRequest;
     }
