@@ -1,5 +1,6 @@
 package cn.kcs.user.controller;
 
+import cn.kcs.common.logininfo.LoginInfo;
 import cn.kcs.common.util.PageRequest;
 import cn.kcs.common.util.ResponseDto;
 import cn.kcs.encrypt.anno.Decrypt;
@@ -7,6 +8,7 @@ import cn.kcs.encrypt.anno.Encrypt;
 import cn.kcs.user.entity.Bookmarks;
 import cn.kcs.user.entity.Dict;
 import cn.kcs.user.service.BookmarksService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -53,6 +55,15 @@ public class BookmarksController {
     @GetMapping("query")
     public ResponseEntity<ResponseDto<Bookmarks>> query(Bookmarks bookmarks, PageRequest pageRequest) {
         pageRequest = pageRequest.initStart(pageRequest);
+        String userId = LoginInfo.getUserId();
+        if (StringUtils.isNotEmpty(userId)) {
+            bookmarks.setCreateBy(userId);
+            bookmarks.setCommonFlag("");
+        } else {
+            bookmarks.setCreateBy("");
+            bookmarks.setCommonFlag("1");
+        }
+        bookmarks.setDeleteFlag("0");
         List<Bookmarks> bookmarksList = this.bookmarksService.queryAll(bookmarks, pageRequest);
         List<Bookmarks> bookmarksListPage = this.bookmarksService.queryAllByLimit(bookmarks, pageRequest);
         ResponseDto<Bookmarks> responseDto = new ResponseDto<>(bookmarksListPage,

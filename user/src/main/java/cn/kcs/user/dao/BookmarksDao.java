@@ -26,7 +26,7 @@ public interface BookmarksDao {
     /**
      * 查询指定行数据
      *
-     * @param bookmarks  实例对象
+     * @param bookmarks   实例对象
      * @param pageRequest 查询条件
      * @return 对象列表
      */
@@ -36,7 +36,7 @@ public interface BookmarksDao {
     /**
      * 通过实体作为筛选条件查询
      *
-     * @param bookmarks 实例对象
+     * @param bookmarks   实例对象
      * @param pageRequest 查询条件
      * @return 对象列表
      */
